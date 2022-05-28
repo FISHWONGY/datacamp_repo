@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 ####################################
 # CONFUSION MATRIX & F1 score
 
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/house-votes-84.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/house-votes-84.csv')
 df.columns = ['party', 'infants', 'water', 'budget', 'physician', 'salvador',
               'religious', 'satellite', 'aid', 'missile', 'immigration', 'synfuels',
               'education', 'superfund', 'crime', 'duty_free_exports', 'eaa_rsa']
@@ -79,7 +79,7 @@ print(classification_report(y_test, y_pred))
 # predict_proba - Returns array with 2 cols. Each col contains the probability for the resprctive target value
 # 即係每個row有幾多percent會係democrat (0), 幾多percent會係 repunlicant (1)
 # This is for republicant
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/house-votes-84.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/house-votes-84.csv')
 df.columns = ['party', 'infants', 'water', 'budget', 'physician', 'salvador',
               'religious', 'satellite', 'aid', 'missile', 'immigration', 'synfuels',
               'education', 'superfund', 'crime', 'duty_free_exports', 'eaa_rsa']
@@ -107,7 +107,7 @@ plt.show()
 
 # Arean under ROC curve
 # The larger the area under the ROC curve, the better the model (AUC - area under curve)
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/house-votes-84.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/house-votes-84.csv')
 df.columns = ['party', 'infants', 'water', 'budget', 'physician', 'salvador',
               'religious', 'satellite', 'aid', 'missile', 'immigration', 'synfuels',
               'education', 'superfund', 'crime', 'duty_free_exports', 'eaa_rsa']
@@ -150,7 +150,7 @@ print(knn_cv.best_score_)
 
 
 # EXERCISE 1
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/diabetes.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/diabetes.csv')
 
 """X = df.drop('pregnancies', axis=1).values
 y = df['pregnancies'].values"""
@@ -198,7 +198,7 @@ print("Best score is {}".format(tree_cv.best_score_))
 # might want to report on how well I will expect my model to perform on data never seen before
 # Thus, split data into training set and hold-out set
 
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/diabetes.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/diabetes.csv')
 X = df.iloc[:, :-1]
 y = df.iloc[:, -1]
 
