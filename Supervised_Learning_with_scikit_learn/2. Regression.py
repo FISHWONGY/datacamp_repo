@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error
 import seaborn as sns
 
-boston = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/boston.csv')
+boston = pd.read_csv('./Supervised Learning with scikit-learn/data/boston.csv')
 
 # Creating features and target arrays
 X = boston.drop('MEDV', axis=1).values
@@ -48,7 +48,7 @@ plt.show()
 
 # Exercise
 # Read the CSV file into a DataFrame: df
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/gm_2008_region.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/gm_2008_region.csv')
 
 # Create arrays for features and target variable
 X = df['fertility'].values
@@ -61,7 +61,7 @@ X_reshaped = X.reshape(-1, 1)
 
 # Linear regression on all features
 # Including all the features from the boston housing data set
-boston = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/boston.csv')
+boston = pd.read_csv('./Supervised Learning with scikit-learn/data/boston.csv')
 
 # Creating features and target arrays
 X = boston.drop('MEDV', axis=1).values
@@ -79,7 +79,7 @@ reg_all.score(X_test, y_test)
 
 ###########################################
 # Exercise 1 - Fit & predict for regression
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/gm_2008_region.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/gm_2008_region.csv')
 
 # Create arrays for features and target variable
 X_fertility = df['fertility'].values.reshape(-1, 1)
@@ -128,7 +128,7 @@ print("Root Mean Squared Error: {}".format(rmse))
 
 
 ################################################
-boston = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/boston.csv')
+boston = pd.read_csv('./Supervised Learning with scikit-learn/data/boston.csv')
 
 # Creating features and target arrays
 X = boston.drop('MEDV', axis=1).values
@@ -179,7 +179,7 @@ plt.show()
 
 
 # EXERCISE 1
-df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/gm_2008_region.csv')
+df = pd.read_csv('./Supervised Learning with scikit-learn/data/gm_2008_region.csv')
 # Region is str, needs to change to int instead
 region_dict = {
     'Middle East & North Africa': 0,
