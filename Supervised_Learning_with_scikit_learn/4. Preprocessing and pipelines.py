@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
-# https://github.com/goodboychan/goodboychan.github.io/blob/master/_notebooks/2020-05-31-01-Preprocessing-and-pipelines.ipynb
 df = pd.read_csv('/Online course/datacamp/Supervised Learning with scikit-learn/data/auto.csv')
 
 df_origin = pd.get_dummies(df)
@@ -20,7 +19,7 @@ ridge.score(X_test, y_test)
 
 
 # Exercise 1
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/Supervised Learning with scikit-learn/'
+df = pd.read_csv('./Supervised Learning with scikit-learn/'
                  'data/gm_2008_region.csv')
 # Create a boxplot of life expectancy per region
 df.boxplot('life', 'Region', rot=60)
@@ -66,7 +65,7 @@ Example : Using the mean of the non-missing entries
 # Exercise 1
 # Preprocessing
 
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/Supervised Learning with scikit-learn/'
+df = pd.read_csv('./Supervised Learning with scikit-learn/'
                  'data/house-votes-84.csv', header=None)
 df.columns = ['party', 'infants', 'water', 'budget', 'physician', 'salvador',
               'religious', 'satellite', 'aid', 'missile', 'immigration', 'synfuels',
@@ -109,7 +108,7 @@ steps = [('imputation', imp),
 # What makes pipelines so incredibly useful is the simple interface that they provide.
 # You can use the .fit() and .predict() methods on pipelines just as you did with your classifiers and regressors!
 
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/Supervised Learning with scikit-learn/'
+df = pd.read_csv('./Supervised Learning with scikit-learn/'
                  'data/house-votes-84.csv', header=None)
 df.columns = ['party', 'infants', 'water', 'budget', 'physician', 'salvador',
               'religious', 'satellite', 'aid', 'missile', 'immigration', 'synfuels',
@@ -162,7 +161,7 @@ Can also normalize so the data ranges from -1 to +1
 '''
 
 #  Preprocess
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/Supervised Learning with scikit-learn/'
+df = pd.read_csv('./Supervised Learning with scikit-learn/'
                  'data/white-wine.csv')
 
 df['quality'] = df['quality'] < 5
@@ -268,7 +267,7 @@ print("Tuned Model Parameters: {}".format(cv.best_params_))
 # scales the features, and fits an ElasticNet to the Gapminder data.
 # You will then tune the l1_ratio of your ElasticNet using GridSearchCV.
 
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/Supervised Learning with scikit-learn/'
+df = pd.read_csv('./Supervised Learning with scikit-learn/'
                  'data/gm_2008_region.csv')
 df.drop(['Region'], axis='columns', inplace=True)
 X = df.drop('life', axis='columns').values
