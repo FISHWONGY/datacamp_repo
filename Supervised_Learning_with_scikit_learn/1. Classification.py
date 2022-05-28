@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-# https://github.com/goodboychan/goodboychan.github.io/tree/master/_notebooks
 
 iris = datasets.load_iris()
 type(iris)
