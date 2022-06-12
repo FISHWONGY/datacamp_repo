@@ -35,6 +35,8 @@ Base learners and why we need them
 # Decision trees as base learners
 df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
                  '05_Extreme Gradient Boosting with XGBoost/data/ames_housing_trimmed_processed.csv')
+
+# X - DF; y - Series
 X, y = df.iloc[:, :-1], df.iloc[:, -1]
 
 from sklearn.model_selection import train_test_split
@@ -44,7 +46,8 @@ from sklearn.metrics import mean_squared_error
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
 
 # Instantiatethe XGBRegressor: xg_reg
-xg_reg = xgb.XGBRegressor(objective='reg:squarederror', seed=123, n_estimators=10)
+# objective='reg:linear'
+xg_reg = xgb.XGBRegressor(objective='reg:linear', seed=123, n_estimators=10)
 
 # Fit the regressor to the training set
 xg_reg.fit(X_train, y_train)
@@ -75,7 +78,9 @@ DM_train = xgb.DMatrix(data=X_train, label=y_train)
 DM_test = xgb.DMatrix(data=X_test, label=y_test)
 
 # Create the parameter dictionary: params
-params = {"booster":"gblinear", "objective":"reg:squarederror"}
+# "objective": "reg:squarederror"
+params = {"booster": "gblinear",
+          "objective": "reg:linear"}
 
 # Train the model: xg_reg
 xg_reg = xgb.train(params=params, dtrain=DM_train, num_boost_round=5)
@@ -93,7 +98,8 @@ print("RMSE: %f" % (rmse))
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameter dictionary: params
-params = {"objective":"reg:squarederror", "max_depth":4}
+params = {"objective": "reg:squarederror",
+          "max_depth": 4}
 
 # Perform cross-valdiation: cv_results
 cv_results = xgb.cv(dtrain=housing_dmatrix, params=params, nfold=4,
@@ -106,11 +112,12 @@ print(cv_results)
 print((cv_results['test-rmse-mean']).tail(1))
 
 
+# Compute MAE instead of RMSE
 # Create the DMatrix: housing_dmatrix
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameter dictionary: params
-params = {"objective":"reg:squarederror", "max_depth":4}
+params = {"objective": "reg:linear", "max_depth": 4}
 
 # Perform cross-valdiation: cv_results
 cv_results = xgb.cv(dtrain=housing_dmatrix, params=params, nfold=4,
@@ -167,7 +174,7 @@ for reg in reg_params:
     # Append best rmse (final round) to rmses_l2
     rmses_l2.append(cv_results_rmse['test-rmse-mean'].tail(1).values[0])
 
-# Loot at best rmse per l2 param
+# Look at best rmse per l2 param
 print("Best rmse as a function of l2:")
 print(pd.DataFrame(list(zip(reg_params, rmses_l2)), columns=["l2", "rmse"]))
 
@@ -177,10 +184,12 @@ print(pd.DataFrame(list(zip(reg_params, rmses_l2)), columns=["l2", "rmse"]))
 # Once you train a model using the XGBoost learning API, you can pass it to the plot_tree() function
 # along with the number of trees you want to plot using the num_trees argument.
 # Create the DMatrix: housing_dmatrix
+
+# plot_tree requirement: pip3 install graphviz; brew install graphviz
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameters dictionary: params
-params = {"objective":'reg:squarederror', 'max_depth':2}
+params = {"objective": 'reg:squarederror', 'max_depth': 2}
 
 # Train the model: xg_reg
 xg_reg = xgb.train(dtrain=housing_dmatrix, params=params, num_boost_round=10)
@@ -204,10 +213,10 @@ xgb.plot_tree(xg_reg, rankdir="LR", num_trees=9, ax=ax)
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameter dictionary: params
-params = {"objective":"reg:squarederror", "max_depth":4}
+params = {"objective": "reg:linear", "max_depth": 4}
 
 # Train the model: xg_reg
 xg_reg = xgb.train(dtrain=housing_dmatrix, params=params, num_boost_round=10)
 
 # Plot the feature importance
-xgb.plot_importance(xg_reg);
+xgb.plot_importance(xg_reg)
