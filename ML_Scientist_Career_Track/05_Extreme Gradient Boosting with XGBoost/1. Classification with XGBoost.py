@@ -82,6 +82,7 @@ CART: Classification And Regression Trees
  - Can later be converted into categories
 '''
 
+# X - array; y - array
 X = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
                 '05_Extreme Gradient Boosting with XGBoost/data/breast_X.csv').to_numpy()
 y = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
@@ -143,19 +144,19 @@ So, that's what you will do here before running cross-validation on churn_data
 churn_data = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
                          '05_Extreme Gradient Boosting with XGBoost/data/churn_data.csv')
 
-# Create arrays for the features and the target: X, y
+# Create arrays for the features and the target: X - DF; y - Series
 X, y = churn_data.iloc[:, :-1], churn_data.iloc[:, -1]
 
-# Create the DMatrix from X and y: churn_dmatrix
+# Create the DMatrix from X and y, dtype -  churn_dmatrix
 churn_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameter dictionary: params
-params = {'objective':"reg:logistic", "max_depth":3}
+params = {'objective': "reg:logistic", "max_depth": 3}
 
 # Perform cross-validation: cv_results
 cv_results = xgb.cv(dtrain=churn_dmatrix, params=params,
-                   nfold=3, num_boost_round=5,
-                   metrics="error", as_pandas=True, seed=123)
+                    nfold=3, num_boost_round=5,
+                    metrics="error", as_pandas=True, seed=123)
 
 # Pint cv_results
 print(cv_results)
