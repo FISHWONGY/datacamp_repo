@@ -14,7 +14,8 @@ X, y = df.iloc[:, :-1], df.iloc[:, -1]
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Creata the parameter dictionary for each tree: params
-params = {"objective": "reg:squarederror", "max_depth": 3}
+params = {"objective": "reg:squarederror",
+          "max_depth": 3}
 
 # Create list of number of boosting rounds
 num_rounds = [5, 10, 15]
@@ -42,7 +43,7 @@ print(pd.DataFrame(num_rounds_rmses, columns=['num_boosting_rounds', 'rmse']))
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
 # Create the parameter dictionary for each tree: params
-params = {"objective":"reg:squarederror", "max_depth":4}
+params = {"objective": "reg:squarederror", "max_depth": 4}
 
 # Perform cross-validation with early-stopping: cv_results
 cv_results = xgb.cv(dtrain=housing_dmatrix, nfold=3, params=params, metrics="rmse",
@@ -100,11 +101,12 @@ for curr_val in eta_vals:
 
 # Print the result DataFrame
 print(pd.DataFrame(list(zip(eta_vals, best_rmse)), columns=['eta', 'best_rmse']))
+# 0.010 is the best eta
 
 
 # Tuning max_depth
-#  tune max_depth, which is the parameter that dictates the maximum depth that each tree in a boosting round can grow to.
-#  Smaller values will lead to shallower trees, and larger values to deeper trees
+# tune max_depth, which is the parameter that dictates the maximum depth that each tree in a boosting round can grow to.
+# Smaller values will lead to shallower trees, and larger values to deeper trees
 # Create your housing DMatrix
 housing_dmatrix = xgb.DMatrix(data=X, label=y)
 
@@ -128,7 +130,7 @@ for curr_val in max_depths:
 
 # Print the result DataFrame
 print(pd.DataFrame(list(zip(max_depths, best_rmse)), columns=['max_depth', 'best_rmse']))
-
+# 5 is the best max depth
 
 # Tuning colsample_bytree
 # In xgboost, colsample_bytree must be specified as a float between 0 and 1.
@@ -157,7 +159,7 @@ for curr_val in colsample_bytree_vals:
 # Print the resultant DataFrame
 print(pd.DataFrame(list(zip(colsample_bytree_vals, best_rmse)),
                    columns=["colsample_bytree", "best_rmse"]))
-
+# 1 is the best colsample_bytree
 
 ###
 # Review of grid search and random search
@@ -199,6 +201,9 @@ grid_mse.fit(X, y)
 # Print the best parameters and lowest RMSE
 print("Best parameters found: ", grid_mse.best_params_)
 print("Lowest RMSE found: ", np.sqrt(np.abs(grid_mse.best_score_)))
+# RESULT
+# Best parameters found:  {'colsample_bytree': 0.7, 'max_depth': 2, 'n_estimators': 50}
+# Lowest RMSE found:  30355.698207097197
 
 
 # Random search with XGBoost
@@ -217,7 +222,7 @@ gbm = xgb.XGBRegressor(n_estimators=10)
 # Perform random search: randomized_mse
 randomized_mse = RandomizedSearchCV(param_distributions=gbm_param_grid, estimator=gbm,
                                     scoring='neg_mean_squared_error', n_iter=5, cv=4,
-                                   verbose=1)
+                                    verbose=1)
 
 # Fit randomized_mse to the data
 randomized_mse.fit(X, y)
@@ -225,6 +230,9 @@ randomized_mse.fit(X, y)
 # Print the best parameters and lowest RMSE
 print("Best parameters found: ", randomized_mse.best_params_)
 print("Lowest RMSE found: ", np.sqrt(np.abs(randomized_mse.best_score_)))
+# RESULT
+# Best parameters found:  {'n_estimators': 25, 'max_depth': 4}
+# Lowest RMSE found:  29998.4522530019
 
 # Limits of grid search and random search
 '''
