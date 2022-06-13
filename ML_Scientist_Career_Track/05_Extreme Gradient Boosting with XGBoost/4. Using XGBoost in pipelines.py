@@ -44,7 +44,8 @@ print(df[categorical_columns].head())
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import make_column_transformer
 
-df = pd.read_csv('./dataset/ames_unprocessed_data.csv')
+df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
+                 '05_Extreme Gradient Boosting with XGBoost/data/ames_unprocessed_data.csv')
 
 # Fill missing values with 0
 df.LotFrontage = df.LotFrontage.fillna(0)
@@ -166,6 +167,7 @@ print("10-fold RMSE: ", np.mean(np.sqrt(np.abs(cross_val_scores))))
 
 ###
 # Kidney disease case study I - Categorical Imputer
+# X - DF; y - array
 X = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
                 '05_Extreme Gradient Boosting with XGBoost/data/chronic_kidney_X.csv')
 y = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp/ML Scientist Career Track/'
@@ -268,7 +270,7 @@ randomized_roc_auc.fit(X, y)
 # Compute metrics
 print('Score: ', randomized_roc_auc.best_score_)
 print('Estimator: ', randomized_roc_auc.best_estimator_)
-
+print("Best parameters found: ", randomized_roc_auc.best_params_)
 
 # Final Thoughts
 '''
