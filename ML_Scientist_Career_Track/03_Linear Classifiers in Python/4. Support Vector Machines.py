@@ -161,8 +161,8 @@ from sklearn.model_selection import GridSearchCV
 svm = SVC()
 
 # Instantiate the GridSearchCV object and runt the search
-parameters = {'gamma':[0.00001, 0.0001, 0.001, 0.01, 0.1]}
-searcher = GridSearchCV(svm, param_grid=parameters)
+parameters = {'gamma': [0.00001, 0.0001, 0.001, 0.01, 0.1]}
+searcher = GridSearchCV(svm, param_grid=parameters, n_jobs=-1, verbose=1, cv=10)
 searcher.fit(X, y)
 
 # Report the best parameters
@@ -181,7 +181,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y)
 svm = SVC()
 
 # Instantiate the GridSearchCV object and run the search
-parameters = {'C':[0.1, 1, 10], 'gamma':[0.00001, 0.0001, 0.001, 0.01, 0.1]}
+parameters = {'C': [0.1, 1, 10], 'gamma': [0.00001, 0.0001, 0.001, 0.01, 0.1]}
 searcher = GridSearchCV(svm, param_grid=parameters)
 searcher.fit(X_train, y_train)
 
@@ -227,8 +227,8 @@ from sklearn.linear_model import SGDClassifier
 linear_classifier = SGDClassifier(random_state=0, max_iter=10000)
 
 # Instantiate the GridSearchCV object and run the search
-parameters = {'alpha':[0.00001, 0.0001, 0.001, 0.01, 0.1, 1], 'loss':['hinge', 'log'],
-              'penalty':['l1', 'l2']}
+parameters = {'alpha': [0.00001, 0.0001, 0.001, 0.01, 0.1, 1], 'loss': ['hinge', 'log'],
+              'penalty': ['l1', 'l2']}
 searcher = GridSearchCV(linear_classifier, parameters, cv=10)
 searcher.fit(X_train, y_train)
 
