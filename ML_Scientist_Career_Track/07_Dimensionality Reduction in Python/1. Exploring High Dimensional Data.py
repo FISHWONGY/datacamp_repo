@@ -14,7 +14,8 @@ summary statistics on this sample.
 Then adjust the code to create a smaller, easier to understand, dataset.
 '''
 
-pokemon_df = pd.read_csv('./dataset/pokemon_gen1.csv')
+pokemon_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+                         '07_Dimensionality Reduction in Python/data/pokemon_gen1.csv')
 pokemon_df.head()
 pokemon_df.describe()
 
