@@ -205,15 +205,12 @@ ansur_df_sample.head()
 
 # Create the correlation matrix
 corr = ansur_df_sample.corr()
-
 cmap = sns.diverging_palette(h_neg=10, h_pos=240, as_cmap=True)
-
 # Draw the heatmap
 sns.heatmap(corr,  cmap=cmap, center=0, linewidths=1, annot=True, fmt=".2f");
 
 # Generate a mask for the upper triangle
 mask = np.triu(np.ones_like(corr, dtype=bool))
-
 # Add the mask to the heatmap
 sns.heatmap(corr, mask=mask, cmap=cmap, center=0, linewidths=1, annot=True, fmt='.2f');
 
