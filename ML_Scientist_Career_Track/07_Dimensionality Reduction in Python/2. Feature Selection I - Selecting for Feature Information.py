@@ -233,6 +233,7 @@ ansur_male = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/data
 ansur_df = ansur_male
 
 # Calculate the correlation matrix and take the absolute value
+# Abs to create only +ve value
 corr_matrix = ansur_df.corr().abs()
 
 # Create a True/False mask and apply it
@@ -246,7 +247,7 @@ to_drop = [c for c in tri_df.columns if any(tri_df[c] > 0.95)]
 reduced_df = ansur_df.drop(to_drop, axis=1)
 
 print("The reduced dataframe has {} columns.".format(reduced_df.shape[1]))
-
+print("Dimensionality reduced from {} to {}".format(ansur_df.shape[1], reduced_df.shape[1]))
 
 '''
 # Nuclear energy and pool drownings
