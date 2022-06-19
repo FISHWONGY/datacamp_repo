@@ -10,8 +10,8 @@ import numpy as np
 Identifying areas for feature selection
  - Take an exploratory look at the post-feature engineering hiking dataset.
 '''
-hiking = pd.read_json('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                      '8_Preprocessing for Machine Learning in Python/data/hiking.json')
+hiking = pd.read_json(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/hiking.json')
 hiking.head()
 
 
@@ -39,8 +39,8 @@ so category_desc itself is redundant now.
 
 Take a moment to examine the features of volunteer in the console, and try to identify the redundant features.
 '''
-volunteer = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                        '8_Preprocessing for Machine Learning in Python/data/volunteer_sample.csv')
+volunteer = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/volunteer_sample.csv')
 volunteer.dropna(subset=['category_desc'], axis=0, inplace=True)
 volunteer.head()
 
@@ -62,8 +62,8 @@ Let's take a look at the wine dataset again, which is made up of continuous, num
 Run Pearson's correlation coefficient on the dataset to determine which columns are good candidates for eliminating. 
 Then, remove those columns from the DataFrame.
 '''
-wine = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                   '8_Preprocessing for Machine Learning in Python/data/wine_sample.csv')
+wine = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/wine_sample.csv')
 wine.head()
 
 # Print out the column correlations of the wine dataset
@@ -85,8 +85,8 @@ we're going to add to that function we learned about in the slides. We'll return
 In the next exercise, we'll write another function to collect the top words across all documents, extract them, 
 and then use that list to filter down our text_tfidf vector.
 '''
-vocab_csv = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                        '8_Preprocessing for Machine Learning in Python/data/vocab.csv', index_col=0).to_dict()
+vocab_csv = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/vocab.csv', index_col=0).to_dict()
 vocab = vocab_csv['0']
 volunteer = volunteer[['category_desc', 'title']]
 volunteer = volunteer.dropna(subset=['category_desc'], axis=0)
@@ -183,8 +183,8 @@ print(nb.score(X_test, y_test))
 Using PCA
 Let's apply PCA to the wine dataset, to see if we can get an increase in our model's accuracy.
 '''
-wine = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                   '8_Preprocessing for Machine Learning in Python/data/wine_types.csv')
+wine = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/wine_types.csv')
 wine.head()
 
 from sklearn.decomposition import PCA

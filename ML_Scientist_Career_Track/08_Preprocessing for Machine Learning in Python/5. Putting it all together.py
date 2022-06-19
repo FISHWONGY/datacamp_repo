@@ -9,8 +9,8 @@ Two columns jump out for transformation: the seconds column, which is a numeric 
 and the date column, which can be transformed into the datetime type. 
 That will make our feature engineering efforts easier later on.
 '''
-ufo = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                  '8_Preprocessing for Machine Learning in Python/data/ufo_sightings_large.csv')
+ufo = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/ufo_sightings_large.csv')
 ufo.head()
 
 # Check the column types
@@ -196,8 +196,8 @@ def words_to_filter(vocab, original_vocab, vector, top_n):
     return set(filter_list)
 
 
-vocab_csv = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                        '8_Preprocessing for Machine Learning in Python/data/vocab_ufo.csv', index_col=0).to_dict()
+vocab_csv = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/vocab_ufo.csv', index_col=0).to_dict()
 vocab = vocab_csv['0']
 # Check the correlation between the seconds, seconds_log, and minutes columns
 print(ufo[['seconds', 'seconds_log', 'minutes']].corr())

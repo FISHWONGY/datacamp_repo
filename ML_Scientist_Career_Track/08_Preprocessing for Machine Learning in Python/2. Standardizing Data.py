@@ -28,8 +28,8 @@ The scikit-learn model training process should be familiar to you at this point,
 You already have a k-nearest neighbors model available (knn) as well as the X and y sets you need to fit and score on.
 '''
 
-wine = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                   '8_Preprocessing for Machine Learning in Python/data/wine_types.csv')
+wine = pd.read_csv(
+    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/wine_types.csv')
 wine.head()
 
 X = wine[['Proline', 'Total phenols', 'Hue', 'Nonflavanoid phenols']]
