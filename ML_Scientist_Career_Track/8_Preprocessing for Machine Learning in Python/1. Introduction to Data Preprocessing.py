@@ -100,3 +100,4 @@ X_train, X_test, y_train, y_test = train_test_split(volunteer_X, volunteer_y, st
 
 # Print out the category_desc counts on the training y labels
 print(y_train['category_desc'].value_counts())
+
