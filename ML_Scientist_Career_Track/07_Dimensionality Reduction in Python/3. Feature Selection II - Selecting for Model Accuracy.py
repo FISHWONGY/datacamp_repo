@@ -13,7 +13,7 @@ You'll be using the Pima Indians diabetes dataset to predict whether a person ha
 There are 8 features and one target in this dataset.
 '''
 
-diabetes_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+diabetes_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                           '07_Dimensionality Reduction in Python/data/PimaIndians.csv')
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -42,6 +42,7 @@ y_pred = lr.predict(X_test_std)
 # Print accuracy metrics and feature coefficients
 print("{0:.1%} accuracy on test set.".format(accuracy_score(y_test, y_pred)))
 pprint(dict(zip(X.columns, abs(lr.coef_[0]).round(2))))
+# 86.4% accuracy on test set.
 # We get almost 80% accuracy on the test set. Take a look at the differences in model coefficients for the different features.
 
 
@@ -66,7 +67,7 @@ lr.fit(scaler.fit_transform(X_train), y_train)
 acc = accuracy_score(y_test, lr.predict(scaler.transform(X_test)))
 print("{0: .1%} accuracy on test set.".format(acc))
 pprint(dict(zip(X.columns, abs(lr.coef_[0]).round(2))))
-
+#  80.6% accuracy on test set
 
 # Remove the 2 features with the lowest model coefficients
 X = diabetes_df[['glucose', 'triceps', 'bmi', 'family', 'age']]
@@ -81,7 +82,7 @@ lr.fit(scaler.fit_transform(X_train), y_train)
 acc = accuracy_score(y_test, lr.predict(scaler.transform(X_test)))
 print("{0:.1%} accuracy on test set.".format(acc))
 pprint(dict(zip(X.columns, abs(lr.coef_[0]).round(2))))
-
+# 79.6% accuracy on test set.
 
 # Only keep the feature with the highest coefficient
 X = diabetes_df[['glucose']]
@@ -96,11 +97,11 @@ lr.fit(scaler.fit_transform(X_train), y_train)
 acc = accuracy_score(y_test, lr.predict(scaler.transform(X_test)))
 print("{0:.1%} accuracy on test set.".format(acc))
 print(dict(zip(X.columns, abs(lr.coef_[0]).round(2))))
+# 75.5% accuracy on test set.
 
 
 '''
 # Automatic Recursive Feature Elimination
-
 Now let's automate this recursive process. 
 Wrap a Recursive Feature Eliminator (RFE) around our logistic regression estimator and 
 pass it the desired number of features.
@@ -135,6 +136,7 @@ print(X.columns[rfe.support_])
 # CAlculates the test set accuracy
 acc = accuracy_score(y_test, rfe.predict(X_test_std))
 print("{0:.1%} accuracy on test set.".format(acc))
+# 79.7% accuracy on test set.
 
 
 '''
@@ -157,11 +159,15 @@ rf.fit(X_train, y_train)
 acc = accuracy_score(y_test, rf.predict(X_test))
 
 # Print the importances per feature
+# To sort with col_name ASC
 pprint(dict(zip(X.columns, rf.feature_importances_.round(2))))
+# To sort with feature importyance ASC
+pprint(dict(zip(rf.feature_importances_.round(2), X.columns)))
+
 
 # Print accuracy
 print("{0:.1%} accuracy on test set.".format(acc))
-
+# 79.6% accuracy on test set.
 
 '''
 # Random forest for feature selection
@@ -236,7 +242,7 @@ weight but those two features have been removed from the dataset to give the mod
 You'll standardize the data first using the StandardScaler() that has been instantiated for you as 
 scaler to make sure all coefficients face a comparable regularizing force trying to bring them down.
 '''
-ansur_male = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+ansur_male = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                          '07_Dimensionality Reduction in Python/data/ANSUR_II_MALE.csv')
 
 ansur_df = ansur_male
@@ -277,6 +283,7 @@ X_test_std = scaler.transform(X_test)
 # Calculate the coefficient of determination (R squared) on X_test_std
 r_squared = la.score(X_test_std, y_test)
 print("The model can predict {0:.1%} of the variance in the test set.".format(r_squared))
+# The model can predict 84.7% of the variance in the test set.
 
 # Create a list that has True values when coefficients equal 0
 zero_coef = la.coef_ == 0
@@ -316,16 +323,20 @@ print("Max R-squared: {}, alpha: {}".format(max_r, max_alpha))
 
 
 '''
-# Combining feature selectors
+# Combining feature selectors - LassoCV, Gradient Boosting, random forest
 
 Creating a LassoCV regressor
 You'll be predicting biceps circumference on a subsample of the male ANSUR dataset using the 
 LassoCV() regressor that automatically tunes the regularization strength (alpha value) using Cross-Validation.
 '''
-X = ansur_df[['acromialheight', 'axillaheight', 'bideltoidbreadth', 'buttockcircumference', 'buttockkneelength', 'buttockpopliteallength', 'cervicaleheight', 'chestcircumference', 'chestheight',
-       'earprotrusion', 'footbreadthhorizontal', 'forearmcircumferenceflexed', 'handlength', 'headbreadth', 'heelbreadth', 'hipbreadth', 'iliocristaleheight', 'interscyeii',
-       'lateralfemoralepicondyleheight', 'lateralmalleolusheight', 'neckcircumferencebase', 'radialestylionlength', 'shouldercircumference', 'shoulderelbowlength', 'sleeveoutseam',
-       'thighcircumference', 'thighclearance', 'verticaltrunkcircumferenceusa', 'waistcircumference', 'waistdepth', 'wristheight', 'BMI']]
+X = ansur_df[['acromialheight', 'axillaheight', 'bideltoidbreadth', 'buttockcircumference', 'buttockkneelength',
+              'buttockpopliteallength', 'cervicaleheight', 'chestcircumference', 'chestheight',
+              'earprotrusion', 'footbreadthhorizontal', 'forearmcircumferenceflexed', 'handlength', 'headbreadth',
+              'heelbreadth', 'hipbreadth', 'iliocristaleheight', 'interscyeii',
+              'lateralfemoralepicondyleheight', 'lateralmalleolusheight', 'neckcircumferencebase',
+              'radialestylionlength', 'shouldercircumference', 'shoulderelbowlength', 'sleeveoutseam',
+              'thighcircumference', 'thighclearance', 'verticaltrunkcircumferenceusa', 'waistcircumference',
+              'waistdepth', 'wristheight', 'BMI']]
 y = ansur_df['bicepscircumferenceflexed']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
@@ -335,8 +346,10 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 
+# 1st selector - LassoCV
 from sklearn.linear_model import LassoCV
 
+# Get the optimal alpha
 # Create and fit the LassoCV model on the training set
 lcv = LassoCV()
 lcv.fit(X_train, y_train)
@@ -345,11 +358,12 @@ print('Optimal alpha = {0:.3f}'.format(lcv.alpha_))
 # Calculate R squared on the test set
 r_squared = lcv.score(X_test, y_test)
 print('The model explains {0:.1%} of the test set variance'.format(r_squared))
+# The model explains 85.6% of the test set variance
 
 # Create a mask for coefficients not equal to zero
 lcv_mask = lcv.coef_ != 0
 print('{} features out of {} selected'.format(sum(lcv_mask), len(lcv_mask)))
-
+# 24 features out of 32 selected
 
 '''
 # Ensemble models for extra votes
@@ -358,22 +372,26 @@ Let's use two more models to select the 10 features they consider most important
 the Recursive Feature Eliminator (RFE).
 '''
 
+# 2nd selector - GradientBoostingRegressor
 from sklearn.feature_selection import RFE
 from sklearn.ensemble import GradientBoostingRegressor
 
 # Select 10 features with RFE on a GradientBoostingRegressor, drop 3 features on each step
 rfe_gb = RFE(estimator=GradientBoostingRegressor(),
-            n_features_to_select=10, step=3, verbose=1)
+             n_features_to_select=10, step=3, verbose=1)
 rfe_gb.fit(X_train, y_train)
 
 # Calculate the R squared on the test set
 r_squared = rfe_gb.score(X_test, y_test)
 print('The model can explain {0:.1%} of the variance in the test set'.format(r_squared))
+# The model can explain 83.3% of the variance in the test set
+
 
 # Assign the support array to gb_mask
 gb_mask = rfe_gb.support_
 
 
+# 3rd selector - RandomForestRegressor
 from sklearn.ensemble import RandomForestRegressor
 # Select 10 features with RFE on a RandomForestRegressor, drop 3 features on each step
 rfe_rf = RFE(estimator=RandomForestRegressor(),
@@ -383,6 +401,7 @@ rfe_rf.fit(X_train, y_train)
 # Calculate the R squared on the test set
 r_squared = rfe_rf.score(X_test, y_test)
 print('The model can explain {0:.1%} of the variance in the test set'.format(r_squared))
+# The model can explain 82.6% of the variance in the test set
 
 # Assign the support array to rf_mask
 rf_mask = rfe_rf.support_
@@ -398,6 +417,7 @@ linear regressor performs on the reduced dataset.
 # Sum the votes of the three models
 votes = np.sum([lcv_mask, rf_mask, gb_mask], axis=0)
 print(votes)
+print(max(votes))
 
 # Create a mask for features selected by all 3 models
 meta_mask = votes == 3
@@ -407,8 +427,8 @@ print(meta_mask)
 X_reduced = X.loc[:, meta_mask]
 print(X_reduced.columns)
 
-from sklearn.linear_model import LinearRegression
 
+from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 
 # Plug the reduced data into a linear regression pipeline
@@ -416,6 +436,8 @@ X_train, X_test, y_train, y_test = train_test_split(X_reduced, y, test_size=0.3,
 lm.fit(scaler.fit_transform(X_train), y_train)
 r_squared = lm.score(scaler.transform(X_test), y_test)
 print('The model can explain {0:.1%} of the variance in the test set using {1:} features.'.format(r_squared, len(lm.coef_)))
+# The model can explain 83.5% of the variance in the test set using 7 features.
+
 
 # Using the votes from 3 models you were able to select just 7 features that allowed a
 # simple linear model to get a high accuracy!

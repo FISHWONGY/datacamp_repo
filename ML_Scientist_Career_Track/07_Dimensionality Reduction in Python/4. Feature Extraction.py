@@ -14,7 +14,7 @@ The quantity and revenue features tell you how many items of a particular produc
 store and what the total revenue was. For the purpose of your analysis it's more interesting to 
 know the average price per product.
 '''
-sales_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+sales_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/grocery_sales.csv')
 sales_df.head()
 
@@ -32,7 +32,7 @@ reduced_df.head()
 You're working on a variant of the ANSUR dataset, height_df, where a person's height was measured 3 times. 
 Add a feature with the mean height to the dataset, then drop the 3 original features.
 '''
-height_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+height_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                         '07_Dimensionality Reduction in Python/data/height_df.csv')
 height_df.head()
 
@@ -52,7 +52,7 @@ Calculating Principal Components
 You'll visually inspect a 4 feature sample of the ANSUR dataset before and after PCA using Seaborn's pairplot(). 
 This will allow you to inspect the pairwise correlations between the features.
 '''
-ansur_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+ansur_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/ansur_sample.csv')
 # Create a pairplot to inspect ansur_df
 sns.pairplot(ansur_df);
@@ -83,8 +83,8 @@ The fitted model will be used in the next exercise.
 Since we are not using the principal components themselves there is no need to transform the data, 
 instead, it is sufficient to fit pca to the data.
 '''
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
-                 '07_Dimensionality Reduction in Python/data/ANSUR_II_MALE.csv')
+df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+                  '07_Dimensionality Reduction in Python/data/ANSUR_II_MALE.csv')
 ansur_df = df[['stature_m', 'buttockheight', 'waistdepth', 'span',
                'waistcircumference', 'shouldercircumference', 'footlength',
                'handlength', 'functionalleglength', 'chestheight',
@@ -120,7 +120,7 @@ Understanding the components
 You'll apply PCA to the numeric features of the Pokemon dataset, poke_df, using a pipeline to combine the 
 feature scaling and PCA in one go. You'll then interpret the meanings of the first two components.
 '''
-df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                  '07_Dimensionality Reduction in Python/data/pokemon.csv')
 df.head()
 
@@ -260,7 +260,7 @@ print('{0:.1%} test set accuracy'.format(accuracy))
 # Selecting the proportion of variance to keep
 You'll let PCA determine the number of components to calculate based on an explained variance threshold that you decide.
 '''
-ansur_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+ansur_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/ANSUR_II_FEMALE.csv')
 ansur_df.head()
 
@@ -325,7 +325,7 @@ A pipeline with a scaler and PCA model to select 78 components has been pre-load
 '''
 def plot_digits(data):
     fig, axes = plt.subplots(4, 4, figsize=(6, 6),
-                             subplot_kw={'xticks':[], 'yticks':[]},
+                             subplot_kw={'xticks': [], 'yticks': []},
                              gridspec_kw=dict(hspace=0.05, wspace=0.05))
     for i, ax in enumerate(axes.flat):
         ax.imshow(data[i].reshape(28, 28),
