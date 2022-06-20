@@ -13,8 +13,8 @@ Missing data - columns
 We have a dataset comprised of volunteer information from New York City. 
 The dataset has a number of features, but we want to get rid of features that have at least 3 missing values.
 '''
-volunteer = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/volunteer_opportunities.csv')
+volunteer = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                        'data/volunteer_opportunities.csv')
 volunteer.head()
 volunteer.info()
 volunteer.dropna(axis=1, thresh=3).shape

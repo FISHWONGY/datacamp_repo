@@ -28,8 +28,8 @@ The scikit-learn model training process should be familiar to you at this point,
 You already have a k-nearest neighbors model available (knn) as well as the X and y sets you need to fit and score on.
 '''
 
-wine = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/wine_types.csv')
+wine = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                   'data/wine_types.csv')
 wine.head()
 
 X = wine[['Proline', 'Total phenols', 'Hue', 'Nonflavanoid phenols']]
@@ -119,7 +119,8 @@ Let's first take a look at the accuracy of a K-nearest neighbors model on the wi
 The knn model as well as the X and y data and labels sets have been created already. 
 Most of this process of creating models in scikit-learn should look familiar to you.
 '''
-wine = pd.read_csv('./dataset/wine_types.csv')
+wine = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                   'data/wine_types.csv')
 
 X = wine.drop('Type', axis=1)
 y = wine['Type']
@@ -154,3 +155,4 @@ knn.fit(X_train, y_train)
 
 # Score the model on the test data
 print(knn.score(X_test, y_test))
+
