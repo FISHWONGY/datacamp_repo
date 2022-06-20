@@ -14,7 +14,7 @@ The quantity and revenue features tell you how many items of a particular produc
 store and what the total revenue was. For the purpose of your analysis it's more interesting to 
 know the average price per product.
 '''
-sales_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+sales_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/grocery_sales.csv')
 sales_df.head()
 
@@ -32,7 +32,7 @@ reduced_df.head()
 You're working on a variant of the ANSUR dataset, height_df, where a person's height was measured 3 times. 
 Add a feature with the mean height to the dataset, then drop the 3 original features.
 '''
-height_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+height_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                         '07_Dimensionality Reduction in Python/data/height_df.csv')
 height_df.head()
 
@@ -52,7 +52,7 @@ Calculating Principal Components
 You'll visually inspect a 4 feature sample of the ANSUR dataset before and after PCA using Seaborn's pairplot(). 
 This will allow you to inspect the pairwise correlations between the features.
 '''
-ansur_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+ansur_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/ansur_sample.csv')
 # Create a pairplot to inspect ansur_df
 sns.pairplot(ansur_df);
@@ -83,8 +83,8 @@ The fitted model will be used in the next exercise.
 Since we are not using the principal components themselves there is no need to transform the data, 
 instead, it is sufficient to fit pca to the data.
 '''
-df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
-                  '07_Dimensionality Reduction in Python/data/ANSUR_II_MALE.csv')
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '07_Dimensionality Reduction in Python/data/ANSUR_II_MALE.csv')
 ansur_df = df[['stature_m', 'buttockheight', 'waistdepth', 'span',
                'waistcircumference', 'shouldercircumference', 'footlength',
                'handlength', 'functionalleglength', 'chestheight',
@@ -106,6 +106,7 @@ you created in the previous exercise.
 '''
 # Inspect the explained variance ratio per component
 print(pca.explained_variance_ratio_)
+# 4.25% variance is explained by the 4th principal componen
 
 # Print the cumulative sum of the explained variance ratio
 print(pca.explained_variance_ratio_.cumsum())
@@ -120,7 +121,7 @@ Understanding the components
 You'll apply PCA to the numeric features of the Pokemon dataset, poke_df, using a pipeline to combine the 
 feature scaling and PCA in one go. You'll then interpret the meanings of the first two components.
 '''
-df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '07_Dimensionality Reduction in Python/data/pokemon.csv')
 df.head()
 
@@ -216,7 +217,7 @@ accuracy = pipe.score(X_test, y_test)
 
 # Prints the model accuracy
 print('{0:.1%} test set accuracy'.format(accuracy))
-
+# 92.1% test set accuracy
 
 # Repeat the process with 3 extracted components.
 
@@ -236,6 +237,7 @@ accuracy = pipe.score(X_test, y_test)
 # Prints the explained variance ratio and accuracy
 print(pipe.steps[1][1].explained_variance_ratio_)
 print('{0:.1%} test set accuracy'.format(accuracy))
+# 93.8% test set accuracy
 
 
 # n_components=4
@@ -254,13 +256,13 @@ accuracy = pipe.score(X_test, y_test)
 # Prints the explained variance ratio and accuracy
 print(pipe.steps[1][1].explained_variance_ratio_)
 print('{0:.1%} test set accuracy'.format(accuracy))
-
+# 95.0% test set accuracy
 
 '''
 # Selecting the proportion of variance to keep
 You'll let PCA determine the number of components to calculate based on an explained variance threshold that you decide.
 '''
-ansur_df = pd.read_csv('/Users/yuawong/Documents/GitHub/datacamp_repo/ML_Scientist_Career_Track/'
+ansur_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                        '07_Dimensionality Reduction in Python/data/ANSUR_II_FEMALE.csv')
 ansur_df.head()
 
@@ -278,6 +280,8 @@ pipe = Pipeline([
 pipe.fit(ansur_df)
 
 print('{} components selected'.format(len(pipe.steps[1][1].components_)))
+# 11 components selected
+
 
 # Pipe a scaler to PCA selecting 90% of the variance
 pipe = Pipeline([
@@ -289,7 +293,8 @@ pipe = Pipeline([
 pipe.fit(ansur_df)
 
 print('{} components selected'.format(len(pipe.steps[1][1].components_)))
-# From the result, we need more than 12 components to go from 80% to 90% explained variance.
+# 23 components selected
+# From the result, we need 12 more components to go from 80% to 90% explained variance.
 
 
 '''
@@ -334,6 +339,8 @@ def plot_digits(data):
 
 
 from sklearn.datasets import fetch_openml
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 X, y = X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 X_sample = X_test[:1600:100]
