@@ -9,8 +9,8 @@ Two columns jump out for transformation: the seconds column, which is a numeric 
 and the date column, which can be transformed into the datetime type. 
 That will make our feature engineering efforts easier later on.
 '''
-ufo = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/ufo_sightings_large.csv')
+ufo = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                  'data/ufo_sightings_large.csv')
 ufo.head()
 
 # Check the column types
@@ -53,7 +53,8 @@ Here, you'll extract that number from that text field using regular expressions.
 import re
 import math
 
-ufo = pd.read_csv('./dataset/ufo_sample.csv')
+ufo = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                  'data/ufo_sample.csv')
 
 # Change the type of seconds to float
 ufo['seconds'] = ufo['seconds'].astype(float)
@@ -113,6 +114,7 @@ print(len(ufo['type'].unique()))
 type_set = pd.get_dummies(ufo['type'])
 
 # Concatenate this set back to the ufo DataFrame
+# Simplay sticking col. togrther
 ufo = pd.concat([ufo, type_set], axis=1)
 
 
@@ -173,7 +175,10 @@ We'll keep seconds_log and drop seconds and minutes.
 
 Let's also get rid of the length_of_time column, which is unnecessary after extracting minutes.
 '''
+
 # Add in the rest of the parameters
+
+
 def return_weights(vocab, original_vocab, vector, vector_index, top_n):
     zipped = dict(zip(vector[vector_index].indices, vector[vector_index].data))
 
@@ -196,8 +201,8 @@ def words_to_filter(vocab, original_vocab, vector, top_n):
     return set(filter_list)
 
 
-vocab_csv = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/vocab_ufo.csv', index_col=0).to_dict()
+vocab_csv = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                        'data/vocab_ufo.csv', index_col=0).to_dict()
 vocab = vocab_csv['0']
 # Check the correlation between the seconds, seconds_log, and minutes columns
 print(ufo[['seconds', 'seconds_log', 'minutes']].corr())

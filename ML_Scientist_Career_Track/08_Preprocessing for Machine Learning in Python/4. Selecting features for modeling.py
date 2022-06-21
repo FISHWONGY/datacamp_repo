@@ -53,7 +53,7 @@ to_drop = ["locality", "region", "category_desc", "created_date", "vol_requests"
 volunteer_subset = volunteer.drop(to_drop, axis=1)
 
 # Print out the head of the new dataset
-volunteer_subset.head()
+print(volunteer_subset.head())
 
 
 '''
@@ -124,6 +124,8 @@ print(return_weights(vocab, tfidf_vec.vocabulary_, text_tfidf, vector_index=8, t
 Using the function we wrote in the previous exercise, we're going to extract the top words from each document in 
 the text vector, return a list of the word indices, and use that list to filter the text vector down to those top words.
 '''
+
+
 def words_to_filter(vocab, original_vocab, vector, top_n):
     filter_list = []
     for i in range(0, vector.shape[0]):
@@ -183,8 +185,8 @@ print(nb.score(X_test, y_test))
 Using PCA
 Let's apply PCA to the wine dataset, to see if we can get an increase in our model's accuracy.
 '''
-wine = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/wine_types.csv')
+wine = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                   'data/wine_types.csv')
 wine.head()
 
 from sklearn.decomposition import PCA
