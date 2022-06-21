@@ -679,25 +679,25 @@ plt.scatter(centroids_x, centroids_y, marker='D', s=50, color='red')
 
 # Evaluating a clustering
 '''
-    Evaluating a clustering
+Evaluating a clustering
         Can check correspondence with e.g. iris species, but what if there are no species to check against?
         Measure quality of a clustering
         Informs choice of how many clusters to look for
     
-    Cross-tabulation with pandas
+Cross-tabulation with pandas
         Clusters vs species is a "cross-tabulation"
     
-    Measuring clustering quality
+Measuring clustering quality
         Using only samples and their cluster labels
         A good clustering has tight clusters
         Samples in each cluster bunched together
     
-    Inertia measures clustering quality
+Inertia measures clustering quality
         Measures how spread out the clusters are (lower is better)
         Distance from each sample to centroid of its cluster
         k-means attempts to minimize the inertia when choosing clusters
     
-    How many clusters to choose?
+How many clusters to choose?
         Choose an "elbow" in the inertia plot
         Where inertia begins to decrease more slowly
 '''
@@ -763,11 +763,11 @@ print(ct)
 
 # Transforming features for better clusterings
 '''
-    StandardScaler
+StandardScaler
         In kmeans, feature variance = feature influence
         StandardScaler transforms each feature to have mean 0 and variance 1
         Features are said to be "standardized"
-    StandardScaler, then KMeans
+StandardScaler, then KMeans
         Need to perform two steps: StandardScaler, then KMeans
         Use sklearn pipeline to combine multiple steps
         Data flows from one step into the next
