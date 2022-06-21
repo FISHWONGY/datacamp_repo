@@ -12,8 +12,8 @@ import numpy as np
 Take an exploratory look at the volunteer dataset, using the variable of that name. 
 Which of the following columns would you want to perform a feature engineering task on?
 '''
-volunteer = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/volunteer_opportunities.csv')
+volunteer = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                        'data/volunteer_opportunities.csv')
 volunteer.head()
 
 
@@ -25,8 +25,8 @@ one of which is the Accessible column, which needs to be encoded in order to be 
 Accessible is a binary feature, so it has two values - either Y or N - so it needs to be encoded into 1s and 0s. 
 Use scikit-learn's LabelEncoder method to do that transformation.
 '''
-hiking = pd.read_json(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/hiking.json')
+hiking = pd.read_json('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                      'data/hiking.json')
 hiking.head()
 
 from sklearn.preprocessing import LabelEncoder
@@ -61,8 +61,8 @@ A good use case for taking an aggregate statistic to create a new feature is to 
 Here, you have a DataFrame of running times named running_times_5k. For each name in the dataset, take the mean 
 of their 5 run times.
 '''
-running_times_5k = pd.read_csv(
-    '/Online course/datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/data/running_times_5k.csv')
+running_times_5k = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                               'data/running_times_5k.csv')
 
 # Create a list of the columns to average
 run_columns = ['run1', 'run2', 'run3', 'run4', 'run5']
@@ -86,7 +86,7 @@ volunteer['start_date_converted'] = pd.to_datetime(volunteer['start_date_date'])
 volunteer['start_date_month'] = volunteer['start_date_converted'].apply(lambda row: row.month)
 
 # Take a look at the converted and new month columns
-volunteer[['start_date_converted', 'start_date_month']].head()
+print(volunteer[['start_date_converted', 'start_date_month']].head())
 
 
 '''
@@ -126,7 +126,8 @@ Let's transform the volunteer dataset's title column into a text vector, to use 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Need to drop NaN for train_test_split
-volunteer = pd.read_csv('./dataset/volunteer_opportunities.csv')
+volunteer = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/08_Preprocessing for Machine Learning in Python/'
+                        'data/volunteer_opportunities.csv')
 volunteer = volunteer.dropna(subset=['category_desc'], axis=0)
 
 # Take the title text

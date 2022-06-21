@@ -134,7 +134,7 @@ knn.fit(X_train, y_train)
 
 # Score the model on the test data
 print(knn.score(X_test, y_test))
-
+# 0.6888888888888889
 
 '''
 # KNN on scaled data
@@ -155,4 +155,5 @@ knn.fit(X_train, y_train)
 
 # Score the model on the test data
 print(knn.score(X_test, y_test))
+# 0.9111111111111111
 
