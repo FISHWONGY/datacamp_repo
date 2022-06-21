@@ -15,7 +15,7 @@ This will often not be the case, e.g. one feature may be measured in thousands o
 In this exercise, you will create plots to examine the distributions of some numeric columns in the so_survey_df DataFrame, 
 stored in so_numeric_df.
 '''
-so_survey_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+so_survey_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                            '10_Feature Engineering for Machine Learning in Python/data/Combined_DS_v10.csv')
 so_survey_df.head()
 
@@ -63,7 +63,7 @@ MM_scaler.fit(so_numeric_df[['Age']])
 so_numeric_df['Age_MM'] = MM_scaler.transform(so_numeric_df[['Age']])
 
 # Compare the original and transformed column
-so_numeric_df[['Age_MM', 'Age']].head()
+print(so_numeric_df[['Age_MM', 'Age']].head())
 
 
 '''
@@ -85,7 +85,7 @@ SS_scaler.fit(so_numeric_df[['Age']])
 so_numeric_df['Age_SS'] = SS_scaler.transform(so_numeric_df[['Age']])
 
 # Compare the original and transformed column
-so_numeric_df[['Age_SS', 'Age']].head()
+print(so_numeric_df[['Age_SS', 'Age']].head())
 
 '''
 # Log transformation
@@ -110,7 +110,8 @@ pow_trans.fit(so_numeric_df[['ConvertedSalary']])
 so_numeric_df['ConvertedSalary_LG'] = pow_trans.transform(so_numeric_df[['ConvertedSalary']])
 
 # Plot the data before and after the transformation
-so_numeric_df[['ConvertedSalary', 'ConvertedSalary_LG']].hist();
+so_numeric_df[['ConvertedSalary', 'ConvertedSalary_LG']].hist()
+plt.show()
 
 
 # Removing outliers
@@ -182,7 +183,9 @@ You should never retrain a scaler on the test set.
 '''
 from sklearn.model_selection import train_test_split
 
-so_numeric_df = pd.read_csv('./dataset/Combined_DS_v10.csv')[['ConvertedSalary', 'Age', 'Years Experience']]
+so_numeric_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '10_Feature Engineering for Machine Learning in Python/data/'
+                            'Combined_DS_v10.csv')[['ConvertedSalary', 'Age', 'Years Experience']]
 
 so_train_numeric, so_test_numeric = train_test_split(so_numeric_df, test_size=0.3)
 # Apply a standard scaler to the data
@@ -193,7 +196,7 @@ SS_scaler.fit(so_train_numeric[['Age']])
 
 # Transform the test data using the fitted scaler
 so_test_numeric['Age_ss'] = SS_scaler.transform(so_test_numeric[['Age']])
-so_test_numeric[['Age', 'Age_ss']].head()
+print(so_test_numeric[['Age', 'Age_ss']].head())
 
 
 '''

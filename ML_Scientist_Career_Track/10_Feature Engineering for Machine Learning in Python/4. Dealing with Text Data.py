@@ -18,7 +18,7 @@ In this chapter you will be working with a new dataset containing the inaugural 
 the United States loaded as speech_df, with the speeches stored in the text column.
 '''
 
-speech_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+speech_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                         '10_Feature Engineering for Machine Learning in Python/data/inaugural_speeches.csv')
 # Print the first 5 rows of the text column
 speech_df['text'].head()
@@ -124,7 +124,7 @@ can be combined with the rest of the dataset. This can be achieved by converting
 with the feature names you found earlier as the column names, and then concatenate it with the original DataFrame.
 '''
 # Create a DataFrame with these features
-cv_df = pd.DataFrame(cv_array, columns = cv.get_feature_names()).add_prefix('Counts_')
+cv_df = pd.DataFrame(cv_array, columns=cv.get_feature_names()).add_prefix('Counts_')
 
 # Add the new columns to the original DataFrame
 speech_df_new = pd.concat([speech_df, cv_df], axis=1, sort=False)

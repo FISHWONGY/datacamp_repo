@@ -17,11 +17,11 @@ You will be working with a modified subset of the Stackoverflow survey response 
 this course. This data set records the details, and preferences of thousands of users of the StackOverflow website.
 '''
 # Import the data
-so_survey_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+so_survey_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                            '10_Feature Engineering for Machine Learning in Python/data/Combined_DS_v10.csv')
 
 # Print the first five rows of the DataFrame
-so_survey_df.head()
+print(so_survey_df.head())
 
 # Print the data type of each column
 print(so_survey_df.dtypes)

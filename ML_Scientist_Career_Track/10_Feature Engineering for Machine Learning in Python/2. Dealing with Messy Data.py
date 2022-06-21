@@ -23,7 +23,7 @@ If you are working with Pandas you can easily check how many missing values exis
 Let's find out how many of the developers taking the survey chose to enter their age 
 (found in the Age column of so_survey_df) and their gender (Gender column of so_survey_df).
 '''
-so_survey_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+so_survey_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                            '10_Feature Engineering for Machine Learning in Python/data/Combined_DS_v10.csv')
 so_survey_df.head()
 
@@ -42,13 +42,13 @@ Using the same subset of the StackOverflow data from the last exercise (sub_df),
 you will show how a value can be flagged as missing.
 '''
 # Print the top 10 entries of the DataFrame
-sub_df.head(10)
+print(sub_df.head(10))
 
 # Print the locations of the missing values
-sub_df.head(10).isnull()
+print(sub_df.head(10).isnull())
 
 # Print the locations of the missing values
-sub_df.head(10).notnull()
+print(sub_df.head(10).notnull())
 
 
 '''
@@ -130,7 +130,7 @@ the entries present in the column.
 '''
 
 # Print the first five rows of StackOverflowJobsRecommend column
-so_survey_df['StackOverflowJobsRecommend'].head()
+print(so_survey_df['StackOverflowJobsRecommend'].head())
 
 # Fill missing values with the mean
 so_survey_df['StackOverflowJobsRecommend'].fillna(so_survey_df['StackOverflowJobsRecommend'].mean(),
@@ -187,7 +187,7 @@ so_survey_df['RawSalary'] = so_survey_df['RawSalary'].str.replace('£', '')
 so_survey_df['RawSalary'] = so_survey_df['RawSalary'].astype(float)
 
 # Print the column
-so_survey_df['RawSalary']
+print(so_survey_df['RawSalary'])
 
 
 '''
@@ -208,7 +208,7 @@ df['column'] = df['column'].method2()
 df['column'] = df['column'].method3()
 '''
 
-so_survey_df = pd.read_csv('/Volumes/My Passport for Mac/Python/Online course/datacamp_repo/ML_Scientist_Career_Track/'
+so_survey_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                            '10_Feature Engineering for Machine Learning in Python/data/Combined_DS_v10.csv')
 # Use method chaining
 so_survey_df['RawSalary'] = so_survey_df['RawSalary']\
