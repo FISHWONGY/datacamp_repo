@@ -21,7 +21,7 @@ the United States loaded as speech_df, with the speeches stored in the text colu
 speech_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                         '10_Feature Engineering for Machine Learning in Python/data/inaugural_speeches.csv')
 # Print the first 5 rows of the text column
-speech_df['text'].head()
+print(speech_df['text'].head())
 
 
 # Replace all non letter characters with a whitespace
@@ -51,7 +51,7 @@ speech_df['word_cnt'] = speech_df['text_clean'].str.split().str.len()
 speech_df['avg_word_length'] = speech_df['char_cnt'] / speech_df['word_cnt']
 
 # Print the first 5 rows of these columns
-speech_df[['text_clean', 'char_cnt', 'word_cnt', 'avg_word_length']].head()
+print(speech_df[['text_clean', 'char_cnt', 'word_cnt', 'avg_word_length']].head())
 
 
 # Word counts
@@ -128,7 +128,7 @@ cv_df = pd.DataFrame(cv_array, columns=cv.get_feature_names()).add_prefix('Count
 
 # Add the new columns to the original DataFrame
 speech_df_new = pd.concat([speech_df, cv_df], axis=1, sort=False)
-speech_df_new.head()
+print(speech_df_new.head())
 
 
 '''
@@ -151,7 +151,7 @@ tv_transformed = tv.fit_transform(speech_df['text_clean'])
 # Create a DataFrame with these features
 tv_df = pd.DataFrame(tv_transformed.toarray(),
                      columns=tv.get_feature_names()).add_prefix('TFIDF_')
-tv_df.head()
+print(tv_df.head())
 
 
 '''
@@ -193,7 +193,7 @@ test_tv_transformed = tv.transform(test_speech_df['text_clean'])
 # Create new features for the test set
 test_tv_df = pd.DataFrame(test_tv_transformed.toarray(),
                           columns=tv.get_feature_names()).add_prefix('TFIDF_')
-test_tv_df.head()
+print(test_tv_df.head())
 
 
 ###
@@ -212,6 +212,7 @@ These can be automatically created in your dataset by specifying the ngram_range
 where all n-grams in the n1 to n2 range are included.
 '''
 # Instantiate a trigram vectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 cv_trigram_vec = CountVectorizer(max_features=100,
                                  stop_words='english',
                                  ngram_range=(3, 3))
@@ -220,7 +221,7 @@ cv_trigram_vec = CountVectorizer(max_features=100,
 cv_trigram = cv_trigram_vec.fit_transform(speech_df['text_clean'])
 
 # Print the trigram features
-cv_trigram_vec.get_feature_names()[:10]
+print(cv_trigram_vec.get_feature_names()[:10])
 
 
 '''
@@ -233,4 +234,5 @@ cv_tri_df = pd.DataFrame(cv_trigram.toarray(),
                          columns=cv_trigram_vec.get_feature_names()).add_prefix('Counts_')
 
 # Print the top 5 words in the sorted output
-cv_tri_df.sum().sort_values(ascending=False).head()
+print(cv_tri_df.sum().sort_values(ascending=False).head())
+
