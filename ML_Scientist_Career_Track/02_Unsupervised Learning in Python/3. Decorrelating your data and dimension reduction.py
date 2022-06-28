@@ -36,7 +36,9 @@ To confirm this, make a scatter plot of width vs length and measure their Pearso
 '''
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/seeds-width-vs-length.csv', header=None)
-df.head()
+df = df.iloc[0: 209]
+df[0] = df[0].astype('float64')
+print(df.head())
 
 grains = df.values
 
@@ -56,7 +58,7 @@ plt.axis('equal');
 correlation, pvalue = pearsonr(width, length)
 
 # Display the correlation
-print(correlation)
+print('Correlation is: ' + str(correlation) + '\np-value is: ' + str(pvalue))
 
 
 # Decorrelating the grain measurements with PCA
@@ -87,6 +89,7 @@ correlation, pvalue = pearsonr(xs, ys)
 
 # Display the correlation
 print(correlation)
+print('Correlation is: ' + str(correlation) + '\np-value is: ' + str(pvalue))
 
 
 # Intrinsic dimension
@@ -137,7 +140,8 @@ As before, samples is a 2D array, where each row represents a fish. You'll need 
 '''
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/fish.csv', header=None)
-df.head()
+df = df.iloc[0:84]
+print(df.head())
 
 samples = df.loc[:, 1:].values
 
@@ -261,14 +265,16 @@ A solution to the previous exercise has been pre-loaded for you, so a Pipeline p
 '''
 from scipy.sparse import csc_matrix
 
-documents = pd.read_csv('./dataset/wikipedia-vectors.csv', index_col=0)
+documents = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/02_Unsupervised Learning in Python/'
+                        'data/wikipedia-vectors.csv', index_col=0)
+documents = documents.iloc[0:13124]
 titles = documents.columns
 articles = csc_matrix(documents.values).T
 
 type(articles)
 
 
-articles.T.shape
+print(articles.T.shape)
 
 # Fit the pipeline to articles
 pipeline.fit(articles)
