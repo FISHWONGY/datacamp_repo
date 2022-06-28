@@ -27,8 +27,8 @@ A sample of the grain measurements is provided in the array samples, while the v
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/seeds.csv', header=None)
 df[7] = df[7].map({1: 'Kama wheat', 2: 'Rosa wheat', 3: 'Canadian wheat'})
-df.head()
-
+print(df.head())
+df = df.iloc[0: 209]
 
 
 samples = df.iloc[:, :-1].values
@@ -58,8 +58,7 @@ so you'll need to use the normalize() function from sklearn.preprocessing instea
 '''
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/company-stock-movements-2010-2015-incl.csv', index_col=0)
-df.head()
-
+print(df.head())
 
 
 movements = df.values
@@ -104,7 +103,7 @@ The list country_names gives the name of each voting country. This dataset was o
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/eurovision-2016.csv')
-df
+print(df)
 
 samples = df.iloc[:, 2:7].values[:42]
 country_names = df.iloc[:, 1].values[:42]
@@ -129,8 +128,8 @@ and compare the labels with the grain varieties using a cross-tabulation.
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/seeds.csv', header=None)
 df[7] = df[7].map({1: 'Kama wheat', 2: 'Rosa wheat', 3: 'Canadian wheat'})
-df.head()
-
+print(df.head())
+df = df.iloc[0:209]
 
 
 samples = df.iloc[:, :-1].values
@@ -165,6 +164,7 @@ t-SNE for 2-dimensional maps
 # t-SNE visualization of grain dataset
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/seeds.csv', header=None)
+df = df.iloc[0:209]
 
 samples = df.iloc[:, :-1].values
 variety_numbers = df.iloc[:, -1].values
