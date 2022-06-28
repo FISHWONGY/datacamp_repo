@@ -337,7 +337,7 @@ From the scatter plot of the previous exercise, you saw that the points seem to 
 You'll now create a KMeans model to find 3 clusters, and fit it to the data points from the previous exercise. 
 After the model has been fit, you'll obtain the cluster labels for some new points using the .predict() method.
 '''
-new_points = np.array([[ 4.00233332e-01, -1.26544471e+00],
+new_points = np.array([[4.00233332e-01, -1.26544471e+00],
        [ 8.03230370e-01,  1.28260167e+00],
        [-1.39507552e+00,  5.57292921e-02],
        [-3.41192677e-01, -1.07661994e+00],
@@ -713,7 +713,9 @@ df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/seeds.csv', header=None)
 df[7] = df[7].map({1: 'Kama wheat', 2: 'Rosa wheat', 3: 'Canadian wheat'})
 print(df.head())
+df = df.iloc[0:209]
 
+# Samples - ndarray, varieties - ndarray
 samples = df.iloc[:, :-1].values
 varieties = df.iloc[:, -1].values
 
@@ -785,7 +787,8 @@ These fish measurement data were sourced from the Journal of Statistics Educatio
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/fish.csv', header=None)
-df.head()
+print(df.head())
+df = df.iloc[0: 84]
 
 samples = df.iloc[:, 1:].values
 species = df.iloc[:, 0].values
@@ -845,7 +848,7 @@ each company's stock price - independently of the other.
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/company-stock-movements-2010-2015-incl.csv', index_col=0)
-df.head()
+print(df.head())
 
 movements = df.values
 companies = df.index.values
