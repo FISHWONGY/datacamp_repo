@@ -34,6 +34,7 @@ from scipy.sparse import csc_matrix
 
 documents = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                         '02_Unsupervised Learning in Python/data/wikipedia-vectors.csv', index_col=0)
+documents = documents.iloc[0:13124]
 titles = documents.columns
 articles = csc_matrix(documents.values).T
 
@@ -49,7 +50,7 @@ model.fit(articles)
 nmf_features = model.transform(articles)
 
 # Print the NMF features
-print(nmf_features)
+print(nmf_features.round(2))
 
 
 # NMF features of the Wikipedia articles
@@ -82,7 +83,7 @@ following is most likely to represent the original sample? A pen and paper will 
 You have to apply the same technique Ben used in the video to reconstruct the sample [0.1203 0.1764 0.3195 0.141].
 '''
 sample_feature = np.array([2, 1])
-components = np.array([[1. , 0.5, 0. ],
+components = np.array([[1., 0.5, 0.],
                        [0.2, 0.1, 2.1]])
 
 np.matmul(sample_feature.T, components)
@@ -103,7 +104,6 @@ After you are done, take a moment to recognise the topic that the articles about
 '''
 
 
-
 words = []
 with open('./datacamp_repo/ML_Scientist_Career_Track/'
           '02_Unsupervised Learning in Python/data/wikipedia-vocabulary-utf8.txt') as f:
@@ -120,6 +120,7 @@ component = components_df.iloc[3]
 
 # Print result of nlargest
 print(component.nlargest())
+print(components_df.iloc[3].nlargest())
 
 
 # Explore the LED digits dataset
@@ -131,12 +132,13 @@ The images in your dataset are pictures of a LED digital display.
 '''
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/lcd-digits.csv', header=None)
-df.head()
+df = df.iloc[0: 99]
+print(df.head())
 
 samples = df.values
 
 # Select the 0th row: digit
-digit = samples[0]
+digit = samples[0].astype('float64')
 
 # Print digit
 print(digit)
@@ -157,6 +159,8 @@ plt.colorbar()
 Now use what you've learned about NMF to decompose the digits dataset. You are again given the digit images as a 2D array samples. 
 This time, you are also provided with a function show_as_image() that displays the image encoded by any 1D array:
 '''
+
+
 def show_as_image(sample):
     bitmap = sample.reshape((13, 8))
     plt.figure()
@@ -268,10 +272,11 @@ from scipy.sparse import coo_matrix
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '02_Unsupervised Learning in Python/data/scrobbler-small-sample.csv')
+df = df.iloc[0:2893]
 artists1 = df.sort_values(['artist_offset', 'user_offset'], ascending=[True, True])
-row_ind = np.array(artists1['artist_offset'])
-col_ind = np.array(artists1['user_offset'])
-data1 = np.array(artists1['playcount'])
+row_ind = np.array(artists1['artist_offset'].astype('int64'))
+col_ind = np.array(artists1['user_offset'].astype('int64'))
+data1 = np.array(artists1['playcount'].astype('int64'))
 artists = coo_matrix((data1, (row_ind, col_ind)))
 
 print(artists)
