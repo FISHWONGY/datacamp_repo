@@ -20,7 +20,7 @@ Recall the two steps of k-means clustering:
     Define cluster centers through kmeans() function. It has two required arguments: observations and number of clusters.
     Assign cluster labels through the vq() function. It has two required arguments: observations and cluster centers.
 '''
-comic_con = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+comic_con = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                         'data/comic_con.csv', index_col=0)
 print(comic_con.head())
 
@@ -46,21 +46,22 @@ sns.scatterplot(x='x_scaled', y='y_scaled', hue='cluster_labels', data=comic_con
 Recall that it took a significantly long time to run hierarchical clustering. 
 How long does it take to run the kmeans() function on the FIFA dataset?
 '''
-fifa = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+fifa = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                    'data/fifa_18_dataset.csv')
 print(fifa.head())
-
 
 
 fifa['scaled_sliding_tackle'] = whiten(fifa['sliding_tackle'])
 fifa['scaled_aggression'] = whiten(fifa['aggression'])
 
 from scipy.cluster.hierarchy import linkage
+import timeit
+timeit.timeit(linkage(fifa[['scaled_sliding_tackle', 'scaled_aggression']], method='ward'))
 
-linkage(fifa[['scaled_sliding_tackle', 'scaled_aggression']], method='ward')
-
-kmeans(fifa[['scaled_sliding_tackle', 'scaled_aggression']], 2)
-
+timeit.timeit('''kmeans(fifa[['scaled_sliding_tackle', 'scaled_aggression']], 2)''',
+              'from __main__ import kmeans, fifa')
+timeit.timeit('''linkage(fifa[['scaled_sliding_tackle', 'scaled_aggression']], method='ward')''',
+              'from __main__ import linkage, fifa')
 # How many clusters?
 '''
     How to find the right k?
@@ -105,7 +106,7 @@ In the earlier exercise, you constructed an elbow plot on data with well-defined
 Let us now see how the elbow plot looks on a data set with uniformly distributed points. 
 You may want to display the data points on the console before proceeding with the exercise.
 '''
-uniform_data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+uniform_data = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                            'data/uniform_data.csv', index_col=0)
 print(uniform_data.head())
 
@@ -172,10 +173,9 @@ the formation of uniform clusters.
 Let us use a mouse-like dataset for our next exercise. A mouse-like dataset is a group of points that 
 resemble the head of a mouse: it has three clusters of points arranged in circles, one each for the face and two ears of a mouse.
 '''
-mouse = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+mouse = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                     'data/mouse.csv', index_col=0)
 print(mouse.head())
-
 
 
 mouse['x_scaled'] = whiten(mouse['x_coordinate'])
@@ -197,7 +197,7 @@ In the FIFA 18 dataset, various attributes of players are present. Two such attr
     defending: a number which signifies the defending attributes of a player
     physical: a number which signifies the physical attributes of a player
 '''
-fifa = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+fifa = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                    'data/fifa_18_sample_data.csv')
 print(fifa.head())
 
