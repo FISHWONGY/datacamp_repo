@@ -141,6 +141,9 @@ In this exercise you will time how long it takes to run the algorithm on DataCam
 Remember that you can time the execution of small code snippets with:
 '''
 
+import timeit
+timeit.timeit('sum([1, 3, 2])', number=10000)
+
 # FIFA 18: exploring defenders
 '''
 In the FIFA 18 dataset, various attributes of players are present. Two such attributes are:
@@ -166,4 +169,17 @@ print(fifa[['scaled_sliding_tackle', 'scaled_aggression', 'cluster_labels']].gro
 
 # Create a scatter plot through seaborn
 sns.scatterplot(x='scaled_sliding_tackle', y='scaled_aggression', hue='cluster_labels', data=fifa)
+
+cluster = [3, 4, 5]
+for i in cluster:
+    fifa['cluster_labels'] = fcluster(distance_matrix, i, criterion='maxclust')
+
+    # Display cluster centers of each cluster
+    print(fifa[['scaled_sliding_tackle', 'scaled_aggression', 'cluster_labels']].groupby('cluster_labels').mean())
+
+    # Create a scatter plot through seaborn
+    sns.scatterplot(x='scaled_sliding_tackle', y='scaled_aggression', hue='cluster_labels', data=fifa)
+    plt.show();
+
+
 
