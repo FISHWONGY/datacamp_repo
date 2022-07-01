@@ -20,8 +20,6 @@ Recall the two steps of k-means clustering:
     Define cluster centers through kmeans() function. It has two required arguments: observations and number of clusters.
     Assign cluster labels through the vq() function. It has two required arguments: observations and cluster centers.
 '''
-
-
 comic_con = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                         'data/comic_con.csv', index_col=0)
 print(comic_con.head())
@@ -33,6 +31,7 @@ comic_con['y_scaled'] = whiten(comic_con['y_coordinate'])
 from scipy.cluster.vq import kmeans, vq
 
 # Generate cluster centers
+# kmeans(df['observation'], num of cluster, iter, threshold, check_finite)
 cluster_centers, distortions = kmeans(comic_con[['x_scaled', 'y_scaled']], 2)
 
 # Assign cluster labels
