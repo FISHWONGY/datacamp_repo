@@ -19,7 +19,7 @@ the model is at predicting the popularity of the 50 candies the model was built 
 and the 35 candies (X_test) it has never seen. You will use the mean absolute error, mae(), as the accuracy metric.
 '''
 
-candy = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+candy = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                     '11_Model Validation in Python/data/candy-data.csv')
 print(candy.head())
 
@@ -111,7 +111,7 @@ In this exercise, you look at the methods, .predict() and .predict_proba() using
 The first method will give a prediction of whether Player One will win the game, and the second method will 
 provide the probability of Player One winning.
 '''
-tic_tac_toe = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+tic_tac_toe = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                           '11_Model Validation in Python/data/tic-tac-toe.csv')
 print(tic_tac_toe.head())
 
