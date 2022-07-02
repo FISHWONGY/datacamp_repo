@@ -27,7 +27,7 @@ g = []
 b = []
 
 # Read batman image and print dimensions
-batman_image = img.imread('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+batman_image = img.imread('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                           'data/batman.jpg')
 print(batman_image.shape)
 
@@ -66,7 +66,7 @@ elbow_plot = pd.DataFrame({'num_clusters': num_clusters, 'distortions': distorti
 # Create a line plot of num_clusters and distortions
 sns.lineplot(x='num_clusters', y='distortions', data=elbow_plot);
 plt.xticks(num_clusters);
-
+# 3 clusters look make sense
 
 '''
 Display dominant colors
@@ -92,7 +92,7 @@ for cluster_center in cluster_centers:
 
 # Display colors of cluster centers
 plt.imshow([colors])
-
+plt.show()
 
 # Document clustering
 '''
@@ -122,7 +122,7 @@ Use the TfidfVectorizer class to perform the TF-IDF of movie plots stored in the
 The remove_noise() function is available to use as a tokenizer in the TfidfVectorizer class. 
 The .fit_transform() method fits the data into the TfidfVectorizer objects and then generates the TF-IDF sparse matrix.
 '''
-movie = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+movie = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                     'data/movies_plot.csv')
 print(movie.head())
 
@@ -131,7 +131,14 @@ plots = movie['Plot'].values
 
 from nltk.tokenize import word_tokenize
 import re
+import ssl
 
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
 import nltk
 nltk.download('punkt')
 
@@ -175,7 +182,7 @@ num_clusters = 2
 cluster_centers, distortion = kmeans(tfidf_matrix.todense(), num_clusters)
 
 # Generate terms from the tfidf_vectorizer object
-terms = tfidf_vectorizer.get_feature_names()
+terms = tfidf_vectorizer.get_feature_names_out()
 
 for i in range(num_clusters):
     # Sort the terms and print top 3 terms
@@ -193,7 +200,7 @@ are features that are present in attack minded players.
 In this exercise, k-means clustering has already been applied on the data using the scaled values of these three attributes. 
 Try some basic checks on the clusters so formed.
 '''
-fifa = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
+fifa = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/06_Cluster Analysis in Python/'
                    'data/fifa_18_sample_data.csv')
 print(fifa.head())
 
@@ -222,7 +229,7 @@ dribbling (dri), defending (def), physical (phy).
 fifa['scaled_def'] = whiten(fifa['def'])
 fifa['scaled_phy'] = whiten(fifa['phy'])
 
-scaled_features = ['scaled_pac', 'scaled_sho', 'scaled_pac', 'scaled_dri', 'scaled_def', 'scaled_phy']
+scaled_features = ['scaled_pac', 'scaled_sho', 'scaled_dri', 'scaled_def', 'scaled_phy']
 
 # Create centroids with kmeans for 2 clusters
 cluster_centers, _ = kmeans(fifa[scaled_features], 2)
