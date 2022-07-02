@@ -6,10 +6,9 @@ plt.rcParams['figure.figsize'] = (8, 8)
 
 
 # Creating train,test, and validation datasets
-tic_tac_toe = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+tic_tac_toe = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                           '11_Model Validation in Python/data/tic-tac-toe.csv')
 print(tic_tac_toe.head())
-
 
 
 from sklearn.model_selection import train_test_split
@@ -161,7 +160,7 @@ Here, you have created a random forest model using the tic_tac_toe dataset rfc t
 
 Note: If you read about confusion matrices on another website or for another programming language, the values might be reversed
 '''
-tic_tac_toe = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+tic_tac_toe = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                           '11_Model Validation in Python/data/tic-tac-toe.csv')
 # Create dummy variables using pandas
 X = pd.get_dummies(tic_tac_toe.iloc[:, 0:9])
@@ -235,7 +234,7 @@ very few in the holdout sample. Our model might only see that chocolate is a vit
 but fail to find that other attributes are also important. 
 In this exercise, you'll explore how using too many features (columns) in a random forest model can lead to overfitting.
 '''
-candy = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+candy = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                     '11_Model Validation in Python/data/candy-data.csv')
 
 X = candy.drop(['competitorname', 'winpercent'], axis=1)
@@ -312,9 +311,8 @@ print("The training scores were: {}".format(train_scores))
 print("The testing scores were: {}".format(test_scores))
 
 
-
 x = [1, 2, 3, 4, 5, 10, 20, 50]
-tmp = pd.DataFrame({'x':x, 'training':train_scores, 'test':test_scores})
+tmp = pd.DataFrame({'x': x, 'training': train_scores, 'test': test_scores})
 tmp.set_index('x', inplace=True)
 tmp.plot(title='train/test score for n_estimators');
 
