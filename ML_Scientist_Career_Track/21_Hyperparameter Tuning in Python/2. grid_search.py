@@ -57,6 +57,7 @@ for learn_rate in learn_rate_list:
         
 # Print the results
 pprint(results_list)
+# List = Learning rate, max depth, accuracy
 
 # Extend the function input
 def gbm_grid_search_extended(learn_rate, max_depth, subsample):
@@ -71,6 +72,7 @@ def gbm_grid_search_extended(learn_rate, max_depth, subsample):
 
 
 # Create the new list to test
+results_list = []
 subsample_list = [0.4, 0.6]
 
 for learn_rate in learn_rate_list:
@@ -82,6 +84,7 @@ for learn_rate in learn_rate_list:
             
 # Print the results
 pprint(results_list)
+# List = learning rate, max depth, subsample, accuracy
 
 """## Grid Search with Scikit Learn
 - Steps in a Grid Search
@@ -176,6 +179,10 @@ print(best_score)
 cv_results_df = pd.DataFrame(grid_rf_class.cv_results_)
 best_row = cv_results_df.loc[[grid_rf_class.best_index_]]
 print(best_row)
+
+# Get the n_estimators parameter from the best-performing square and print
+best_n_estimators = grid_rf_class.best_params_["n_estimators"]
+print(best_n_estimators)
 
 # Get the max_depth parameter from the best-performing square and print
 best_max_depth = grid_rf_class.best_params_['max_depth']
