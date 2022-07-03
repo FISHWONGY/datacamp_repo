@@ -69,17 +69,21 @@ chosen_tree = rf_clf.estimators_[6]
 
 # Export with dot 
 export_graphviz(chosen_tree,
-                out_file='tree6.dot',
+                out_file='./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+                         '21_Hyperparameter Tuning in Python/tree6.dot',
                 feature_names=X_train.columns,
                 filled=True,
                 rounded=True)
-(graph, ) = pydot.graph_from_dot_file('tree6.dot')
+(graph, ) = pydot.graph_from_dot_file('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+                                      '21_Hyperparameter Tuning in Python/tree6.dot')
 
 # Convert dot to png
-graph.write_png('tree_viz_image.png')
+graph.write_png('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+                '21_Hyperparameter Tuning in Pythontree_viz_image.png')
 
 # Visualize the graph using the provided image
-tree_viz_image = plt.imread('tree_viz_image.png')
+tree_viz_image = plt.imread('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+                            '21_Hyperparameter Tuning in Pythontree_viz_image.png')
 plt.figure(figsize=(16, 10))
 plt.imshow(tree_viz_image, aspect='auto');
 plt.axis('off')
@@ -98,9 +102,12 @@ print('This node split on feature {}, at a value of {}'.format(split_column_name
     - The algorithm does not learn these
 
 ### Exploring Random Forest Hyperparameters
-Understanding what hyperparameters are available and the impact of different hyperparameters is a core skill for any data scientist. As models become more complex, there are many different settings you can set, but only some will have a large impact on your model.
+Understanding what hyperparameters are available and the impact of different hyperparameters is a 
+core skill for any data scientist. As models become more complex, there are many different settings you can set, 
+but only some will have a large impact on your model.
 
-You will now assess an existing random forest model (it has some bad choices for hyperparameters!) and then make better choices for a new random forest model and assess its performance.
+You will now assess an existing random forest model (it has some bad choices for hyperparameters!) 
+and then make better choices for a new random forest model and assess its performance.
 """
 
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -161,9 +168,12 @@ print('The accuracy of 5, 10, 20 neighbors was {}, {}, {}'.format(knn_5_accuracy
 """## Setting & Analyzing Hyperparameter Values
 
 ### Automating Hyperparameter Choice
-Finding the best hyperparameter of interest without writing hundreds of lines of code for hundreds of models is an important efficiency gain that will greatly assist your future machine learning model building.
+Finding the best hyperparameter of interest without writing hundreds of lines of code for hundreds of models is 
+an important efficiency gain that will greatly assist your future machine learning model building.
 
-An important hyperparameter for the GBM algorithm is the learning rate. But which learning rate is best for this problem? By writing a loop to search through a number of possibilities, collating these and viewing them you can find the best one.
+An important hyperparameter for the GBM algorithm is the learning rate. But which learning rate is best for 
+this problem? By writing a loop to search through a number of possibilities, collating these and 
+viewing them you can find the best one.
 
 Possible learning rates to try include 0.001, 0.01, 0.05, 0.1, 0.2 and 0.5
 """
@@ -185,11 +195,20 @@ for learning_rate in learning_rates:
 # Gather everything into a DataFrame
 results_df = pd.DataFrame(results_list, columns=['learning_rate', 'accuracy'])
 print(results_df)
+# Learning rate - 0.05 is the best
 
-"""### Building Learning Curves
-If we want to test many different values for a single hyperparameter it can be difficult to easily view that in the form of a DataFrame. Previously you learned about a nice trick to analyze this. A graph called a 'learning curve' can nicely demonstrate the effect of increasing or decreasing a particular hyperparameter on the final result.
 
-Instead of testing only a few values for the learning rate, you will test many to easily see the effect of this hyperparameter across a large range of values. A useful function from NumPy is `np.linspace(start, end, num)` which allows you to create a number of values (`num`) evenly spread within an interval (`start`, `end`) that you specify.
+"""
+### Building Learning Curves
+If we want to test many different values for a single hyperparameter it can be difficult to 
+easily view that in the form of a DataFrame. Previously you learned about a nice trick to analyze this. 
+A graph called a 'learning curve' can nicely demonstrate the effect of increasing or decreasing a 
+particular hyperparameter on the final result.
+
+Instead of testing only a few values for the learning rate, you will test many to easily see the 
+effect of this hyperparameter across a large range of values. A useful function from NumPy is
+ `np.linspace(start, end, num)` which allows you to create a number of values (`num`) 
+ evenly spread within an interval (`start`, `end`) that you specify.
 """
 
 # Set the learning rates & accuracies list
@@ -204,7 +223,11 @@ for learn_rate in learn_rates:
     accuracies.append(accuracy_score(y_test, predictions))
     
 # Plot results
-plt.plot(learn_rates, accuracies);
+plt.plot(learn_rates, accuracies)
 plt.gca().set(xlabel='learning_rate', ylabel='Accuracy', title='Accuracy for different learning_rates');
+# Learning rate - 1.38 is the best
 
-"""You can see that for low values, you get a pretty good accuracy. However once the learning rate pushes much above 1.5, the accuracy starts to drop. """
+"""
+You can see that for low values, you get a pretty good accuracy. 
+However once the learning rate pushes much above 1.5, the accuracy starts to drop.
+"""

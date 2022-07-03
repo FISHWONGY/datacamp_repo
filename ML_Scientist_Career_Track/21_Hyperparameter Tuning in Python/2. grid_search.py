@@ -37,8 +37,12 @@ def gbm_grid_search(learn_rate, max_depth):
     # Return the hyperparameters and score
     return ([learn_rate, max_depth, accuracy_score(y_test, predictions)])
 
-"""### Iteratively tune multiple hyperparameters
-In this exercise, you will build on the function you previously created to take in 2 hyperparameters, build a model and return the results. You will now use that to loop through some values and then extend this function and loop with another hyperparameter.
+
+"""
+# Iteratively tune multiple hyperparameters
+In this exercise, you will build on the function you previously created to take in 2 hyperparameters,
+build a model and return the results. You will now use that to loop through some values and then 
+extend this function and loop with another hyperparameter.
 """
 
 # Create the relevant lists
@@ -64,6 +68,7 @@ def gbm_grid_search_extended(learn_rate, max_depth, subsample):
     
     # Extend the return part
     return([learn_rate, max_depth, subsample, accuracy_score(y_test, predictions)])
+
 
 # Create the new list to test
 subsample_list = [0.4, 0.6]
