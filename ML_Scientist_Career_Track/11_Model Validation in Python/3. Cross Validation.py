@@ -14,7 +14,7 @@ generalize as well as others. You have created training and testing splits just 
 After trying a different training, test split, you noticed differing accuracies for your machine learning model. 
 Before getting too frustrated with the varying results, you have decided to see what else could be going on.
 '''
-tic_tac_toe = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+tic_tac_toe = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                           '11_Model Validation in Python/data/tic-tac-toe.csv')
 print(tic_tac_toe.head())
 
@@ -39,10 +39,11 @@ You just finished running a colleagues code that creates a random forest model a
 
 To get a better estimate for how accurate this random forest model will be on new data, you have decided to generate some indices to use for KFold cross-validation.
 '''
-candy = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+candy = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                     '11_Model Validation in Python/data/candy-data.csv')
 print(candy.head())
 
+# X, y = ndarray
 X = candy.drop(['competitorname', 'winpercent'], axis=1).to_numpy()
 y = candy['winpercent'].to_numpy()
 
