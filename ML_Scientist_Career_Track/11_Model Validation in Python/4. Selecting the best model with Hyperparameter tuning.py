@@ -22,7 +22,7 @@ Hyperparameter tuning
 from sklearn.ensemble import RandomForestRegressor
 
 rfr = RandomForestRegressor(n_estimators='warn', max_features='auto', random_state=1111)
-rfr.get_params()
+print(rfr.get_params())
 
 
 # Maximum Depth
@@ -47,7 +47,7 @@ rfr = RandomForestRegressor(
     n_estimators=100,
     max_depth=random.sample(max_depth, 1)[0],
     min_samples_split=random.sample(min_samples_split, 1)[0],
-    max_features = random.sample(max_features, 1)[0]
+    max_features=random.sample(max_features, 1)[0]
 )
 
 # Print out the parameters
@@ -100,7 +100,7 @@ random_search = RandomizedSearchCV(estimator=rfr,
                                    n_iter=10,
                                    cv=5,
                                    scoring=scorer
-                                  )
+                                   )
 
 
 # Selecting your final model
@@ -110,7 +110,7 @@ Best classification accuracy
 You are in a competition at work to build the best model for predicting the winner of a Tic-Tac-Toe game. 
 You already ran a random search and saved the results of the most accurate model to rs.
 '''
-tic_tac_toe = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+tic_tac_toe = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                           '11_Model Validation in Python/data/tic-tac-toe.csv')
 # Create dummy variables using pandas
 X = pd.get_dummies(tic_tac_toe.iloc[:, 0:9])
@@ -124,7 +124,7 @@ rfc = RandomForestClassifier(max_features='auto')
 param_dist = {
     'max_depth': [2, 4, 8, 12],
     'min_samples_split': [2, 4, 6, 8],
-    'n_estimators':[10, 20, 30]
+    'n_estimators': [10, 20, 30]
 }
 
 rs = RandomizedSearchCV(estimator=rfc, param_distributions=param_dist, n_iter=10,
@@ -140,7 +140,7 @@ Your boss has offered to pay for you to see three sports games this year. Of the
 
 To do this, you will build a random search algorithm and focus on model precision (to ensure your team wins). You also want to keep track of your best model and best parameters, so that you can use them again next year (if the model does well, of course).
 '''
-sports = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+sports = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
                      '11_Model Validation in Python/data/sports.csv')
 X = sports.drop('win', axis=1)
 y = sports['win']
@@ -169,6 +169,9 @@ rs.fit(X, y)
 print('The accuracy for each run was: {}.'.format(rs.cv_results_['mean_test_score']))
 # Print the best model scores:
 print('The best accuracy for a single model was: {}'.format(rs.best_score_))
+# To get the best params
+print(rs.best_params_)
+
 # Your model's precision was 91%! The best model accurately predicts a winning game 91% of the time.
 # If you look at the mean test scores, you can tell some of the other parameter sets did really poorly.
 # Also, since you used cross-validation, you can be confident in your predictions. Well done!
