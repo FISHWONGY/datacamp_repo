@@ -32,7 +32,7 @@ combinations_list = [list(x) for x in product(learn_rate_list, min_samples_list)
 
 # Sample hyperparameter combinations for a randomsearch
 random_combinations_index = np.random.choice(range(0, len(combinations_list)), 
-                                             30, replace=False)
+                                             250, replace=False)
 combinations_random_chosen = [combinations_list[x] for x in random_combinations_index]
 
 # Print the result
@@ -57,7 +57,7 @@ max_depth_list = list(range(3, 56))
 combinations_list = [list(x) for x in product(criterion_list, max_feature_list, max_depth_list)]
 
 # Cample hyperparameter combinations for a random search
-combinations_random_chosen = random.sample(combinations_list, 30)
+combinations_random_chosen = random.sample(combinations_list, 150)
 
 # Print the result
 pprint(combinations_random_chosen)
@@ -106,14 +106,8 @@ combinations_list = [list(x) for x in product(learn_rate_list, min_samples_list)
 number_combs = len(combinations_list)
 print(number_combs)
 
-# Sample and visualize specified combinations
-sample_and_visualize_hyperparameters(50)
-
-# Sample and visualize specified combinations
-sample_and_visualize_hyperparameters(500)
-
-# Sample and visualize specified combinations
-sample_and_visualize_hyperparameters(1500)
+for x in [50, 500, 1500]:
+    sample_and_visualize_hyperparameters(x)
 
 # Sample all the hyperparameter combinations & visualize
 sample_and_visualize_hyperparameters(number_combs)
@@ -148,7 +142,7 @@ The hyperparameter grid should be for `learning_rate` (150 values between 0.1 an
 
 from sklearn.model_selection import train_test_split
 
-credit_card = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+credit_card = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                           '21_Hyperparameter Tuning in Python/data/credit-card-full.csv')
 # To change categorical variable with dummy variables
 credit_card = pd.get_dummies(credit_card, columns=['SEX', 'EDUCATION', 'MARRIAGE'], drop_first=True)
@@ -263,3 +257,4 @@ random_combinations_chosen = [combinations_list[index] for index in random_index
 
 # Call the function to produce the visualization
 visualize_search(grid_combinations_chosen, random_combinations_chosen)
+
