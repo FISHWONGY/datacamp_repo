@@ -36,7 +36,7 @@ combinations_list = [list(x) for x in product(max_depth_list,
                                               min_samples_leaf_list, 
                                               learn_rate_list)]
 
-results_df = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+results_df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                          '21_Hyperparameter Tuning in Python/data/results_df.csv')
 
 # Confirm the size fo the combinations_list
@@ -55,7 +55,8 @@ visualize_hyperparameter('min_samples_leaf')
 
 visualize_hyperparameter('learn_rate')
 
-"""We have undertaken the first step of a Coarse to Fine search. Results clearly seem better when `max_depth` is below 20. learn_rates smaller than 1 seem to perform well too. There is not a strong trend for `min_samples` leaf though.
+"""We have undertaken the first step of a Coarse to Fine search. Results clearly seem better when `max_depth` is below 20. 
+learn_rates smaller than 1 seem to perform well too. There is not a strong trend for `min_samples` leaf though.
 
 ### Coarse to Fine Iterations
 You will now visualize the first random search undertaken, construct a tighter grid and check the results.
@@ -67,7 +68,7 @@ def visualize_first():
         plt.clf()
         plt.scatter(results_df[name], results_df['accuracy'], c=['blue']*500)
         plt.gca().set(xlabel='{}'.format(name), ylabel='accuracy', title='Accuracy for different {}s'.format(name))
-        plt.gca().set_ylim([0,100])
+        plt.gca().set_ylim([0, 100])
         x_line = 20
         if name == "learn_rate":
             x_line = 1
@@ -94,7 +95,7 @@ def visualize_second():
 max_depth_list = list(range(1, 21))
 learn_rate_list = np.linspace(0.001, 1, 50)
 
-results_df2 = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+results_df2 = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                           '21_Hyperparameter Tuning in Python/data/results_df2.csv')
 
 visualize_second()
@@ -151,7 +152,7 @@ Note that for the purpose of this exercise, this process was reduced in data sam
 
 from sklearn.model_selection import train_test_split
 
-credit_card = pd.read_csv('./Online course/datacamp_repo/ML_Scientist_Career_Track/'
+credit_card = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                           '21_Hyperparameter Tuning in Python/data/credit-card-full.csv')
 # To change categorical variable with dummy variables
 credit_card = pd.get_dummies(credit_card, columns=['SEX', 'EDUCATION', 'MARRIAGE'], drop_first=True)
@@ -162,6 +163,9 @@ y = credit_card['default payment next month']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, shuffle=True)
 
 import hyperopt as hp
+'''
+install hyperopt 0.2.5 inorder for everything to work, 0.2.7 breaks everything appraently
+'''
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
 
@@ -172,19 +176,20 @@ space = {'max_depth': hp.hp.quniform('max_depth', 2, 10, 2),
 
 # Set up objective function
 def objective(params):
-    params = {'max_depth': int(params['max_depth']), 
+    params = {'max_depth': int(params['max_depth']),
               'learning_rate': params['learning_rate']}
     gbm_clf = GradientBoostingClassifier(n_estimators=100, **params)
-    best_score = cross_val_score(gbm_clf, X_train, y_train, 
+    best_score = cross_val_score(gbm_clf, X_train, y_train,
                                  scoring='accuracy', cv=2, n_jobs=4).mean()
     loss = 1 - best_score
     return loss
 
 
 # Run the algorithm
-best = hp.fmin(fn=objective, space=space, max_evals=20, 
+best = hp.fmin(fn=objective, space=space, max_evals=20,
                rstate=np.random.RandomState(42), algo=hp.tpe.suggest)
 print(best)
+# {'learning_rate': 0.0128515490384306, 'max_depth': 6.0}
 
 """## Informed Search - Genetic Algorithms
 - Genetics in Machine Learning
@@ -200,9 +205,11 @@ print(best)
     - Takes care of many tedious aspects of machine learning
 
 ### Genetic Hyperparameter Tuning with TPOT
-You're going to undertake a simple example of genetic hyperparameter tuning. `TPOT` is a very powerful library that has a lot of features. You're just scratching the surface in this lesson, but you are highly encouraged to explore in your own time.
+You're going to undertake a simple example of genetic hyperparameter tuning. `TPOT` is a very powerful library that has 
+a lot of features. You're just scratching the surface in this lesson, but you are highly encouraged to explore in your own time.
 
-This is a very small example. In real life, TPOT is designed to be run for many hours to find the best model. You would have a much larger population and offspring size as well as hundreds more generations to find a good model.
+This is a very small example. In real life, TPOT is designed to be run for many hours to find the best model. 
+ok  You would have a much larger population and offspring size as well as hundreds more generations to find a good model.
 
 You will create the estimator, fit the estimator to the training data and then score this on the test data.
 
@@ -234,11 +241,16 @@ tpot_clf.fit(X_train, y_train)
 
 # Score on the test set
 print(tpot_clf.score(X_test, y_test))
+# 0.821
 
-"""You can see in the output the score produced by the chosen model (in this case a version of Naive Bayes) over each generation, and then the final accuracy score with the hyperparameters chosen for the final model. This is a great first example of using TPOT for automated hyperparameter tuning.
+"""You can see in the output the score produced by the chosen model (in this case a version of Naive Bayes) over each
+ generation, and then the final accuracy score with the hyperparameters chosen for the final model. 
+ This is a great first example of using TPOT for automated hyperparameter tuning.
 
 ### Analysing TPOT's stability
-You will now see the random nature of TPOT by constructing the classifier with different random states and seeing what model is found to be best by the algorithm. This assists to see that TPOT is quite unstable when not run for a reasonable amount of time.
+You will now see the random nature of TPOT by constructing the classifier with different random states and seeing what
+ model is found to be best by the algorithm. 
+ This assists to see that TPOT is quite unstable when not run for a reasonable amount of time.
 """
 
 # Create the tpot classifier
@@ -271,4 +283,7 @@ tpot_clf.fit(X_train, y_train)
 # Score on the test set
 print(tpot_clf.score(X_test, y_test))
 
-"""You can see that TPOT is quite unstable when only running with low generations, population size and offspring. The first model chosen was a Decision Tree, then a K-nearest Neighbor model and finally a Random Forest. Increasing the generations, population size and offspring and running this for a long time will assist to produce better models and more stable results."""
+"""You can see that TPOT is quite unstable when only running with low generations, population size and offspring. 
+The first model chosen was a Decision Tree, then a K-nearest Neighbor model and finally a Random Forest. 
+Increasing the generations, population size and offspring and running this for a long time will assist to 
+produce better models and more stable results."""
