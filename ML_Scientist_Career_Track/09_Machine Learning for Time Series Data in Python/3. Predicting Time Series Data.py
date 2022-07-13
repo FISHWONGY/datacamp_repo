@@ -26,7 +26,7 @@ plt.style.use('fivethirtyeight')
 prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                      '09_Machine Learning for Time Series Data in Python/data/tsa_prices.csv',
                      index_col='date', parse_dates=True)
-prices.head()
+print(prices.head())
 
 # Plot the raw values over time
 prices.plot();
@@ -51,7 +51,7 @@ We'll use these columns to define the input/output arrays in our model.
 all_prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                          '09_Machine Learning for Time Series Data in Python/data/all_prices.csv',
                          index_col=0, parse_dates=True)
-all_prices.head()
+print(all_prices.head())
 
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
@@ -86,7 +86,7 @@ print(score)
 
 # Visualize our predictions along with the "true" values, and print the score
 fig, ax = plt.subplots(figsize=(15, 5))
-ax.plot(range(len(y_test)), y_test, color='k', lw=3);
+ax.plot(range(len(y_test)), y_test.iloc[:, 0:].values, color='k', lw=3);
 ax.plot(range(len(predictions)), predictions, color='r', lw=2);
 
 """## Advanced time series prediction
@@ -114,7 +114,8 @@ As always, you'll first start by visualizing the raw data. Take a close look and
 """
 
 prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
-                     '09_Machine Learning for Time Series Data in Python/data/prices_null.csv', index_col=0, parse_dates=True)
+                     '09_Machine Learning for Time Series Data in Python/data/prices_null.csv',
+                     index_col=0, parse_dates=True)
 
 # Visualize the dataset
 prices.plot(legend=False);
@@ -129,6 +130,7 @@ When you have missing data points, how can you fill them in?
 
 In this exercise, you'll practice using different interpolation methods to fill in some missing values, visualizing the result each time. But first, you will create the function (```interpolate_and_plot()```) you'll use to interpolate missing data points and plot them.
 """
+
 
 # Create a function we'll use to interpolate and plot
 def interpolate_and_plot(prices, interpolation):
