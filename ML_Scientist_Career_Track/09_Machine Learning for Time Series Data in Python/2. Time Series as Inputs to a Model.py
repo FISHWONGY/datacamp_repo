@@ -225,7 +225,7 @@ audio = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                     '09_Machine Learning for Time Series Data in Python/data/audio.csv',
                     index_col=0).to_numpy().squeeze()
 sfreq = 2205
-
+HOP_LENGTH = 2**4
 from librosa.display import specshow
 
 # Convert into decibels
@@ -368,3 +368,19 @@ ax = specshow(spec_db, x_axis='time', y_axis='hz', hop_length=HOP_LENGTH);
 ax.plot(times_spec, centroids);
 ax.fill_between(times_spec, centroids - bandwidths / 2, centroids + bandwidths / 2, alpha=.5);
 ax.set(ylim=[None, 6000]);
+
+
+# Loop through each spectrogram
+bandwidths = []
+centroids = []
+
+for spec in times_spec:
+    # Calculate the mean spectral bandwidth
+    this_mean_bandwidth = np.mean(lr.feature.spectral_bandwidth(S=spec))
+    # Calculate the mean spectral centroid
+    this_mean_centroid = np.mean(lr.feature.spectral_centroid(S=spec))
+    # Collect the values
+    bandwidths.append(this_mean_bandwidth)
+    centroids.append(this_mean_centroid)
+
+
