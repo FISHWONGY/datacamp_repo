@@ -12,8 +12,10 @@ plt.style.use('fivethirtyeight')
 In this exercise, you'll practice plotting the values of two time series without the time component.
 """
 
-data = pd.read_csv('./dataset/data.csv', index_col=0)
-data2 = pd.read_csv('./dataset/data2.csv', index_col=0)
+data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/data.csv', index_col=0)
+data2 = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '09_Machine Learning for Time Series Data in Python/data/data2.csv', index_col=0)
 
 # Plot the time series in each dataset
 fig, axs = plt.subplots(2, 1, figsize=(10, 10));
@@ -24,8 +26,10 @@ data2.iloc[:1000].plot(y='data_values', ax=axs[1]);
 You'll now plot both the datasets again, but with the included time stamps for each (stored in the column called "time"). Let's see if this gives you some more context for understanding each time series data.
 """
 
-data = pd.read_csv('./dataset/data_time.csv', index_col=0)
-data2 = pd.read_csv('./dataset/data_time2.csv', index_col=0)
+data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/data_time.csv', index_col=0)
+data2 = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '09_Machine Learning for Time Series Data in Python/data/data_time2.csv', index_col=0)
 
 # Plot the time series in each dataset
 fig, axs = plt.subplots(2, 1, figsize=(10, 10));
@@ -39,7 +43,8 @@ data2.iloc[:1000].plot(x='time', y='data_values', ax=axs[1]);
     - Make sure the first dimension is samples
 """
 
-data = pd.read_csv('./dataset/iris.csv', index_col=0)
+data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/iris.csv', index_col=0)
 
 sns.scatterplot(x='petal length (cm)', y='petal width (cm)', hue='target', data=data);
 
@@ -59,7 +64,8 @@ Now that you have fit your classifier, let's use it to predict the type of flowe
 Using the classifier you fit, you'll predict the type of each flower.
 """
 
-targets = pd.read_csv('./dataset/iris_target.csv', index_col=0)
+targets = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                      '09_Machine Learning for Time Series Data in Python/data/iris_target.csv', index_col=0)
 
 # Create input array
 X_predict = targets[['petal length (cm)', 'petal width (cm)']]
@@ -79,7 +85,8 @@ plt.title("Predicted class values");
 In this exercise, you'll practice fitting a regression model using data from the Boston housing market.
 """
 
-boston = pd.read_csv('./dataset/boston.csv', index_col=0)
+boston = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/boston.csv', index_col=0)
 
 plt.scatter(boston['AGE'], boston['RM']);
 
@@ -97,10 +104,14 @@ model.fit(X, y)
 Now that you've fit a model with the Boston housing data, lets see what predictions it generates on some new data. You can investigate the underlying relationship that the model has found between inputs and outputs by feeding in a range of numbers as inputs and seeing what the model predicts for each input.
 """
 
-new_inputs = np.array(pd.read_csv('./dataset/boston_newinputs.csv', index_col=0, header=None).values)
+new_inputs = np.array(pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                                  '09_Machine Learning for Time Series Data in Python/data/boston_newinputs.csv',
+                                  index_col=0, header=None).values)
 
+model = linear_model.LinearRegression()
 # Generate predictions with the model using those inputs
 predictions = model.predict(new_inputs)
+# predictions = model.predict(new_inputs.reshape(-1, 1))
 
 # Visualizae the inputs and predicted values
 plt.scatter(new_inputs, predictions, color='r', s=3);
@@ -121,7 +132,8 @@ import librosa as lr
 from glob import glob
 
 # List all the wav files in the folder
-audio_files = glob('./dataset/files/*.wav')
+audio_files = glob('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/files/*.wav')
 
 # Read in the first audio file, create the time array
 audio, sfreq = lr.load(audio_files[0])
@@ -139,7 +151,8 @@ In this exercise, you'll plot the time series for a number of companies to get a
 """
 
 # Read in the data
-data = pd.read_csv('./dataset/prices_nyse.csv', index_col=0)
+data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/prices_nyse.csv', index_col=0)
 
 # Convert the index of the DataFrame to datetime
 data.index = pd.to_datetime(data.index)

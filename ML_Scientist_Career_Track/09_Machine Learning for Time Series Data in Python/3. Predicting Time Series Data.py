@@ -23,7 +23,9 @@ plt.style.use('fivethirtyeight')
        $1 - \frac{\text{error}(model)}{\text{variance}(testdata)}$
 """
 
-prices = pd.read_csv('./dataset/tsa_prices.csv', index_col='date', parse_dates=True)
+prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/tsa_prices.csv',
+                     index_col='date', parse_dates=True)
 prices.head()
 
 # Plot the raw values over time
@@ -46,7 +48,9 @@ apple: "AAPL"
 We'll use these columns to define the input/output arrays in our model.
 """
 
-all_prices = pd.read_csv('./dataset/all_prices.csv', index_col=0, parse_dates=True)
+all_prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '09_Machine Learning for Time Series Data in Python/data/all_prices.csv',
+                         index_col=0, parse_dates=True)
 all_prices.head()
 
 from sklearn.linear_model import Ridge
@@ -71,7 +75,7 @@ from sklearn.metrics import r2_score
 
 # Split our data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8,
-                                                   shuffle=False, random_state=1)
+                                                    shuffle=False, random_state=1)
 
 # Fit our model and generate predictions
 model = Ridge()
@@ -109,7 +113,8 @@ Let's take a look at a new dataset - this one is a bit less-clean than what you'
 As always, you'll first start by visualizing the raw data. Take a close look and try to find datapoints that could be problematic for fitting models.
 """
 
-prices = pd.read_csv('./dataset/prices_null.csv', index_col=0, parse_dates=True)
+prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/prices_null.csv', index_col=0, parse_dates=True)
 
 # Visualize the dataset
 prices.plot(legend=False);

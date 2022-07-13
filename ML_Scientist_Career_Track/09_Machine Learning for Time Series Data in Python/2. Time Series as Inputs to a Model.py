@@ -16,13 +16,17 @@ You'll use the heartbeat data described in the last chapter. Some recordings are
 Two DataFrames, ```normal``` and ```abnormal```, each with the shape of ```(n_times_points, n_audio_files)``` containing the audio for several heartbeats are available in your workspace.
 """
 
+
 def show_plot_and_make_titles():
     axs[0, 0].set(title="Normal Heartbeats")
     axs[0, 1].set(title="Abnormal Heartbeats")
     plt.tight_layout()
 
-normal = pd.read_csv('./dataset/normal_sound.csv', index_col=0)
-abnormal = pd.read_csv('./dataset/abnormal_sound.csv', index_col=0)
+
+normal = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/normal_sound.csv', index_col=0)
+abnormal = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '09_Machine Learning for Time Series Data in Python/data/abnormal_sound.csv', index_col=0)
 sfreq = 2205
 
 fig, axs = plt.subplots(3, 2, figsize=(15, 7), sharex=True, sharey=True)
@@ -62,8 +66,10 @@ ax2.set(title='Abnormal Data');
 While eye-balling differences is a useful way to gain an intuition for the data, let's see if you can operationalize things with a model. In this exercise, you will use each repetition as a datapoint, and each moment in time as a feature to fit a classifier that attempts to predict abnormal vs. normal heartbeats using only the raw data.
 """
 
-normal = pd.read_csv('./dataset/heart_normal.csv', index_col=0)
-abnormal = pd.read_csv('./dataset/heart_abnormal.csv', index_col=0)
+normal = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/heart_normal.csv', index_col=0)
+abnormal = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '09_Machine Learning for Time Series Data in Python/data/heart_abnormal.csv', index_col=0)
 
 normal_train_idx = np.random.choice(normal.shape[1], size=22, replace=False).tolist()
 normal_test_idx = list(set(np.arange(normal.shape[1]).tolist()) - set(normal_train_idx))
@@ -105,25 +111,27 @@ print(sum(predictions == y_test.squeeze()) / len(y_test))
 ### Calculating the envelope of sound
 One of the ways you can improve the features available to your model is to remove some of the noise present in the data. In audio data, a common way to do this is to smooth the data and then rectify it so that the total amount of sound energy over time is more distinguishable. You'll do this in the current exercise.
 """
-
-audio, sfreq = lr.load('./dataset/files/murmur__201108222238.wav')
+import librosa as lr
+audio, sfreq = lr.load('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '09_Machine Learning for Time Series Data in Python/data/files/murmur__201108222238.wav')
 time = np.arange(0, len(audio)) / sfreq
 
 audio = pd.DataFrame(audio)
 
-plt.plot(time[:2205], audio[:2205]);
+# change audio to ndarray in order to plot it out - audio.iloc[:, 0:].values
+plt.plot(time[:2205], audio.iloc[:, 0:].values[:2205])
 
 # Rectify the audio signal
 audio_rectified = audio.apply(np.abs)
 
 # Plot the result
-plt.plot(time[:2205], audio_rectified[:2205]);
+plt.plot(time[:2205], audio_rectified.iloc[:, 0:].values[:2205]);
 
 # Smooth by applying a rolling mean
 audio_rectified_smooth = audio_rectified.rolling(50).mean()
 
 # Plot the result
-plt.plot(time[:2205], audio_rectified_smooth[:2205])
+plt.plot(time[:2205], audio_rectified_smooth.iloc[:, 0:].values[:2205])
 
 """### Calculating features from the envelope
 Now that you've removed some of the noisier fluctuations in the audio, let's see if this improves your ability to classify.
@@ -150,7 +158,8 @@ One benefit of cleaning up your data is that it lets you compute more sophistica
 Note that ```librosa``` functions tend to only operate on numpy arrays instead of DataFrames, so we'll access our Pandas data as a Numpy array with the ```.values``` attribute.
 """
 
-audio = pd.read_csv('./dataset/heart_normal.csv',index_col=0)
+audio = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '09_Machine Learning for Time Series Data in Python/data/heart_normal.csv', index_col=0)
 
 # Calculate the tempo of the sounds
 tempos = []
@@ -198,7 +207,8 @@ print(np.mean(percent_score))
 Spectral engineering is one of the most common techniques in machine learning for time series data. The first step in this process is to calculate a spectrogram of sound. This describes what spectral content (e.g., low and high pitches) are present in the sound over time. In this exercise, you'll calculate a spectrogram of a heartbeat audio file.
 """
 
-audio, sfreq = lr.load('./dataset/files/murmur__201108222246.wav')
+audio, sfreq = lr.load('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '09_Machine Learning for Time Series Data in Python/data/files/murmur__201108222246.wav')
 
 from librosa.core import stft, amplitude_to_db
 
@@ -207,10 +217,13 @@ from librosa.core import stft, amplitude_to_db
 # spec = stft(audio, hop_length=HOP_LENGTH, n_fft=2**7)
 
 # For the test
-spec = pd.read_csv('./dataset/spec.csv', index_col=0)
+spec = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '09_Machine Learning for Time Series Data in Python/data/spec.csv', index_col=0)
 spec = spec.applymap(complex)
 time = np.array(normal.index)
-audio = pd.read_csv('./dataset/audio.csv', index_col=0).to_numpy().squeeze()
+audio = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '09_Machine Learning for Time Series Data in Python/data/audio.csv',
+                    index_col=0).to_numpy().squeeze()
 sfreq = 2205
 
 from librosa.display import specshow
@@ -220,7 +233,7 @@ spec_db = amplitude_to_db(spec)
 
 # Compare the raw audio to the spectrogram of the audio
 fig, axs = plt.subplots(2, 1, figsize=(10, 10), sharex=True)
-axs[0].plot(time,audio)
+axs[0].plot(time, audio)
 specshow(spec_db, sr=sfreq, x_axis='time', y_axis='hz', hop_length=HOP_LENGTH);
 
 """### Engineering spectral features

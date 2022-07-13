@@ -23,7 +23,9 @@ In machine learning for time series, it's common to use information about previo
 In this exercise, you'll "shift" your raw data and visualize the results. You'll use the percent change time series that you calculated in the previous chapter, this time with a very short window. A short window is important because, in a real-world scenario, you want to predict the day-to-day fluctuations of a time series, not its change over a longer window of time.
 """
 
-prices = pd.read_csv('./dataset/prices_nyse.csv', index_col=0, parse_dates=True)
+prices = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '09_Machine Learning for Time Series Data in Python/data/prices_nyse.csv', index_col=0,
+                     parse_dates=True)
 prices = prices[['AAPL']]
 
 # Your custom function
@@ -65,8 +67,8 @@ prices_perc_shifted = pd.DataFrame(shifted_data)
 
 # Plot the first 100 samples of each
 fig, ax = plt.subplots(figsize=(20, 10));
-prices_perc_shifted.iloc[:100].plot(cmap=plt.cm.viridis, ax=ax);
-prices_perc.iloc[:100].plot(color='r', lw=2, ax=ax);
+prices_perc_shifted.iloc[:100].plot(cmap=plt.cm.viridis, ax=ax)
+prices_perc.iloc[:100].plot(color='r', lw=2, ax=ax)
 ax.legend(loc='best');
 
 """### Special case: Auto-regressive models
@@ -149,8 +151,10 @@ visualize_coefficients(model.coef_, prices_perc_shifted.columns, ax=axs[1]);
 As you'll recall, cross-validation is the process of splitting your data into training and test sets multiple times. Each time you do this, you choose a different training and test set. In this exercise, you'll perform a traditional ```ShuffleSplit``` cross-validation on the company value data from earlier. Later we'll cover what changes need to be made for time series data. The data we'll use is the same historical price data for several large companies.
 """
 
-X = pd.read_csv('./dataset/x.csv', index_col=0).to_numpy()
-y = pd.read_csv('./dataset/y.csv', index_col=0).to_numpy()
+X = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                '09_Machine Learning for Time Series Data in Python/data/x.csv', index_col=0).to_numpy()
+y = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                '09_Machine Learning for Time Series Data in Python/data/y.csv', index_col=0).to_numpy()
 
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
@@ -289,8 +293,10 @@ In this lesson, you'll re-run the cross-validation routine used before, but this
 Begin by assessing the stability (or uncertainty) of a model's coefficients across multiple CV splits. Remember, the coefficients are a reflection of the pattern that your model has found in the data.
 """
 
-X = pd.read_csv('./dataset/stock_12x.csv', index_col=0).to_numpy()
-y = pd.read_csv('./dataset/stock_12y.csv', index_col=0).to_numpy()
+X = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                '09_Machine Learning for Time Series Data in Python/data/stock_12x.csv', index_col=0).to_numpy()
+y = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                '09_Machine Learning for Time Series Data in Python/data/stock_12y.csv', index_col=0).to_numpy()
 
 feature_names = np.array(['AAPL_lag_1_day', 'YHOO_lag_1_day', 'NVDA_lag_1_day', 'AAPL_lag_2_day',
        'YHOO_lag_2_day', 'NVDA_lag_2_day', 'AAPL_lag_3_day', 'YHOO_lag_3_day',
