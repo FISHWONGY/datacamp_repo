@@ -61,6 +61,7 @@ shifts = np.arange(1, 11).astype(int)
 # Use a dictionary comprehension to create name: value pairs, one pair per shift
 shifted_data = {"lag_{}_day".format(day_shift): 
                 prices_perc['AAPL'].shift(day_shift) for day_shift in shifts}
+# shifted_data = {"lag_{}_day".format(day_shift): prices_perc.shift(day_shift) for day_shift in shifts}
 
 # Convert into a DataFrame for subsequent use
 prices_perc_shifted = pd.DataFrame(shifted_data)
@@ -212,7 +213,7 @@ for tr, tt in cv.split(X, y):
     
     # Generate predictions on the test data and collect
     prediction = model.predict(X[tt])
-    results.append((prediction, _, tt))
+    results.append((prediction, tt))
     
 # Custom function to quickly visualize predictions
 visualize_predictions(results)
@@ -270,6 +271,7 @@ This function takes three parameters: a 2-D array of numbers (```data```), a lis
 """
 
 from sklearn.utils import resample
+
 
 def bootstrap_interval(data, percentiles=(2.5, 97.5), n_boots=100):
     """Bootstrap a confidence interval for the mean of columns of a 1- or 2-D dataset."""
@@ -355,6 +357,7 @@ plt.setp(ax.get_xticklabels(), rotation=45, horizontalalignment='right');
 """### Visualizing model score variability over time
 Now that you've assessed the variability of each coefficient, let's do the same for the performance (scores) of the model. Recall that the ```TimeSeriesSplit``` object will use successively-later indices for each test set. This means that you can treat the scores of your validation as a time series. You can visualize this over time in order to see how the model's performance changes over time.
 """
+
 
 def my_pearsonr(est, X, y):
     # Generate predictions and convert to a vector
