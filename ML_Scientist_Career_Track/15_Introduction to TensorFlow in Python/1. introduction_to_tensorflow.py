@@ -26,9 +26,10 @@ you will use it to transform a numpy array, `credit_numpy`, into a tensorflow co
 Note that tensorflow version 2.0 allows you to use data as either a numpy array or a tensorflow constant object. Using a constant will ensure that any operations performed with that object are done in tensorflow.
 """
 
-credit = pd.read_csv('./dataset/credit.csv')
+credit = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '15_Introduction to TensorFlow in Python/data/credit.csv')
 credit_numpy = credit.to_numpy()
-credit.head()
+print(credit.head())
 
 # Convert the credit_numpy array into  a tensorflow constant
 credit_constant = tf.constant(credit_numpy)
@@ -157,9 +158,11 @@ The figure below shows grayscale and color images of the sign language letter A.
 ![sign](image/sign_1_10.jpg)
 """
 
-gray_tensor = pd.read_csv('./dataset/gray_tensor.csv').to_numpy()
+gray_tensor = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                          '15_Introduction to TensorFlow in Python/data/gray_tensor.csv').to_numpy()
 
-color_tensor = pd.read_csv('./dataset/color_tensor.csv').to_numpy().reshape(28, 28, 3)
+color_tensor = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '15_Introduction to TensorFlow in Python/data/color_tensor.csv').to_numpy().reshape(28, 28, 3)
 
 import matplotlib.pyplot as plt
 
@@ -188,6 +191,7 @@ def compute_gradient(x0):
         y = x * x
     # Return the gradient of y with respect to x
     return tape.gradient(y, x).numpy()
+
 
 # Compute and print gradients at x = -1, 1, and 0
 print(compute_gradient(-1.0))

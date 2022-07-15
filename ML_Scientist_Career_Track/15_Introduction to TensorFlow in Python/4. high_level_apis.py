@@ -86,7 +86,7 @@ df = pd.read_csv('./dataset/slmnist.csv', header=None)
 X = df.iloc[:, 1:]
 y = df.iloc[:, 0]
 
-sign_language_features = (X -  X.mean()) / (X.max() - X.min()).to_numpy()
+sign_language_features = (X - X.mean()) / (X.max() - X.min()).to_numpy()
 sign_language_labels = pd.get_dummies(y).astype(np.float32).to_numpy()
 
 # Define a sequential model
@@ -217,7 +217,8 @@ For this exercise, we'll return to the King County housing transaction dataset f
 Rather than completing everything in one step, we'll break this procedure down into parts. We'll begin by defining the feature columns and loading the data. In the next exercise, we'll define and train a premade `estimator`.
 """
 
-housing = pd.read_csv('./dataset/kc_house_data.csv')
+housing = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                      '15_Introduction to TensorFlow in Python/data/kc_house_data.csv')
 housing.head()
 
 # Define feature columns for bedrooms and bathrooms
@@ -248,3 +249,4 @@ model.train(input_fn, steps=1)
 # Define the model and set the number of steps
 model = tf.estimator.LinearRegressor(feature_columns=feature_list)
 model.train(input_fn, steps=2)
+

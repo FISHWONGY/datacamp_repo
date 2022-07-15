@@ -13,7 +13,8 @@ In this exercise, you will import the King County housing dataset, which we will
 """
 
 # Load the dataset as a dataframe named housing
-housing = pd.read_csv('./dataset/kc_house_data.csv')
+housing = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                      '15_Introduction to TensorFlow in Python/data/kc_house_data.csv')
 
 # Print the price column of housing
 print(housing['price'])
@@ -62,7 +63,8 @@ print(waterfront)
 In this exercise, you will compute the loss using data from the King County housing dataset. You are given a target, `price`, which is a tensor of house prices, and `predictions`, which is a tensor of predicted house prices. You will evaluate the loss function and print out the value of the loss.
 """
 
-kc_sample = pd.read_csv('./dataset/loss_price.csv')
+kc_sample = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '15_Introduction to TensorFlow in Python/data/loss_price.csv')
 price = kc_sample['price'].to_numpy()
 predictions = kc_sample['pred'].to_numpy()
 
@@ -90,9 +92,11 @@ targets = tf.constant([2, 4, 6, 8, 10], dtype=tf.float32)
 # Initialize a variable named scalar
 scalar = tf.Variable(1.0, tf.float32)
 
+
 # Define the model
 def model(scalar, features=features):
     return scalar * features
+
 
 # Define a loss function
 def loss_function(scalar, features=features, targets=targets):
@@ -101,6 +105,7 @@ def loss_function(scalar, features=features, targets=targets):
     
     # Return the mean absolute error loss
     return tf.keras.losses.mae(targets, predictions)
+
 
 # Evaluate the loss function and print the loss
 print(loss_function(scalar).numpy())
@@ -117,9 +122,11 @@ size_log = np.log(np.array(housing['sqft_lot'], np.float32))
 price_log = np.log(np.array(housing['price'], np.float32))
 bedrooms = np.array(housing['bedrooms'], np.float32)
 
+
 # Define a linear regression model
 def linear_regression(intercept, slope, features=size_log):
     return intercept + slope * features
+
 
 # Set loss_function() to take the variables as arguments
 def loss_function(intercept, slope, features=size_log, targets=price_log):
@@ -128,6 +135,7 @@ def loss_function(intercept, slope, features=size_log, targets=price_log):
     
     # Return the mean squared error loss
     return tf.keras.losses.mse(targets, predictions)
+
 
 # Compute the loss function for different slope and intercept values
 print(loss_function(0.1, 0.1).numpy())
@@ -141,6 +149,7 @@ You will now define an optimization operation as `opt`. You will then train a un
 
 import matplotlib.pyplot as plt
 
+
 def plot_results(intercept, slope):
     size_range = np.linspace(6,14,100)
     price_pred = [intercept + slope * s for s in size_range]
@@ -150,6 +159,7 @@ def plot_results(intercept, slope):
     plt.xlabel('log(size)');
     plt.ylabel('log(price)');
     plt.title('Scatterplot of data and fitted regression line');
+
 
 intercept = tf.Variable(0.0, tf.float32)
 slope = tf.Variable(0.0, tf.float32)
@@ -256,7 +266,8 @@ slope = tf.Variable(0.5, tf.float32)
 opt = tf.keras.optimizers.Adam()
 
 # Load data in batches
-for batch in pd.read_csv('./dataset/kc_house_data.csv', chunksize=100):
+for batch in pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '15_Introduction to TensorFlow in Python/data/kc_house_data.csv', chunksize=100):
     size_batch = np.array(batch['sqft_lot'], np.float32)
     
     # Extract the price values for the current batch

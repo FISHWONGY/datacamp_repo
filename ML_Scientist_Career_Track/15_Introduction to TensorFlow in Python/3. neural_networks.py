@@ -80,7 +80,8 @@ We've now seen how to define dense layers in tensorflow using linear algebra. In
 To construct this network, we'll need to define three dense layers, each of which takes the previous layer as an input, multiplies it by weights, and applies an activation function.
 """
 
-df = pd.read_csv('./dataset/uci_credit_card.csv')
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '15_Introduction to TensorFlow in Python/data/uci_credit_card.csv')
 df.head()
 
 features = df.columns[1:11].tolist()
@@ -181,8 +182,10 @@ In this exercise, you will try to find the global minimum of `loss_function()` u
 
 import math
 
+
 def loss_function(x):
     return 4.0 * math.cos(x - 1) + math.cos(2.0 * math.pi * x) / x
+
 
 # Initialize x_1 and x_2
 x_1 = tf.Variable(6.0, tf.float32)
@@ -264,7 +267,7 @@ Note that the predictions layer is defined as $\sigma(\text{layer1} \times w2 + 
 from sklearn.model_selection import train_test_split
 df.head()
 
-X = df.iloc[:3000 ,1:24].astype(np.float32).to_numpy()
+X = df.iloc[:3000, 1:24].astype(np.float32).to_numpy()
 y = df.iloc[:3000, 24].astype(np.float32).to_numpy()
 
 y
@@ -272,7 +275,7 @@ y
 borrower_features, test_features, borrower_targets, test_targets = train_test_split(X, 
                                                                                     y, 
                                                                                     test_size=0.25,
-                                                                                   stratify=y)
+                                                                                    stratify=y)
 
 # Define the model
 def model(w1, b1, w2, b2, features=borrower_features):
@@ -315,7 +318,7 @@ import seaborn as sns
 
 def confusion_matrix_plot(default, model_predictions):
     df = pd.DataFrame(np.hstack([default, model_predictions.numpy() > 0.5]),
-                      columns = ['Actual','Predicted'])
+                      columns=['Actual', 'Predicted'])
     confusion_matrix = pd.crosstab(df['Actual'], df['Predicted'], 
                                    rownames=['Actual'], colnames=['Predicted'])
     sns.heatmap(confusion_matrix, cmap="Greys", fmt="d", annot=True, cbar=False)
