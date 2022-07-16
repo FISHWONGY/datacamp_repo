@@ -10,13 +10,17 @@ print(tf.__version__)
 """## Dense layers
 
 ### The linear algebra of dense layers
-There are two ways to define a dense layer in tensorflow. The first involves the use of low-level, linear algebraic operations. The second makes use of high-level keras operations. In this exercise, we will use the first method to construct the network shown in the image below.
+There are two ways to define a dense layer in tensorflow. The first involves the use of low-level, linear algebraic operations. 
+The second makes use of high-level keras operations. 
+In this exercise, we will use the first method to construct the network shown in the image below.
 
 <img src="./image/3_2_1_network2.png" alt="drawing" style="width:200px;"/>
 
-The input layer contains 3 features -- education, marital status, and age -- which are available as `borrower_features`. The hidden layer contains 2 nodes and the output layer contains a single node.
+The input layer contains 3 features -- education, marital status, and age -- which are available as `borrower_features`. 
+The hidden layer contains 2 nodes and the output layer contains a single node.
 
-For each layer, you will take the previous layer as an input, initialize a set of weights, compute the product of the inputs and weights, and then apply an activation function.
+For each layer, you will take the previous layer as an input, initialize a set of weights, compute the product of the 
+inputs and weights, and then apply an activation function.
 """
 
 borrower_features = np.array([[2., 2., 43.]], np.float32)
@@ -48,10 +52,18 @@ prediction = tf.keras.activations.sigmoid(product2 + bias2)
 print('prediction: {}'.format(prediction.numpy()[0, 0]))
 print('\n actual: 1')
 
-"""Our model produces predicted values in the interval between 0 and 1. For the example we considered, the actual value was 1 and the predicted value was a probability between 0 and 1. This, of course, is not meaningful, since we have not yet trained our model's parameters.
+"""
+Our model produces predicted values in the interval between 0 and 1. 
+For the example we considered, the actual value was 1 and the predicted value was a probability between 0 and 1. 
+This, of course, is not meaningful, since we have not yet trained our model's parameters.
 
 ### The low-level approach with multiple examples
-In this exercise, we'll build further intuition for the low-level approach by constructing the first dense hidden layer for the case where we have multiple examples. We'll assume the model is trained and the first layer weights, `weights1`, and bias, `bias1`, are available. We'll then perform matrix multiplication of the `borrower_features` tensor by the `weights1` variable. Recall that the `borrower_features` tensor includes education, marital status, and age. Finally, we'll apply the sigmoid function to the elements of `products1 + bias1`, yielding `dense1`.
+In this exercise, we'll build further intuition for the low-level approach by constructing the first dense hidden layer 
+for the case where we have multiple examples. We'll assume the model is trained and the first layer weights, `weights1`, 
+and bias, `bias1`, are available. 
+We'll then perform matrix multiplication of the `borrower_features` tensor by the `weights1` variable. 
+Recall that the `borrower_features` tensor includes education, marital status, and age. 
+Finally, we'll apply the sigmoid function to the elements of `products1 + bias1`, yielding `dense1`.
 
 $$ \text{products1} = \begin{bmatrix} 3 & 3 & 23 \\ 2 & 1 & 24 \\ 1 & 1 & 49 \\ 1 & 1 & 49 \\ 2 & 1 & 29 \end{bmatrix} \begin{bmatrix} -0.6 & 0.6 \\ 0.8 & -0.3 \\ -0.09 & -0.08 \end{bmatrix} $$
 """
@@ -70,10 +82,17 @@ print('\n shape of weights1: ', weights1.shape)
 print('\n shape of bias1: ', bias1.shape)
 print('\n shape of dense1: ', dense1.shape)
 
-"""Note that our input data, `borrower_features`, is 5x3 because it consists of 5 examples for 3 features. The shape of `weights1` is 3x2, as it was in the previous exercise, since it does not depend on the number of examples. Additionally, `bias1` is a scalar. Finally, `dense1` is 5x2, which means that we can multiply it by the following set of weights, `weights2`, which we defined to be 2x1 in the previous exercise.
+"""
+Note that our input data, `borrower_features`, is 5x3 because it consists of 5 examples for 3 features. 
+The shape of `weights1` is 3x2, as it was in the previous exercise, since it does not depend on the number of examples. 
+Additionally, `bias1` is a scalar. Finally, `dense1` is 5x2, which means that we can multiply it by the following set of weights, 
+`weights2`, which we defined to be 2x1 in the previous exercise.
 
 ### Using the dense layer operation
-We've now seen how to define dense layers in tensorflow using linear algebra. In this exercise, we'll skip the linear algebra and let keras work out the details. This will allow us to construct the network below, which has 2 hidden layers and 10 features, using less code than we needed for the network with 1 hidden layer and 3 features.
+We've now seen how to define dense layers in tensorflow using linear algebra. 
+In this exercise, we'll skip the linear algebra and let keras work out the details. 
+This will allow us to construct the network below, which has 2 hidden layers and 10 features, 
+using less code than we needed for the network with 1 hidden layer and 3 features.
 
 <img src="./image/10_7_3_1_network.png" alt="drawing" style="width:400px;"/>
 
@@ -82,12 +101,12 @@ To construct this network, we'll need to define three dense layers, each of whic
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '15_Introduction to TensorFlow in Python/data/uci_credit_card.csv')
-df.head()
+print(df.head())
 
 features = df.columns[1:11].tolist()
 borrower_features = df[features].values
 borrower_features = tf.convert_to_tensor(borrower_features, np.float32)
-idx = tf.constant(list(range(0,100)))
+idx = tf.constant(list(range(0, 100)))
 borrower_features = tf.gather(borrower_features, idx)
 
 # Define the first dense layer
@@ -104,7 +123,10 @@ print('\n shape of dense1: ', dense1.shape)
 print('\n shape of dense2: ', dense2.shape)
 print('\n shape of predictions: ', predictions.shape)
 
-"""With just 8 lines of code, you were able to define 2 dense hidden layers and an output layer. This is the advantage of using high-level operations in tensorflow. Note that each layer has 100 rows because the input data contains 100 examples.
+"""
+With just 8 lines of code, you were able to define 2 dense hidden layers and an output layer. 
+This is the advantage of using high-level operations in tensorflow. 
+Note that each layer has 100 rows because the input data contains 100 examples.
 
 ## Activation functions
 - Activation function
@@ -135,12 +157,20 @@ outputs = tf.keras.layers.Dense(1, activation='sigmoid')(dense2)
 error = default[:5] - outputs.numpy()[:5]
 print(error)
 
-"""If you run the code several times, you'll notice that the errors change each time. This is because you're using an untrained model with randomly initialized parameters. Furthermore, the errors fall on the interval between -1 and 1 because `default` is a binary variable that takes on values of 0 and 1 and `outputs` is a probability between 0 and 1.
+"""
+If you run the code several times, you'll notice that the errors change each time. 
+This is because you're using an untrained model with randomly initialized parameters. 
+Furthermore, the errors fall on the interval between -1 and 1 because `default` is a binary variable that takes on 
+values of 0 and 1 and `outputs` is a probability between 0 and 1.
 
 ### Multiclass classification problems
-In this exercise, we expand beyond binary classification to cover multiclass problems. A multiclass problem has targets that can take on three or more values. In the credit card dataset, the education variable can take on 6 different values, each corresponding to a different level of education. We will use that as our target in this exercise and will also expand the feature set from 3 to 10 columns.
+In this exercise, we expand beyond binary classification to cover multiclass problems. 
+A multiclass problem has targets that can take on three or more values. In the credit card dataset, 
+the education variable can take on 6 different values, each corresponding to a different level of education. 
+We will use that as our target in this exercise and will also expand the feature set from 3 to 10 columns.
 
-As in the previous problem, you will define an input layer, dense layers, and an output layer. You will also print the untrained model's predictions, which are probabilities assigned to the classes.
+As in the previous problem, you will define an input layer, dense layers, and an output layer. 
+You will also print the untrained model's predictions, which are probabilities assigned to the classes.
 """
 
 features = df.columns[1:11].tolist()
@@ -204,12 +234,19 @@ for j in range(100):
 # Print x_1 and x_2 as numpy arrays
 print(x_1.numpy(), x_2.numpy())
 
-"""Notice that we used the same optimizer and loss function, but two different initial values. When we started at 6.0 with `x_1`, we found the global minimum at 6.03(?), marked by the dot on the right. When we started at 0.3, we stopped around 0.25 with `x_2`, the local minimum marked by a dot on the far left.
+"""
+Notice that we used the same optimizer and loss function, but two different initial values. 
+When we started at 6.0 with `x_1`, we found the global minimum at 6.03(?), marked by the dot on the right. 
+When we started at 0.3, we stopped around 0.25 with `x_2`, the local minimum marked by a dot on the far left.
 
 ### Avoiding local minima
-The previous problem showed how easy it is to get stuck in local minima. We had a simple optimization problem in one variable and gradient descent still failed to deliver the global minimum when we had to travel through local minima first. One way to avoid this problem is to use momentum, which allows the optimizer to break through local minima. We will again use the loss function from the previous problem, which has been defined and is available for you as `loss_function()`.
+The previous problem showed how easy it is to get stuck in local minima. We had a simple optimization problem in 
+one variable and gradient descent still failed to deliver the global minimum when we had to travel through local minima first. 
+One way to avoid this problem is to use momentum, which allows the optimizer to break through local minima. 
+We will again use the loss function from the previous problem, which has been defined and is available for you as `loss_function()`.
 
-Several optimizers in tensorflow have a momentum parameter, including SGD and RMSprop. You will make use of RMSprop in this exercise. Note that `x_1` and `x_2` have been initialized to the same value this time.
+Several optimizers in tensorflow have a momentum parameter, including SGD and RMSprop. 
+You will make use of RMSprop in this exercise. Note that `x_1` and `x_2` have been initialized to the same value this time.
 """
 
 # Initialize x_1 and x_2
@@ -228,7 +265,10 @@ for j in range(100):
 # Print x_1 and x_2 as numpy arrays
 print(x_1.numpy(), x_2.numpy())
 
-"""Recall that the global minimum is approximately 4.38. Notice that opt_1 built momentum, bringing `x_1` closer to the global minimum. To the contrary, `opt_2`, which had a momentum parameter of 0.0, got stuck in the local minimum on the left.
+"""
+Recall that the global minimum is approximately 4.38. Notice that opt_1 built momentum, 
+bringing `x_1` closer to the global minimum. To the contrary, `opt_2`, which had a momentum parameter of 0.0, 
+got stuck in the local minimum on the left.
 
 ## Training a network in TensorFlow
 - Random Initializers
@@ -256,26 +296,35 @@ b1 = tf.Variable(tf.ones([7]), tf.float32)
 w2 = tf.Variable(tf.random.normal([7, 1]), tf.float32)
 
 # Define the layer 2 bias
+# b2 = tf.Variable(tf.random.normal([0]), tf.float32)
 b2 = tf.Variable(0.0, tf.float32)
 
-"""### Defining the model and loss function
-In this exercise, you will train a neural network to predict whether a credit card holder will default. The features and targets you will use to train your network are available in the Python shell as `borrower_features` and `default`. You defined the weights and biases in the previous exercise.
+"""
+### Defining the model and loss function
+In this exercise, you will train a neural network to predict whether a credit card holder will default. 
+The features and targets you will use to train your network are available in the Python shell as `borrower_features` 
+and `default`. You defined the weights and biases in the previous exercise.
 
-Note that the predictions layer is defined as $\sigma(\text{layer1} \times w2 + b2)$, where $\sigma$ is the sigmoid activation, `layer1` is a tensor of nodes for the first hidden dense layer, `w2` is a tensor of weights, and `b2` is the bias tensor.
+Note that the predictions layer is defined as $\sigma(\text{layer1} \times w2 + b2)$, where $\sigma$ is the sigmoid activation, 
+`layer1` is a tensor of nodes for the first hidden dense layer, `w2` is a tensor of weights, and `b2` is the bias tensor.
 """
 
 from sklearn.model_selection import train_test_split
-df.head()
+print(df.head())
 
 X = df.iloc[:3000, 1:24].astype(np.float32).to_numpy()
 y = df.iloc[:3000, 24].astype(np.float32).to_numpy()
 
-y
+print(y)
 
+# X_train, X_test, y_train, y_test
 borrower_features, test_features, borrower_targets, test_targets = train_test_split(X, 
                                                                                     y, 
                                                                                     test_size=0.25,
                                                                                     stratify=y)
+
+borrower_targets = np.asarray(borrower_targets).astype('float32').reshape((-1, 1))
+# test_targets = np.asarray(test_targets).astype('float32').reshape((-1, 1))
 
 # Define the model
 def model(w1, b1, w2, b2, features=borrower_features):
@@ -286,15 +335,22 @@ def model(w1, b1, w2, b2, features=borrower_features):
     dropout = tf.keras.layers.Dropout(0.25)(layer1)
     return tf.keras.activations.sigmoid(tf.matmul(dropout, w2) + b2)
 
+
 # Define the loss function
-def loss_function(w1, b1, w2, b2, features=borrower_features, targets = borrower_targets):
-    predictions = model(w1, b1, w2, b2)
+def loss_function(w1, b1, w2, b2, features=borrower_features, targets=borrower_targets):
+    predictions = model(w1, b1, w2, b2).numpy()
     
     # Pass targets and predictions to the cross entropy loss
     return tf.keras.losses.binary_crossentropy(targets, predictions)
 
-"""### Training neural networks with TensorFlow
-In the previous exercise, you defined a model, `model(w1, b1, w2, b2, features)`, and a loss function, `loss_function(w1, b1, w2, b2, features, targets)`, both of which are available to you in this exercise. You will now train the model and then evaluate its performance by predicting default outcomes in a test set, which consists of `test_features` and `test_targets` and is available to you. The trainable variables are `w1`, `b1`, `w2`, and `b2`.
+# tf.keras.losses.binary_crossentropy(borrower_targets, model(w1, b1, w2, b2).numpy())
+"""
+### Training neural networks with TensorFlow
+In the previous exercise, you defined a model, `model(w1, b1, w2, b2, features)`, 
+and a loss function, `loss_function(w1, b1, w2, b2, features, targets)`, both of which are available to you in this exercise. 
+You will now train the model and then evaluate its performance by predicting default outcomes in a test set, 
+which consists of `test_features` and `test_targets` and is available to you. 
+The trainable variables are `w1`, `b1`, `w2`, and `b2`.
 """
 
 opt = tf.keras.optimizers.Adam(learning_rate=0.1, beta_1=0.9, beta_2=0.999, amsgrad=False)
@@ -302,12 +358,12 @@ opt = tf.keras.optimizers.Adam(learning_rate=0.1, beta_1=0.9, beta_2=0.999, amsg
 from sklearn.metrics import confusion_matrix
 
 # Train the model
-for j in range(1000):
+for j in range(100):
     # Complete the optimizer
     opt.minimize(lambda: loss_function(w1, b1, w2, b2), var_list=[w1, b1, w2, b2])
     
 # Make predictions with model
-model_predictions = model(w1, b1, w2, b2, test_features)
+model_predictions = model(w1, b1, w2, b2, test_features) # X_test
 
 # Construct the confusion matrix
 confusion_matrix(test_targets.reshape(-1, 1), model_predictions)
@@ -316,6 +372,7 @@ confusion_matrix(test_targets.reshape(-1, 1), model_predictions)
 
 import seaborn as sns
 
+
 def confusion_matrix_plot(default, model_predictions):
     df = pd.DataFrame(np.hstack([default, model_predictions.numpy() > 0.5]),
                       columns=['Actual', 'Predicted'])
@@ -323,6 +380,13 @@ def confusion_matrix_plot(default, model_predictions):
                                    rownames=['Actual'], colnames=['Predicted'])
     sns.heatmap(confusion_matrix, cmap="Greys", fmt="d", annot=True, cbar=False)
 
+
 confusion_matrix_plot(test_targets.reshape(-1, 1), model_predictions)
 
-"""The diagram shown is called a "confusion matrix." The diagonal elements show the number of correct predictions. The off-diagonal elements show the number of incorrect predictions. We can see that the model performs reasonably-well, but does so by overpredicting non-default. This suggests that we may need to train longer, tune the model's hyperparameters, or change the model's architecture."""
+
+"""
+The diagram shown is called a "confusion matrix." The diagonal elements show the number of correct predictions. 
+The off-diagonal elements show the number of incorrect predictions. 
+We can see that the model performs reasonably-well, but does so by overpredicting non-default. 
+This suggests that we may need to train longer, tune the model's hyperparameters, or change the model's architecture.
+"""

@@ -74,10 +74,10 @@ loss = tf.keras.losses.mse(price, predictions)
 # Print the mean squared error (mse)
 print(loss.numpy())
 
-# Compute the mean squared error (mse)
+# Compute the mean absoulte error (mae)
 loss = tf.keras.losses.mae(price, predictions)
 
-# Print the mean squared error (mse)
+# Print the mean absoulte error (mae)
 print(loss.numpy())
 
 """You may have noticed that the MAE was much smaller than the MSE, even though `price` and `predictions` were the same. This is because the different loss functions penalize deviations of `predictions` from `price` differently. MSE does not like large deviations and punishes them harshly.
@@ -186,12 +186,14 @@ In most cases, performing a univariate linear regression will not yield a model 
  You will use `price_log` as your target and `size_log` and `bedrooms` as your features. Each of these tensors has been defined and is available. You will also switch from using the the mean squared error loss to the mean absolute error loss: `keras.losses.mae()`. Finally, the predicted values are computed as follows:` params[0] + feature1 * params[1] + feature2 * params[2]`. Note that we've defined a vector of parameters, params, as a variable, rather than using three variables. Here, `params[0]` is the intercept and `params[1]` and `params[2]` are the slopes.
 """
 
+
 def print_results(params):
     return print('loss: {:0.3f}, intercept: {:0.3f}, slope_1: {:0.3f}, slope_2: {:0.3f}'
                  .format(loss_function(params).numpy(), 
                          params[0].numpy(), 
                          params[1].numpy(), 
                          params[2].numpy()))
+
 
 params = tf.Variable([0.1, 0.05, 0.02], tf.float32)
 
@@ -238,10 +240,12 @@ Note that you should not set default argument values for either the model or los
 intercept = tf.Variable(10.0, tf.float32)
 slope = tf.Variable(0.5, tf.float32)
 
+
 # Define the model
 def linear_regression(intercept, slope, features):
     # Define the predicted values
     return intercept + slope * features
+
 
 # Define the loss function
 def loss_function(intercept, slope, targets, features):
@@ -251,12 +255,19 @@ def loss_function(intercept, slope, targets, features):
     # Define the MSE loss
     return tf.keras.losses.mse(targets, predictions)
 
-"""Notice that we did not use default argument values for the input data, `features` and `targets`. This is because the input data has not been defined in advance. Instead, with batch training, we will load it during the training process.
+
+"""
+Notice that we did not use default argument values for the input data, `features` and `targets`. 
+This is because the input data has not been defined in advance. 
+Instead, with batch training, we will load it during the training process.
 
 ### Training a linear model in batches
-In this exercise, we will train a linear regression model in batches, starting where we left off in the previous exercise. We will do this by stepping through the dataset in batches and updating the model's variables, `intercept` and `slope`, after each step. This approach will allow us to train with datasets that are otherwise too large to hold in memory.
+In this exercise, we will train a linear regression model in batches, starting where we left off in the previous exercise. 
+We will do this by stepping through the dataset in batches and updating the model's variables, `intercept` and `slope`, 
+after each step. This approach will allow us to train with datasets that are otherwise too large to hold in memory.
 
-Note that the loss function,`loss_function(intercept, slope, targets, features)`, has been defined for you. The trainable variables should be entered into `var_list` in the order in which they appear as loss function arguments.
+Note that the loss function,`loss_function(intercept, slope, targets, features)`, has been defined for you. 
+The trainable variables should be entered into `var_list` in the order in which they appear as loss function arguments.
 """
 
 intercept = tf.Variable(10.0, tf.float32)
@@ -279,3 +290,4 @@ for batch in pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
     
 # Print trained parameters
 print(intercept.numpy(), slope.numpy())
+
