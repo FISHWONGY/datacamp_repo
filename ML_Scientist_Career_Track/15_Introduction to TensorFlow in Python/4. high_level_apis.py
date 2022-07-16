@@ -82,7 +82,8 @@ print(model.summary())
 In this exercise, we return to our sign language letter classification problem. We have 2000 images of four letters--A, B, C, and D--and we want to classify them with a high level of accuracy. We will complete all parts of the problem, including the model definition, compilation, and training.
 """
 
-df = pd.read_csv('./dataset/slmnist.csv', header=None)
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '15_Introduction to TensorFlow in Python/data/slmnist.csv', header=None)
 X = df.iloc[:, 1:]
 y = df.iloc[:, 0]
 
@@ -184,15 +185,19 @@ large_model.fit(train_features, train_labels, epochs=30, verbose=False)
 
 # Evaluate the small model using the train data
 small_train = small_model.evaluate(train_features, train_labels)
+# loss: 0.1190 - accuracy: 0.9980
 
 # Evaluate the small model using the test data
 small_test = small_model.evaluate(test_features, test_labels)
+# loss: 0.1322 - accuracy: 0.9940
 
 # Evaluate the large model using the train data
 large_train = large_model.evaluate(train_features, train_labels)
+# loss: 0.0067 - accuracy: 1.0000
 
 # Evalute the large model using the test data
 large_test = large_model.evaluate(test_features, test_labels)
+# loss: 0.0078 - accuracy: 1.0000
 
 # Print losses
 print('\n Small - Train: {}, Test: {}'.format(small_train, small_test))
@@ -219,7 +224,7 @@ Rather than completing everything in one step, we'll break this procedure down i
 
 housing = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                       '15_Introduction to TensorFlow in Python/data/kc_house_data.csv')
-housing.head()
+print(housing.head())
 
 # Define feature columns for bedrooms and bathrooms
 bedrooms = tf.feature_column.numeric_column("bedrooms")
