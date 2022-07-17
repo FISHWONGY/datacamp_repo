@@ -24,7 +24,7 @@ Each data point is a customer. The first input is how many accounts they have, a
 
 input_data = np.array([3, 5])
 weights = {'node_0': np.array([2, 4]), 
-           'node_1': np.array([ 4, -5]), 
+           'node_1': np.array([4, -5]),
            'output': np.array([2, 7])}
 
 # Calculate node 0 value: node_0_value
@@ -54,6 +54,7 @@ An **"activation function"** is a function applied at each node. It converts the
 The rectified linear activation function (called ReLU) has been shown to lead to very high-performance networks. This function takes a single number as an input, returning 0 if the input is negative, and the input if the input is positive.
 """
 
+
 def relu(input):
     '''Define your relu activatino function here'''
     # Calculate the value for the output of the relu function: output
@@ -61,6 +62,7 @@ def relu(input):
     
     # Return the value just calculate
     return output
+
 
 # Calculate node 0 value: node_0_output
 node_0_input = (input_data * weights['node_0']).sum()
@@ -85,8 +87,9 @@ You'll now define a function called `predict_with_network()` which will generate
 
 """
 
-input_data = [np.array([3, 5]), np.array([ 1, -1]), 
+input_data = [np.array([3, 5]), np.array([1, -1]),
               np.array([0, 0]), np.array([8, 4])]
+
 
 # Define predict_with_network()
 def predict_with_network(input_data_row, weights):
@@ -107,6 +110,7 @@ def predict_with_network(input_data_row, weights):
     
     # Return model output
     return(model_output)
+
 
 # Create empty list to store prediction results
 results = []
@@ -137,10 +141,11 @@ We then create a model output from the hidden nodes using weights pre-loaded as 
 
 input_data = np.array([3, 5])
 weights = {'node_0_0': np.array([2, 4]),
-           'node_0_1': np.array([ 4, -5]),
+           'node_0_1': np.array([4, -5]),
            'node_1_0': np.array([-1,  2]),
            'node_1_1': np.array([1, 2]),
            'output': np.array([2, 7])}
+
 
 def predict_with_network(input_data):
     # Calculate node 0 in the first hidden layer
@@ -170,6 +175,7 @@ def predict_with_network(input_data):
     
     # Return model_output
     return model_output
+
 
 output = predict_with_network(input_data)
 print(output)

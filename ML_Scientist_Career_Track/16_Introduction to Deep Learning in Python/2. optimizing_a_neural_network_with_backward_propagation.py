@@ -32,6 +32,7 @@ Its weights have been pre-loaded as `weights_0`. Your task in this exercise is t
 Use a pen and paper if necessary to experiment with different combinations. You'll use the `predict_with_network()` function, which takes an array of data as the first argument, and weights as the second argument.
 """
 
+
 def relu(input):
     '''Define your relu activatino function here'''
     # Calculate the value for the output of the relu function: output
@@ -39,6 +40,7 @@ def relu(input):
     
     # Return the value just calculate
     return output
+
 
 def predict_with_network(input_data_point, weights):
     node_0_input = (input_data_point * weights['node_0']).sum()
@@ -52,6 +54,7 @@ def predict_with_network(input_data_point, weights):
     model_output = relu(input_to_final_layer)
     
     return(model_output)
+
 
 # The data point you will make a prediction for
 input_data = np.array([0, 3])
@@ -196,20 +199,24 @@ To keep your code clean, there is a `get_slope()` function that takes `input_dat
 This network does not have any hidden layers, and it goes directly from the input (with 3 nodes) to an output node. Note that weights is a single array.
 """
 
+
 def get_error(input_data, target, weights):
     preds = (weights * input_data).sum()
     error = preds - target
     return error
+
 
 def get_slope(input_data, target, weights):
     error = get_error(input_data, target, weights)
     slope = 2 * input_data * error
     return slope
 
+
 def get_mse(input_data, target, weights):
     errors = get_error(input_data, target, weights)
     mse = np.mean(errors ** 2)
     return mse
+
 
 n_updates = 20
 mse_hist = []

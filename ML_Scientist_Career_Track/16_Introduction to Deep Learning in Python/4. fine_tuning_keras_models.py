@@ -20,8 +20,9 @@ It's time to get your hands dirty with optimization. You'll now try optimizing a
 For these exercises, we've pre-loaded the predictors and target values from your previous classification models (predicting who would survive on the Titanic). You'll want the optimization to start from scratch every time you change the learning rate, to give a fair comparison of how each learning rate did in your results.
 """
 
-df = pd.read_csv('./dataset/titanic_all_numeric.csv')
-df.head()
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '16_Introduction to Deep Learning in Python/data/titanic_all_numeric.csv')
+print(df.head())
 
 from tensorflow.keras.utils import to_categorical
 
@@ -30,12 +31,14 @@ target = to_categorical(df.iloc[:, 0].astype(np.float32).to_numpy())
 
 input_shape = (10, )
 
+
 def get_new_model(input_shape = input_shape):
     model = tf.keras.Sequential()
     model.add(tf.keras.layers.Dense(100, activation='relu', input_shape = input_shape))
     model.add(tf.keras.layers.Dense(100, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
     return model
+
 
 # Create list of learning rates: lr_to_test
 lr_to_test = [0.000001, 0.01, 1]
@@ -224,7 +227,8 @@ To add an extra challenge, we've loaded only 2500 images, rather than 60000 whic
 If you have a computer with a CUDA compatible GPU, you can take advantage of it to improve computation time. If you don't have a GPU, no problem! You can set up a deep learning environment in the cloud that can run your models on a GPU. Here is a [blog post](https://www.datacamp.com/community/tutorials/deep-learning-jupyter-aws) by Dan that explains how to do this - check it out after completing this exercise! It is a great next step as you continue your deep learning journey.
 """
 
-mnist = pd.read_csv('./dataset/mnist.csv', header=None)
+mnist = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '16_Introduction to Deep Learning in Python/data/mnist.csv', header=None)
 mnist.head()
 
 X = mnist.iloc[:, 1:].astype(np.float32).to_numpy()

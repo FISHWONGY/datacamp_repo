@@ -21,7 +21,8 @@ The data is pre-loaded into a pandas DataFrame called `df`. Use the `.head()` an
 The target variable you'll be predicting is `wage_per_hour`. Some of the predictor variables are binary indicators, where a value of 1 represents True, and 0 represents False.
 """
 
-df = pd.read_csv('./dataset/hourly_wages.csv')
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '16_Introduction to Deep Learning in Python/data/hourly_wages.csv')
 df.head()
 
 df.describe()
@@ -97,10 +98,11 @@ Now you will start modeling with a new dataset for a classification problem. Thi
 It's smart to review the maximum and minimum values of each variable to ensure the data isn't misformatted or corrupted. What was the maximum age of passengers on the Titanic?
 """
 
-df = pd.read_csv('./dataset/titanic_all_numeric.csv')
-df.head()
+df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '16_Introduction to Deep Learning in Python/data/titanic_all_numeric.csv')
+print(df.head())
 
-df.describe()
+print(df.describe())
 
 """### Last steps in classification models
 You'll now create a classification model using the titanic dataset, which has been pre-loaded into a DataFrame called `df`. You'll take information about the passengers and predict which ones survived.
@@ -146,7 +148,8 @@ The trained network from your previous coding exercise is now stored as `model`.
 In this exercise, your predictions will be probabilities, which is the most common way for data scientists to communicate their predictions to colleagues.
 """
 
-pred_data = pd.read_csv('./dataset/titanic_pred.csv').astype(np.float32).to_numpy()
+pred_data = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '16_Introduction to Deep Learning in Python/data/titanic_pred.csv').astype(np.float32).to_numpy()
 
 # Calculate predictions: predictions
 predictions = model.predict(pred_data)
