@@ -25,7 +25,7 @@ X = ((X - X.mean()) / X.std()).to_numpy()
 y = banknotes['class'].to_numpy()
 
 # Use pairplot and set the hue to be our class column
-sns.pairplot(banknotes, hue='class');
+sns.pairplot(banknotes, hue='class')
 
 # Describe the data
 print('Dataset stats: \n', banknotes.describe())
@@ -86,9 +86,9 @@ This problem is a multi-class classification problem since each dart can only be
 
 darts = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                     '17_Introduction to Deep Learning with Keras/data/darts.csv')
-darts.head()
+print(darts.head())
 
-sns.pairplot(darts, hue='competitor');
+sns.pairplot(darts, hue='competitor')
 
 # Instantiate a sequential model
 model = Sequential()
@@ -123,6 +123,7 @@ darts.competitor = darts.competitor.cat.codes
 # Print the label encoded competitors
 print('Label encoded competitors: \n', darts.competitor.head())
 
+# Get the X from the df - darts
 coordinates = darts.drop(['competitor'], axis=1)
 
 # Use to_categorical on your labels
@@ -141,8 +142,8 @@ The `coordinates` features and `competitors` labels you just transformed have be
 Let's find out who threw which dart just by looking at the board!
 """
 
-coordinates = darts[['xCoord', 'yCoord']]
-print(coordinates.head())
+# coordinates = darts[['xCoord', 'yCoord']]
+# print(coordinates.head())
 
 coord_train, coord_test, competitors_train, competitors_test = \
     train_test_split(coordinates, competitors, test_size=0.25, stratify=competitors)
@@ -186,7 +187,10 @@ for i, pred in enumerate(preds):
     print("{} | {}".format(pred, competitors_small_test[i]))
 
 # Extract the position of highest probability from each pred vector
+# Since python start counting from 0 position
 preds_chosen = [np.argmax(pred) for pred in preds]
+# If we count from 1
+preds_chosen = [np.argmax(pred) + 1 for pred in preds]
 
 # Print preds vs true values
 print("{:10} | {}".format("Rounded Model Predictions", "True labels"))
@@ -207,7 +211,7 @@ To account for this behavior what we do is have an output layer with as many neu
 
 irrigation = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                          '17_Introduction to Deep Learning with Keras/data/irrigation_machine.csv', index_col=0)
-irrigation.head()
+print(irrigation.head())
 
 # Instantiate a Sequential model
 model = Sequential()
@@ -273,7 +277,7 @@ Let's see the behind the scenes of our training!
 """
 
 
-def plot_accuracy(acc,val_acc):
+def plot_accuracy(acc, val_acc):
     # Plot training & validation accuracy values
     plt.figure()
     plt.plot(acc)
@@ -352,7 +356,7 @@ monitor_val_acc = EarlyStopping(monitor='val_accuracy', patience=3)
 
 # Save the best model as best_banknote_model.hdf5
 modelCheckpoint = ModelCheckpoint('./datacamp_repo/ML_Scientist_Career_Track/'
-                                  '17_Introduction to Deep Learning with Keras/data//best_banknote_model.hdf5',
+                                  '17_Introduction to Deep Learning with Keras/data/best_banknote_model.hdf5',
                                   save_best_only=True)
 
 # Fit your model for a stupid amount of epochs
