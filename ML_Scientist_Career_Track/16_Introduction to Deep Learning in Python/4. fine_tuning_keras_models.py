@@ -32,9 +32,9 @@ target = to_categorical(df.iloc[:, 0].astype(np.float32).to_numpy())
 input_shape = (10, )
 
 
-def get_new_model(input_shape = input_shape):
+def get_new_model(input_shape=input_shape):
     model = tf.keras.Sequential()
-    model.add(tf.keras.layers.Dense(100, activation='relu', input_shape = input_shape))
+    model.add(tf.keras.layers.Dense(100, activation='relu', input_shape=input_shape))
     model.add(tf.keras.layers.Dense(100, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
     return model
@@ -73,7 +73,9 @@ for lr in lr_to_test:
         - Creating a great model requires experimentation
 
 ### Evaluating model accuracy on validation dataset
-Now it's your turn to monitor model accuracy with a validation data set. A model definition has been provided as `model`. Your job is to add the code to compile it and then fit it. You'll check the validation score in each epoch.
+Now it's your turn to monitor model accuracy with a validation data set. 
+A model definition has been provided as `model`. Your job is to add the code to compile it and then fit it. 
+You'll check the validation score in each epoch.
 """
 
 # Save the number of columns in predictors: n_cols
@@ -93,7 +95,10 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 hist = model.fit(predictors, target, epochs=10, validation_split=0.3)
 
 """### Early stopping: Optimizing the optimization
-Now that you know how to monitor your model performance throughout optimization, you can use early stopping to stop optimization when it isn't helping any more. Since the optimization stops automatically when it isn't helping, you can also set a high value for epochs in your call to `.fit()`.
+Now that you know how to monitor your model performance throughout optimization, 
+you can use early stopping to stop optimization when it isn't helping any more. 
+Since the optimization stops automatically when it isn't helping, 
+you can also set a high value for epochs in your call to `.fit()`.
 """
 
 from tensorflow.keras.callbacks import EarlyStopping
@@ -118,16 +123,21 @@ early_stopping_monitor = EarlyStopping(patience=2)
 model.fit(predictors, target, epochs=30, validation_split=0.3,
           callbacks=[early_stopping_monitor])
 
-"""Because optimization will automatically stop when it is no longer helpful, it is okay to specify the maximum number of epochs as 30 rather than using the default of 10 that you've used so far. Here, it seems like the optimization stopped after 4 epochs.
+"""Because optimization will automatically stop when it is no longer helpful, it is okay to specify the 
+maximum number of epochs as 30 rather than using the default of 10 that you've used so far. 
+Here, it seems like the optimization stopped after 4 epochs.
 
 ### Experimenting with wider networks
 Now you know everything you need to begin experimenting with different models!
 
 A model called `model_1` has been pre-loaded. This is a relatively small network, with only 10 units in each hidden layer.
 
-In this exercise you'll create a new model called `model_2` which is similar to `model_1`, except it has 100 units in each hidden layer.
+In this exercise you'll create a new model called `model_2` which is similar to `model_1`,
+except it has 100 units in each hidden layer.
 
-After you create model_2, both models will be fitted, and a graph showing both models loss score at each epoch will be shown. We added the argument verbose=False in the fitting commands to print out fewer updates, since you will look at these graphically instead of as text.
+After you create model_2, both models will be fitted, and a graph showing both models loss score at each epoch will be shown. 
+We added the argument verbose=False in the fitting commands to print out fewer updates, 
+since you will look at these graphically instead of as text.
 
 Because you are fitting two models, it will take a moment to see the outputs after you hit run, so be patient.
 """
@@ -165,9 +175,9 @@ model_2_training = model_2.fit(predictors, target, epochs=15, validation_split=0
                                callbacks=[early_stopping_monitor], verbose=False)
 
 # Create th eplot
-plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b');
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b')
 plt.xlabel('Epochs')
-plt.ylabel('Validation score');
+plt.ylabel('Validation score')
 
 """### Adding layers to a network
 You've seen how to experiment with wider networks. In this exercise, you'll try a deeper network (more hidden layers).
@@ -199,15 +209,17 @@ model_2.add(tf.keras.layers.Dense(2, activation='softmax'))
 model_2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Fit model 1
-model_1_training = model_1.fit(predictors, target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False)
+model_1_training = model_1.fit(predictors, target, epochs=20, validation_split=0.4,
+                               callbacks=[early_stopping_monitor], verbose=False)
 
 # Fit model 2
-model_2_training = model_2.fit(predictors, target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False)
+model_2_training = model_2.fit(predictors, target, epochs=20, validation_split=0.4,
+                               callbacks=[early_stopping_monitor], verbose=False)
 
 # Create the plot
-plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b');
-plt.xlabel('Epochs');
-plt.ylabel('Validation score');
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b')
+plt.xlabel('Epochs')
+plt.ylabel('Validation score')
 
 """## Thinking about model capacity
 - Overfitting
@@ -229,7 +241,7 @@ If you have a computer with a CUDA compatible GPU, you can take advantage of it 
 
 mnist = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                     '16_Introduction to Deep Learning in Python/data/mnist.csv', header=None)
-mnist.head()
+print(mnist.head())
 
 X = mnist.iloc[:, 1:].astype(np.float32).to_numpy()
 y = to_categorical(mnist.iloc[:, 0])
@@ -250,4 +262,4 @@ model.add(tf.keras.layers.Dense(10, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Fit the model
-model.fit(X, y, validation_split=0.3, epochs=50);
+model.fit(X, y, validation_split=0.3, epochs=50)

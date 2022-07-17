@@ -23,9 +23,9 @@ The target variable you'll be predicting is `wage_per_hour`. Some of the predict
 
 df = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                  '16_Introduction to Deep Learning in Python/data/hourly_wages.csv')
-df.head()
+print(df.head())
 
-df.describe()
+print(df.describe())
 
 """### Specifying a model
 Now you'll get to work with your first model in Keras, and will immediately be able to run more complex neural network models on larger datasets compared to the first two chapters.
@@ -82,8 +82,11 @@ print("Loss function: " + model.loss)
 You're at the most fun part. You'll now fit the model. Recall that the data to be used as predictive features is loaded in a NumPy matrix called `predictors` and the data to be predicted is stored in a NumPy matrix called `target`. Your model is pre-written and it has been compiled with the code from the previous exercise.
 """
 
-# Fit the model
-model.fit(predictors, target, epochs=10);
+# Fit the model, X, y
+model.fit(predictors, target, epochs=10)
+
+# To predict
+# predictions = model.predict(<X_test>)
 
 """## Classification models
 - Classification
@@ -134,7 +137,7 @@ model.add(tf.keras.layers.Dense(2, activation='softmax'))
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Fit the model
-model.fit(predictors, target, epochs=10);
+model.fit(predictors, target, epochs=10)
 
 """## Using models
 - Using models
