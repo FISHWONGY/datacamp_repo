@@ -105,11 +105,11 @@ Remember `np.arange(x,y)` produces a range of values from `x` to `y-1`. That is 
 
 def plot_orbit(model_preds):
     axeslim = int(len(model_preds) / 2)
-    plt.plot(np.arange(-axeslim, axeslim + 1),np.arange(-axeslim, axeslim + 1) ** 2,
+    plt.plot(np.arange(-axeslim, axeslim + 1), np.arange(-axeslim, axeslim + 1) ** 2,
              color="mediumslateblue")
-    plt.plot(np.arange(-axeslim, axeslim + 1),model_preds,color="orange")
+    plt.plot(np.arange(-axeslim, axeslim + 1), model_preds, color="orange")
     plt.axis([-40, 41, -5, 550])
-    plt.legend(["Scientist's Orbit", 'Your orbit'],loc="lower left")
+    plt.legend(["Scientist's Orbit", 'Your orbit'], loc="lower left")
     plt.title("Predicted orbit vs Scientist's Orbit")
 
 
