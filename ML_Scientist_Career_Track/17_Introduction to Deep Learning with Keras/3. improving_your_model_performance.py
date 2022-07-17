@@ -19,8 +19,10 @@ Let's build this new model!
 from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 
-X = np.load('./dataset/digits_pixels.npy')
-y = np.load('./dataset/digits_target.npy')
+X = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+            '17_Introduction to Deep Learning with Keras/data/digits_pixels.npy')
+y = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+            '17_Introduction to Deep Learning with Keras/data/digits_target.npy')
 
 y = to_categorical(y)
 
@@ -50,14 +52,16 @@ print(model.predict(X_train))
 Let's train the model you just built and plot its learning curve to check out if it's overfitting!
 """
 
+
 def plot_loss(loss,val_loss):
-    plt.figure();
-    plt.plot(loss);
-    plt.plot(val_loss);
-    plt.title('Model loss');
-    plt.ylabel('Loss');
-    plt.xlabel('Epoch');
-    plt.legend(['Train', 'Test'], loc='upper right');
+    plt.figure()
+    plt.plot(loss)
+    plt.plot(val_loss)
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper right')
+
 
 # Train your model for 60 epochs, using X_test and y_test as validation data
 h_callback = model.fit(X_train, y_train, epochs=60, validation_data=(X_test, y_test), verbose=0)
@@ -82,13 +86,15 @@ In order to keep code to a minimum, various things are already initialized and r
 Train your model on the different training sizes and evaluate the results on `X_test`. End by plotting the results with plot_results().
 """
 
+
 def plot_results(train_accs,test_accs):
-    plt.plot(training_sizes, train_accs, 'o-', label="Training Accuracy");
-    plt.plot(training_sizes, test_accs, 'o-', label="Test Accuracy");
-    plt.title('Accuracy vs Number of training samples');
-    plt.xlabel('# of training samples');
-    plt.ylabel('Accuracy');
-    plt.legend(loc="best");
+    plt.plot(training_sizes, train_accs, 'o-', label="Training Accuracy")
+    plt.plot(training_sizes, test_accs, 'o-', label="Test Accuracy")
+    plt.title('Accuracy vs Number of training samples')
+    plt.xlabel('# of training samples')
+    plt.ylabel('Accuracy')
+    plt.legend(loc="best")
+
 
 initial_weights = model.get_weights()
 
@@ -124,7 +130,8 @@ You will try out different activation functions on the multi-label model you bui
 You will loop through several activation functions, generate a new model for each and train it. By storing the history callback in a dictionary you will be able to visualize which activation function performed best in the next exercise!
 """
 
-irrigation = pd.read_csv('./dataset/irrigation_machine.csv', index_col=0)
+irrigation = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '17_Introduction to Deep Learning with Keras/data/irrigation_machine.csv', index_col=0)
 irrigation.head()
 
 parcels = irrigation[['parcel_0', 'parcel_1', 'parcel_2']].to_numpy()
@@ -134,6 +141,7 @@ X_train, X_test, y_train, y_test = \
     train_test_split(sensors, parcels, test_size=0.3, stratify=parcels)
 
 np.random.seed(1)
+
 
 # Return a new model with the given activation
 def get_model(act_function):
@@ -147,9 +155,10 @@ def get_model(act_function):
     model.add(Dense(3, activation='sigmoid'))
     # Compile your model with binary crossentropy loss
     model.compile(optimizer='adam',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
     return model
+
 
 # Activation functions to try
 activations = ['relu', 'leaky_relu', 'sigmoid', 'tanh']
@@ -190,7 +199,7 @@ val_loss.plot(title='validation Loss');
 val_acc = pd.DataFrame(val_acc_per_function)
 
 # Call plot on the dataframe
-val_acc.plot(title='validation Accuracy');
+val_acc.plot(title='validation Accuracy')
 
 """You've plotted both: loss and accuracy curves. It looks like sigmoid activation worked best for this particular model as the hidden layer's activation function. It led to a model with lower validation loss and higher accuracy after 100 epochs.
 
@@ -219,13 +228,15 @@ Let's see how different batch sizes affect the accuracy of a simple binary class
 You'll use a batch size of one, updating the weights once per sample in your training set for each epoch. Then you will use the entire dataset, updating the weights only once per epoch.
 """
 
-dots = pd.read_csv('./dataset/dots.csv')
-dots.head()
+dots = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '17_Introduction to Deep Learning with Keras/data/dots.csv')
+print(dots.head())
 
 X = dots.iloc[:, :-1]
 y = dots.iloc[:, -1]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
 
 def get_model():
     model = Sequential()
@@ -233,6 +244,7 @@ def get_model():
     model.add(Dense(1,activation="sigmoid"))
     model.compile('sgd', 'binary_crossentropy', metrics=['accuracy'])
     return model
+
 
 # Get a fresh new model with get_model
 model = get_model()
@@ -282,18 +294,22 @@ The model you just built `batchnorm_model` is loaded for you to use. An exact co
 You will compare the accuracy learning curves for both models plotting them with compare_histories_acc().
 """
 
-def compare_histories_acc(h1,h2):
-    plt.plot(h1.history['accuracy']);
-    plt.plot(h1.history['val_accuracy']);
-    plt.plot(h2.history['accuracy']);
-    plt.plot(h2.history['val_accuracy']);
-    plt.title("Batch Normalization Effects");
-    plt.xlabel('Epoch');
-    plt.ylabel('Accuracy');
-    plt.legend(['Train', 'Test', 'Train with Batch Normalization', 'Test with Batch Normalization'], loc='best');
 
-X = np.load('./dataset/digits_pixels.npy')
-y = np.load('./dataset/digits_target.npy')
+def compare_histories_acc(h1, h2):
+    plt.plot(h1.history['accuracy'])
+    plt.plot(h1.history['val_accuracy'])
+    plt.plot(h2.history['accuracy'])
+    plt.plot(h2.history['val_accuracy'])
+    plt.title("Batch Normalization Effects")
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.legend(['Train', 'Test', 'Train with Batch Normalization', 'Test with Batch Normalization'], loc='best')
+
+
+X = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+            '17_Introduction to Deep Learning with Keras/data/digits_pixels.npy')
+y = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+            '17_Introduction to Deep Learning with Keras/data/digits_target.npy')
 
 y = to_categorical(y)
 
@@ -344,6 +360,7 @@ You've seen that the first step to turn a model into a sklearn estimator is to b
 Build a simple `create_model()` function that receives both a learning rate and an activation function as arguments.
 """
 
+
 # Creates a model given an activation and learning rate
 def create_model(learning_rate=0.001, activation='relu'):
     # Create an Adam optimizer with the given learning rate
@@ -358,6 +375,7 @@ def create_model(learning_rate=0.001, activation='relu'):
     # Compile your model with your optimizer, loss and metrics
     model.compile(optimizer=opt, loss='binary_crossentropy', metrics=['accuracy'])
     return model
+
 
 """### Tuning the model parameters
 It's time to try out different parameters on your model and see how well it performs!
@@ -410,6 +428,7 @@ from sklearn.model_selection import cross_val_score
 
 def create_model_d(func):
     return func(0.01, 'relu')
+
 
 # Create a KerasClassifier
 model = KerasClassifier(build_fn=create_model, 

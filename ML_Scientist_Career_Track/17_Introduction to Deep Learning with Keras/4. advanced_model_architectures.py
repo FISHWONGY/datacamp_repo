@@ -29,8 +29,9 @@ For instance, if you get the input and output from the first layer of a network,
 So that's what you're going to do right now!
 """
 
-banknote = pd.read_csv('./dataset/banknotes.csv')
-banknote.head()
+banknote = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '17_Introduction to Deep Learning with Keras/data/banknotes.csv')
+print(banknote.head())
 
 from sklearn.model_selection import train_test_split
 
@@ -69,12 +70,14 @@ Put on your gloves because you're going to perform brain surgery!
 Neurons learn by updating their weights to output values that help them better distinguish between the different output classes in your dataset. You will make use of the `inp_to_out()` function you just built to visualize the output of two neurons in the first layer of the Banknote Authentication `model` as it learns.
 """
 
+
 def plot():
     fig, axes = plt.subplots(1, 5, figsize=(16, 8))
     for i, a in enumerate(axes):
         a.scatter(layer_outputs[i][:, 0], layer_outputs[i][:, 1], c=y_test, edgecolors='none');
         a.set_title('Test Accuracy: {:3.1f} %'.format(float(test_accuracies[i]) * 100.));
     plt.tight_layout()
+
 
 model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
 
@@ -109,11 +112,15 @@ X_train = X_train.astype('float32') / 255.
 X_test = X_test.astype('float32') / 255.
 X_train = X_train.reshape((len(X_train), np.prod(X_train.shape[1:])))
 X_test = X_test.reshape((len(X_test), np.prod(X_test.shape[1:])))
-X_test_noise = np.load('./dataset/X_test_MNIST_noise.npy')
+X_test_noise = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '17_Introduction to Deep Learning with Keras/data/X_test_MNIST_noise.npy')
 X_test_noise = X_test_noise.reshape((len(X_test_noise), np.prod(X_test.shape[1:])))
-y_test_noise = np.load('./dataset/y_test_MNIST.npy')
+y_test_noise = np.load('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '17_Introduction to Deep Learning with Keras/data/y_test_MNIST.npy')
 
-"""> Note: When I used 'adagrad' as an optimizer, it doesn't show correct answer. But after I changed 'adam', it works."""
+
+"""> Note: When I used 'adagrad' as an optimizer, it doesn't show correct answer. 
+But after I changed 'adam', it works."""
 
 # Start with a sequential model
 autoencoder = Sequential(name='autoencoder')
@@ -141,13 +148,14 @@ The digits in this noisy dataset look like this:
 ![noise](image/noisy_mnist_sample.png)
 """
 
+
 def show_encodings(encoded_imgs,number=1):
     n = 5  # how many digits we will display
     original = X_test_noise
     original = original[np.where(y_test_noise == number)]
     encoded_imgs = encoded_imgs[np.where(y_test_noise == number)]
     plt.figure(figsize=(20, 4))
-    #plt.title('Original '+str(number)+' vs Encoded representation')
+    # plt.title('Original '+str(number)+' vs Encoded representation')
     for i in range(min(n,len(original))):
         # display original imgs
         ax = plt.subplot(2, n, i + 1)
@@ -162,6 +170,7 @@ def show_encodings(encoded_imgs,number=1):
         plt.gray()
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
+
 
 def compare_plot(original,decoded_imgs):
     n = 4  # How many digits we will display
@@ -182,12 +191,13 @@ def compare_plot(original,decoded_imgs):
         ax.get_yaxis().set_visible(False)
     plt.title('Noisy vs Decoded images')
 
+
 # Train autoencoder
 autoencoder.fit(X_train, X_train,
                 epochs=100,
                 batch_size=256,
                 shuffle=True,
-                validation_data=(X_test, X_test), verbose=0);
+                validation_data=(X_test, X_test), verbose=0)
 
 # Build your encoder by using the first layer of your autoencoder
 encoder = Sequential()
@@ -269,12 +279,12 @@ activations = first_layer_model.predict(X_test)
 fig, axs = plt.subplots(1, 3, figsize=(16, 8))
 
 # Plot the activations of first digit of X_test for the 15th filter
-axs[1].matshow(activations[0,:,:,14], cmap = 'viridis');
+axs[1].matshow(activations[0, :, :, 14], cmap='viridis')
 
 # Do the same but for the 18th filter now
-axs[2].matshow(activations[0,:,:,17], cmap = 'viridis');
+axs[2].matshow(activations[0, :, :, 17], cmap='viridis')
 
-axs[0].matshow(X_test[0,:,:,0], cmap='viridis');
+axs[0].matshow(X_test[0, :, :, 0], cmap='viridis')
 
 """Each neuron filter of the first layer learned a different convolution. The 15th filter (a.k.a convolutional mask) learned to detect horizontal traces in your digits. On the other hand, filter 18th seems to be checking for vertical traces.
 
@@ -291,7 +301,8 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import preprocess_input
 
 # Load the image with the right target size for your model
-img = image.load_img('./dataset/dog.png', target_size=(224, 224))
+img = image.load_img('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '17_Introduction to Deep Learning with Keras/data/dog.png', target_size=(224, 224))
 
 # Turn it into an array
 img_array = image.img_to_array(img)
@@ -323,11 +334,12 @@ print('Predicted:', decode_predictions(preds, top=3)[0])
 """### Custom dog image"""
 
 # Load the image with the right target size for your model
-img = image.load_img('./dataset/grace.jpg', target_size=(224, 224))
+img = image.load_img('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '17_Introduction to Deep Learning with Keras/data/grace.jpg', target_size=(224, 224))
 img_array = image.img_to_array(img)
 img_expanded = np.expand_dims(img_array, axis=0)
 img_ready = preprocess_input(img_expanded)
-plt.imshow(img);
+plt.imshow(img)
 
 # Predict with ResNet50 on your already processed img
 preds = model.predict(img_ready)
@@ -417,6 +429,7 @@ y = to_categorical(y, num_classes=vocab_size)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 history = model.fit(X, y, epochs=500, verbose=0);
 
+
 def predict_text(test_text, model=model):
     if len(test_text.split()) != 3:
         print('Text input should be 3 words')
@@ -431,16 +444,19 @@ def predict_text(test_text, model=model):
     # Return the word that maps to the prediction
     return tokenizer.index_word[pred]
 
+
 predict_text('meet revenge with')
 
 predict_text('the course of')
 
 predict_text('strength of the')
 
+
 def plot_graphs(history, string):
     plt.plot(history.history[string])
     plt.xlabel('Epochs')
     plt.ylabel(string)
+
 
 plot_graphs(history, 'accuracy')
 

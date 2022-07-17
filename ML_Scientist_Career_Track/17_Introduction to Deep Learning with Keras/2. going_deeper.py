@@ -15,8 +15,9 @@ Your goal is to distinguish between real and fake dollar bills. In order to do t
 ![dollar](image/dollar_bills.png)
 """
 
-banknotes = pd.read_csv('./dataset/banknotes.csv')
-banknotes.head()
+banknotes = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '17_Introduction to Deep Learning with Keras/data/banknotes.csv')
+print(banknotes.head())
 
 # Normlize the data
 X = banknotes.iloc[:, :4]
@@ -83,7 +84,8 @@ You're going to build a model that predicts who threw which dart only based on w
 This problem is a multi-class classification problem since each dart can only be thrown by one of 4 competitors. So classes/labels are mutually exclusive, and therefore we can build a neuron with as many output as competitors and use the `softmax` activation function to achieve a total sum of probabilities of 1 over all competitors.
 """
 
-darts = pd.read_csv('./dataset/darts.csv')
+darts = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '17_Introduction to Deep Learning with Keras/data/darts.csv')
 darts.head()
 
 sns.pairplot(darts, hue='competitor');
@@ -140,7 +142,7 @@ Let's find out who threw which dart just by looking at the board!
 """
 
 coordinates = darts[['xCoord', 'yCoord']]
-coordinates.head()
+print(coordinates.head())
 
 coord_train, coord_test, competitors_train, competitors_test = \
     train_test_split(coordinates, competitors, test_size=0.25, stratify=competitors)
@@ -167,8 +169,8 @@ Use the collection of test throws stored in `coords_small_test` and `np.argmax()
 """
 
 coords_small_test = pd.DataFrame({
-    'xCoord':[0.209048, 0.082103, 0.198165, -0.348660, 0.214726],
-    'yCoord':[-0.077398, -0.721407, -0.674646, 0.035086, 0.183894]
+    'xCoord': [0.209048, 0.082103, 0.198165, -0.348660, 0.214726],
+    'yCoord': [-0.077398, -0.721407, -0.674646, 0.035086, 0.183894]
 })
 
 competitors_small_test = np.array([[0., 0., 1., 0.], [0., 0., 0., 1.],
@@ -203,7 +205,8 @@ To account for this behavior what we do is have an output layer with as many neu
 ![irrigation](image/mutilabel_dataset.jpg)
 """
 
-irrigation = pd.read_csv('./dataset/irrigation_machine.csv', index_col=0)
+irrigation = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '17_Introduction to Deep Learning with Keras/data/irrigation_machine.csv', index_col=0)
 irrigation.head()
 
 # Instantiate a Sequential model
@@ -269,24 +272,27 @@ The irrigation machine model you built in the previous lesson is loaded for you 
 Let's see the behind the scenes of our training!
 """
 
+
 def plot_accuracy(acc,val_acc):
     # Plot training & validation accuracy values
-    plt.figure();
-    plt.plot(acc);
-    plt.plot(val_acc);
-    plt.title('Model accuracy');
-    plt.ylabel('Accuracy');
-    plt.xlabel('Epoch');
-    plt.legend(['Train', 'Test'], loc='upper left');
+    plt.figure()
+    plt.plot(acc)
+    plt.plot(val_acc)
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
 
-def plot_loss(loss,val_loss):
-    plt.figure();
-    plt.plot(loss);
-    plt.plot(val_loss);
-    plt.title('Model loss');
-    plt.ylabel('Loss');
-    plt.xlabel('Epoch');
-    plt.legend(['Train', 'Test'], loc='upper right');
+
+def plot_loss(loss, val_loss):
+    plt.figure()
+    plt.plot(loss)
+    plt.plot(val_loss)
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper right')
+
 
 X_train, y_train = sensors_train, parcels_train
 X_test, y_test = sensors_test, parcels_test
@@ -331,7 +337,7 @@ monitor_val_acc = EarlyStopping(monitor='val_accuracy', patience=5)
 
 # Train your model using early stopping callback
 model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test), 
-          callbacks=[monitor_val_acc]);
+          callbacks=[monitor_val_acc])
 
 """### A combination of callbacks
 Deep learning models can take a long time to train, especially when you move to deeper architectures and bigger datasets. Saving your model every time it improves as well as stopping it when it no longer does allows you to worry less about choosing the number of epochs to train for. You can also restore a saved model anytime and resume training where you left it.
@@ -345,7 +351,9 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 monitor_val_acc = EarlyStopping(monitor='val_accuracy', patience=3)
 
 # Save the best model as best_banknote_model.hdf5
-modelCheckpoint = ModelCheckpoint('./best_banknote_model.hdf5', save_best_only=True)
+modelCheckpoint = ModelCheckpoint('./datacamp_repo/ML_Scientist_Career_Track/'
+                                  '17_Introduction to Deep Learning with Keras/data//best_banknote_model.hdf5',
+                                  save_best_only=True)
 
 # Fit your model for a stupid amount of epochs
 h_callback = model.fit(X_train, y_train,
@@ -354,4 +362,5 @@ h_callback = model.fit(X_train, y_train,
                        validation_data=(X_test, y_test))
 
 
-"""Now you always save the model that performed best, even if you early stopped at one that was already performing worse."""
+"""Now you always save the model that performed best, 
+even if you early stopped at one that was already performing worse."""

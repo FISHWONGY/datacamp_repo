@@ -54,8 +54,9 @@ Note that you can view this problem as approximating a quadratic function via th
 This data is stored in two numpy arrays: one called `time_steps` , what we call features, and another called `y_positions`, with the labels. Go on and build your model! It should be able to predict the y positions for the meteor orbit at future time steps.
 """
 
-orbit = pd.read_csv('./dataset/orbit.csv')
-orbit.head()
+orbit = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '17_Introduction to Deep Learning with Keras/data/orbit.csv')
+print(orbit.head())
 
 time_steps = orbit['time_steps'].to_numpy()
 y_positions = orbit['y'].to_numpy()
@@ -101,6 +102,7 @@ Hurry up, the Earth is running out of time!
 Remember `np.arange(x,y)` produces a range of values from `x` to `y-1`. That is the `[x, y)` interval.
 """
 
+
 def plot_orbit(model_preds):
     axeslim = int(len(model_preds) / 2)
     plt.plot(np.arange(-axeslim, axeslim + 1),np.arange(-axeslim, axeslim + 1) ** 2,
@@ -109,6 +111,7 @@ def plot_orbit(model_preds):
     plt.axis([-40, 41, -5, 550])
     plt.legend(["Scientist's Orbit", 'Your orbit'],loc="lower left")
     plt.title("Predicted orbit vs Scientist's Orbit")
+
 
 # Predict the twenty minutes orbit
 twenty_min_orbit = model.predict(np.arange(-10, 11))
@@ -122,4 +125,8 @@ eighty_min_orbit = model.predict(np.arange(-40, 41))
 # Plot the eighty minute orbit
 plot_orbit(eighty_min_orbit)
 
-"""Your model fits perfectly to the scientists trajectory for time values between -10 to +10, the region where the meteor crosses the impact region, so we won't be hit! However, it starts to diverge when predicting for new values we haven't trained for. This shows neural networks learn according to the data they are fed with. Data quality and diversity are very important."""
+"""Your model fits perfectly to the scientists trajectory for time values between -10 to +10, 
+the region where the meteor crosses the impact region, so we won't be hit! 
+However, it starts to diverge when predicting for new values we haven't trained for. 
+This shows neural networks learn according to the data they are fed with. Data quality and diversity are very important.
+"""
