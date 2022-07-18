@@ -53,7 +53,7 @@ Let's train the model you just built and plot its learning curve to check out if
 """
 
 
-def plot_loss(loss,val_loss):
+def plot_loss(loss, val_loss):
     plt.figure()
     plt.plot(loss)
     plt.plot(val_loss)
@@ -87,7 +87,7 @@ Train your model on the different training sizes and evaluate the results on `X_
 """
 
 
-def plot_results(train_accs,test_accs):
+def plot_results(train_accs, test_accs):
     plt.plot(training_sizes, train_accs, 'o-', label="Training Accuracy")
     plt.plot(training_sizes, test_accs, 'o-', label="Test Accuracy")
     plt.title('Accuracy vs Number of training samples')
@@ -132,13 +132,12 @@ You will loop through several activation functions, generate a new model for eac
 
 irrigation = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
                          '17_Introduction to Deep Learning with Keras/data/irrigation_machine.csv', index_col=0)
-irrigation.head()
+print(irrigation.head())
 
 parcels = irrigation[['parcel_0', 'parcel_1', 'parcel_2']].to_numpy()
 sensors = irrigation.drop(['parcel_0', 'parcel_1', 'parcel_2'], axis=1).to_numpy()
 
-X_train, X_test, y_train, y_test = \
-    train_test_split(sensors, parcels, test_size=0.3, stratify=parcels)
+X_train, X_test, y_train, y_test = train_test_split(sensors, parcels, test_size=0.3, stratify=parcels)
 
 np.random.seed(1)
 
@@ -240,8 +239,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
 def get_model():
     model = Sequential()
-    model.add(Dense(4,input_shape=(2,),activation='relu'))
-    model.add(Dense(1,activation="sigmoid"))
+    model.add(Dense(4, input_shape=(2,),activation='relu'))
+    model.add(Dense(1, activation="sigmoid"))
     model.compile('sgd', 'binary_crossentropy', metrics=['accuracy'])
     return model
 
@@ -413,6 +412,7 @@ random_search_results = random_search.fit(X, y, verbose=0)
 # Print results
 print("Best: {} using {}".format(random_search_results.best_score_,
                                  random_search_results.best_params_))
+# Best: 0.9121785958607992 using {'learning_rate': 0.01, 'epochs': 50, 'batch_size': 256, 'activation': 'relu'}
 
 """### Training with cross-validation
 Time to train your model with the best parameters found: 0.01 for the learning rate, 100 epochs, a 128 batch_size and `relu` activations. (Maybe the result will be different)
@@ -425,6 +425,7 @@ End this chapter by training an awesome tuned model on the breast cancer dataset
 """
 
 from sklearn.model_selection import cross_val_score
+
 
 def create_model_d(func):
     return func(0.01, 'relu')

@@ -106,7 +106,8 @@ You will encode and decode the MNIST dataset of handwritten digits, the hidden l
 """
 
 from tensorflow.keras.datasets import mnist
-
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 X_train = X_train.astype('float32') / 255.
 X_test = X_test.astype('float32') / 255.
@@ -265,7 +266,7 @@ X_train = np.reshape(X_train, [-1, 28, 28, 1])
 X_test = np.reshape(X_test, [-1, 28, 28, 1])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-model.fit(X_train, y_train, epochs=30, batch_size=32);
+model.fit(X_train, y_train, epochs=30, batch_size=32)
 
 # Obtain a reference to the outputs of the first layer
 first_layer_output = model.layers[0].output
@@ -400,7 +401,7 @@ Remember your sequences had 4 words each, your model will be trained on the firs
 """
 
 vocab_size = len(tokenizer.word_counts) + 1
-vocab_size
+print(vocab_size)
 
 from tensorflow.keras.layers import Embedding, LSTM
 
@@ -427,9 +428,10 @@ y = np_sequences[:, 3]
 y = to_categorical(y, num_classes=vocab_size)
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-history = model.fit(X, y, epochs=500, verbose=0);
+history = model.fit(X, y, epochs=500, verbose=0)
 
 
+# A model to predict the next word
 def predict_text(test_text, model=model):
     if len(test_text.split()) != 3:
         print('Text input should be 3 words')
