@@ -94,11 +94,13 @@ from tensorflow.keras.utils import plot_model
 model.summary()
 
 # Plot the model
-plot_model(model, to_file='./model.png')
+plot_model(model, to_file='./datacamp_repo/ML_Scientist_Career_Track/'
+                          '18_Advanced Deep Learning with Keras/data/model.png')
 
 # Display the image
-data = plt.imread('./model.png')
-plt.imshow(data);
+data = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                  '18_Advanced Deep Learning with Keras/data//model.png')
+plt.imshow(data)
 
 """## Fit and evaluate a model
 - Basketball Data
@@ -117,8 +119,9 @@ In this exercise, you'll use a dataset of scores from US College Basketball tour
 To fit the model, you provide a matrix of X variables (in this case one column: the seed difference) and a matrix of Y variables (in this case one column: the score difference).
 """
 
-games_tourney = pd.read_csv('./dataset/games_tourney.csv')
-games_tourney.head()
+games_tourney = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '18_Advanced Deep Learning with Keras/data/games_tourney.csv')
+print(games_tourney.head())
 
 from sklearn.model_selection import train_test_split
 
@@ -135,7 +138,7 @@ model.fit(games_tourney_train['seed_diff'], games_tourney_train['score_diff'],
           epochs=1,
           batch_size=128,
           validation_split=0.1,
-          verbose=True);
+          verbose=True)
 
 """### Evaluate the model on a test set
 After fitting the model, you can evaluate it on new data. You will give the model a new `X` matrix (also called test data), allow it to make predictions, and then compare to the known `y` variable (also called target data).

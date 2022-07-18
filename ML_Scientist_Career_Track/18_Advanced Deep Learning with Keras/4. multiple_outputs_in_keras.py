@@ -36,11 +36,13 @@ This model will use the pre-tournament seeds, as well as your pre-tournament pre
 As a reminder, this model will predict the scores of both teams.
 """
 
-games_tourney = pd.read_csv('./dataset/games_tourney.csv')
-games_tourney.head()
+games_tourney = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '18_Advanced Deep Learning with Keras/data/games_tourney.csv')
+print(games_tourney.head())
 
-games_season = pd.read_csv('./dataset/games_season.csv')
-games_season.head()
+games_season = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '18_Advanced Deep Learning with Keras/data/games_season.csv')
+print(games_season.head())
 
 from tensorflow.keras.layers import Embedding, Input, Flatten, Concatenate, Dense
 from tensorflow.keras.models import Model
@@ -91,12 +93,12 @@ p_model.compile(optimizer='adam', loss='mean_absolute_error')
 
 # Fit the model to the games_season dataset
 p_model.fit([games_season['team_1'], games_season['team_2'], games_season['home']],
-          games_season['score_diff'],
-          epochs=1, verbose=True, validation_split=0.1, batch_size=2048)
+            games_season['score_diff'],
+            epochs=1, verbose=True, validation_split=0.1, batch_size=2048)
 
 games_tourney['pred'] = p_model.predict([games_tourney['team_1'], 
-                                       games_tourney['team_2'], 
-                                       games_tourney['home']])
+                                        games_tourney['team_2'],
+                                        games_tourney['home']])
 
 games_tourney_train = games_tourney[games_tourney['season'] <= 2010]
 games_tourney_test = games_tourney[games_tourney['season'] > 2010]
@@ -106,7 +108,7 @@ model.fit(games_tourney_train[['seed_diff', 'pred']],
           games_tourney_train[['score_1', 'score_2']],
           verbose=False,
           epochs=10000,
-          batch_size=256);
+          batch_size=256)
 
 """### Inspect the model (I)
 Now that you've fit your model, let's take a look at it. You can use the `.get_weights()` method to inspect your model's weights.
@@ -186,7 +188,7 @@ games_tourney_train.mean()
 from scipy.special import expit as sigmoid
 
 # Weight from the model
-weight=0.14
+weight = 0.14
 
 # Print the approximate win probability predicted close game
 print(sigmoid(1 * weight))
@@ -202,5 +204,5 @@ Note that in this case, Keras will return 3 numbers: the first number will be th
 
 # Evaluate the model on new data
 print(model.evaluate(games_tourney_test[['seed_diff', 'pred']],
-                    [games_tourney_test[['score_diff']], games_tourney_test[['won']]], 
+                     [games_tourney_test[['score_diff']], games_tourney_test[['won']]],
                      verbose=False))

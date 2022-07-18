@@ -13,11 +13,13 @@ Now you will make an improvement to the model you used in the previous chapter f
 This model will have three inputs: team_id_1, team_id_2, and home. The team IDs will be integers that you look up in your team strength model from the previous chapter, and home will be a binary variable, 1 if team_1 is playing at home, 0 if they are not.
 """
 
-games_season = pd.read_csv('./dataset/games_season.csv')
-games_season.head()
+games_season = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '18_Advanced Deep Learning with Keras/data/games_season.csv')
+print(games_season.head())
 
-games_tourney = pd.read_csv('./dataset/games_tourney.csv')
-games_tourney.head()
+games_tourney = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '18_Advanced Deep Learning with Keras/data/games_tourney.csv')
+print(games_tourney.head())
 
 from tensorflow.keras.layers import Embedding, Input, Flatten
 from tensorflow.keras.models import Model
@@ -89,7 +91,7 @@ model.fit([games_season['team_1'], games_season['team_2'], games_season['home']]
 
 # Evaluate the model on the games_touney dataset
 print(model.evaluate([games_tourney['team_1'], games_tourney['team_2'], games_tourney['home']], 
-                      games_tourney['score_diff'], verbose=False))
+                     games_tourney['score_diff'], verbose=False))
 
 """## Summarizing and plotting models
 
@@ -106,11 +108,13 @@ In addition to summarizing your model, you can also plot your model to get a mor
 from tensorflow.keras.utils import plot_model
 
 # Plot model
-plot_model(model, to_file='team_strength_model.png')
+plot_model(model, to_file='./datacamp_repo/ML_Scientist_Career_Track/'
+                          '18_Advanced Deep Learning with Keras/data/team_strength_model.png')
 
 # Display the image
-data = plt.imread('team_strength_model.png')
-plt.imshow(data);
+data = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                  '18_Advanced Deep Learning with Keras/data/team_strength_model.png')
+plt.imshow(data)
 
 """## Stacking models
 
@@ -164,7 +168,7 @@ games_tourney_test = games_tourney[games_tourney['season'] > 2010]
 model.fit(games_tourney_train[['home', 'seed_diff', 'pred']],
           games_tourney_train['score_diff'],
           epochs=1,
-          verbose=True);
+          verbose=True)
 
 """## Evaluate the model
 Now that you've fit your model to the tournament training data, evaluate it on the tournament test data. Recall that the tournament test data contains games from after 2010.
@@ -176,3 +180,4 @@ Now that you've fit your model to the tournament training data, evaluate it on t
 print(model.evaluate(games_tourney_test[['home', 'seed_diff', 'pred']],
                      games_tourney_test['score_diff'],
                      verbose=True))
+

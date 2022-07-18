@@ -16,8 +16,9 @@ plt.rcParams['figure.figsize'] = (10, 8)
 Shared layers allow a model to use the same weight matrix for multiple steps. In this exercise, you will build a "team strength" layer that represents each team by a single number. You will use this number for both teams in the model. The model will learn a number for each team that works well both when the team is `team_1` and when the team is `team_2` in the input data.
 """
 
-games_season = pd.read_csv('./dataset/games_season.csv')
-games_season.head()
+games_season = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '18_Advanced Deep Learning with Keras/data/games_season.csv')
+print(games_season.head())
 
 from tensorflow.keras.layers import Embedding
 
@@ -113,10 +114,12 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
 from tensorflow.keras.utils import plot_model
 
-plot_model(model, to_file='./embedding_shared_merge_model.png')
+plot_model(model, to_file='./datacamp_repo/ML_Scientist_Career_Track/'
+                          '18_Advanced Deep Learning with Keras/data/embedding_shared_merge_model.png')
 
-data = plt.imread('./embedding_shared_merge_model.png')
-plt.imshow(data);
+data = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                  '18_Advanced Deep Learning with Keras/data/embedding_shared_merge_model.png')
+plt.imshow(data)
 
 """## Predict from your model
 
@@ -131,14 +134,15 @@ input_1 = games_season['team_1']
 input_2 = games_season['team_2']
 
 # Fit the model to input 1 and 2, using score diff as a target
-model.fit([input_1, input_2], games_season['score_diff'], epochs=1, batch_size=2048, validation_split=0.1, verbose=True);
+model.fit([input_1, input_2], games_season['score_diff'], epochs=1, batch_size=2048, validation_split=0.1, verbose=True)
 
 """### Evaluate the model on the tournament test data
 In this exercise, you will evaluate the model on this new dataset. This evaluation will tell you how well you can predict the tournament games, based on a model trained with the regular season data. This is interesting because many teams play each other in the tournament that did not play in the regular season, so this is a very good check that your model is not overfitting.
 """
 
-games_tourney = pd.read_csv('./dataset/games_tourney.csv')
-games_tourney.head()
+games_tourney = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '18_Advanced Deep Learning with Keras/data/games_tourney.csv')
+print(games_tourney.head())
 
 # Get team_1 from the tournament data
 input_1 = games_tourney['team_1']
