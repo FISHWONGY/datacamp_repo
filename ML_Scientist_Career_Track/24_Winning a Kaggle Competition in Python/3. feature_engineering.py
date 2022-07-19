@@ -31,6 +31,7 @@ from sklearn.metrics import mean_squared_error
 
 kf = KFold(n_splits=5, shuffle=True, random_state=123)
 
+
 def get_kfold_rmse(train):
     mse_scores = []
 
@@ -55,8 +56,11 @@ def get_kfold_rmse(train):
         
     return round(np.mean(mse_scores) + np.std(mse_scores), 2)
 
-train = pd.read_csv('./dataset/house_prices_train.csv')
-test = pd.read_csv('./dataset/house_prices_test.csv')
+
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/house_prices_train.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/house_prices_test.csv')
 
 # Look at the initial RMSE
 print('RMSE before feature engineering:', get_kfold_rmse(train))
@@ -83,8 +87,10 @@ You've built some basic features using numerical variables. Now, it's time to cr
 Your objective is to generate date features from the pickup datetime. Recall that it's better to create new features for train and test data simultaneously. After the features are created, split the data back into the train and test DataFrames. Here it's done using pandas' `isin()` method.
 """
 
-train = pd.read_csv('./dataset/taxi_train_chapter_4.csv')
-test = pd.read_csv('./dataset/taxi_test_chapter_4.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/taxi_train_chapter_4.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/taxi_test_chapter_4.csv')
 
 # Concatenate train and test together
 taxi = pd.concat([train, test])
@@ -112,8 +118,10 @@ Your objective is to encode categorical features "RoofStyle" and "CentralAir" us
 
 from sklearn.preprocessing import LabelEncoder
 
-train = pd.read_csv('./dataset/house_prices_train.csv')
-test = pd.read_csv('./dataset/house_prices_test.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/house_prices_train.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/house_prices_test.csv')
 
 # Concatenate train and test together
 houses = pd.concat([train, test])
@@ -169,6 +177,7 @@ First of all, you will create a function that implements mean target encoding. R
 2. Split train into K folds. Calculate the out-of-fold mean for each fold, apply to this particular fold
 """
 
+
 def test_mean_target_encoding(train, test, target, categorical, alpha=5):
     # Calculate global mean on the train data
     global_mean = train[target].mean()
@@ -185,9 +194,10 @@ def test_mean_target_encoding(train, test, target, categorical, alpha=5):
     test_feature = test[categorical].map(train_statistics).fillna(global_mean)
     return test_feature.values
 
+
 def train_mean_target_encoding(train, target, categorical, alpha=5):
     # Create 5-fold cross-validation
-    kf = KFold(n_splits=5,random_state=123, shuffle=True)
+    kf = KFold(n_splits=5, random_state=123, shuffle=True)
     train_feature = pd.Series(index=train.index, dtype='float')
     
     # For each folds split
@@ -202,6 +212,7 @@ def train_mean_target_encoding(train, target, categorical, alpha=5):
         train_feature.iloc[test_index] = cv_test_feature
     return train_feature.values
 
+
 def mean_target_encoding(train, test, target, categorical, alpha=5):
     # Get the train feature
     train_feature = train_mean_target_encoding(train, target, categorical, alpha)
@@ -211,6 +222,7 @@ def mean_target_encoding(train, test, target, categorical, alpha=5):
     
     # Return new features to add to the model
     return train_feature, test_feature
+
 
 """### K-fold cross-validation
 You will work with a binary classification problem on a subsample from Kaggle playground competition. The objective of this competition is to predict whether a famous basketball player Kobe Bryant scored a basket or missed a particular shot.
@@ -222,7 +234,8 @@ One of the features in the data is `"game_id"` -- a particular game where the sh
 Suppose you're using 5-fold cross-validation and want to evaluate a mean target encoded feature on the local validation.
 """
 
-bryant_shots = pd.read_csv('./dataset/bryant_shots.csv')
+bryant_shots = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '24_Winning a Kaggle Competition in Python/data/bryant_shots.csv')
 
 # Create 5-fold cross-validation
 kf = KFold(n_splits=5, random_state=123, shuffle=True)
@@ -254,8 +267,10 @@ The `mean_target_encoding()` function you've created could be used for any targe
 Your goal is to encode a categorical feature `"RoofStyle"` using mean target encoding.
 """
 
-train = pd.read_csv('./dataset/house_prices_train.csv')
-test = pd.read_csv('./dataset/house_prices_test.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/house_prices_train.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/house_prices_test.csv')
 
 # Create mean target encoded feature
 train['RoofStyle_enc'], test['RoofStyle_enc'] = mean_target_encoding(train=train,
@@ -284,12 +299,13 @@ Before proceeding with any imputing you need to know the number of missing value
 """
 
 # Read dataframe
-twosigma = pd.read_csv('./dataset/twosigma_rental_train_null.csv')
+twosigma = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '24_Winning a Kaggle Competition in Python/data/twosigma_rental_train_null.csv')
 
 # find the number of missing values in each column
 print(twosigma.isnull().sum())
 
-twosigma[['building_id', 'price']].head()
+print(twosigma[['building_id', 'price']].head())
 
 """### Impute missing data
 You've found that `"price"` and `"building_id"` columns have missing values in the Rental Listing Inquiries dataset. So, before passing the data to the models you need to impute these values.

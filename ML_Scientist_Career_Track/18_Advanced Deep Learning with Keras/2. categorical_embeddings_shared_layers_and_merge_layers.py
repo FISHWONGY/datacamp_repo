@@ -113,7 +113,8 @@ model = Model([team_in_1, team_in_2], score_diff)
 model.compile(optimizer='adam', loss='mean_absolute_error')
 
 from tensorflow.keras.utils import plot_model
-
+import pydot
+import graphviz
 plot_model(model, to_file='./datacamp_repo/ML_Scientist_Career_Track/'
                           '18_Advanced Deep Learning with Keras/data/embedding_shared_merge_model.png')
 

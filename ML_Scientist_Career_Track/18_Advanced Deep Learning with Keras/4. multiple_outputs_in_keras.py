@@ -119,10 +119,10 @@ The output layer will have 2 weights, one for each output.
 """
 
 # Print the model's weight
-model.get_weights()
+print(model.get_weights())
 
 # Print the column means of the training data
-games_tourney_train.mean()
+print(games_tourney_train.mean())
 
 """### Evaluate the model
 Now that you've fit your model and inspected it's weights to make sure it makes sense, evaluate it on the tournament test set to see how well it performs on new data.
@@ -173,17 +173,17 @@ model.fit(games_tourney_train[['seed_diff', 'pred']],
           [games_tourney_train[['score_diff']], games_tourney_train[['won']]],
           epochs=20,
           verbose=True,
-          batch_size=16384);
+          batch_size=16384)
 
 """### Inspect the model (II)
 Now you should take a look at the weights for this model. In particular, note the last weight of the model. This weight converts the predicted score difference to a predicted win probability. If you multiply the predicted score difference by the last weight of the model and then apply the sigmoid function, you get the win probability of the game.
 """
 
 # Print the model weights
-model.get_weights()
+print(model.get_weights())
 
 # Print the training data means
-games_tourney_train.mean()
+print(games_tourney_train.mean())
 
 from scipy.special import expit as sigmoid
 

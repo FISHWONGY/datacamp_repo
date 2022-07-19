@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 plt.style.use('ggplot')
-plt.rcParams['figure.figsize']=(10, 8)
+plt.rcParams['figure.figsize'] = (10, 8)
 
 """## Understand the problem
 - Solution workflow
@@ -27,10 +27,12 @@ $$ MSE = \frac{1}{N} \sum_{i=1}^{N}(y_i - \hat{y_i})^2 $$
 $$ LogLoss = -\frac{1}{N} \sum_{i = 1}^N (y_i \ln p_i + (1 - y_i) \ln (1 - p_i)) $$
 """
 
-sample = pd.read_csv('./dataset/sample_reg_true_pred.csv')
+sample = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '24_Winning a Kaggle Competition in Python/data/sample_reg_true_pred.csv')
 y_regression_true, y_regression_pred = sample['true'].to_numpy(), sample['pred'].to_numpy()
 
 from sklearn.metrics import mean_squared_error
+
 
 # Define your own MSE function
 def own_mse(y_true, y_pred):
@@ -40,13 +42,16 @@ def own_mse(y_true, y_pred):
     err = np.mean(squares)
     return err
 
+
 print('Sklearn MSE: {:.5f}. '.format(mean_squared_error(y_regression_true, y_regression_pred)))
 print('Your MSE: {:.5f}. '.format(own_mse(y_regression_true, y_regression_pred)))
 
-sample_class = pd.read_csv('./dataset/sample_class_true_pred.csv')
+sample_class = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '24_Winning a Kaggle Competition in Python/data/sample_class_true_pred.csv')
 y_classification_true, y_classification_pred = sample_class['true'].to_numpy(), sample_class['pred'].to_numpy()
 
 from sklearn.metrics import log_loss
+
 
 # Define your own LogLoss function
 def own_logloss(y_true, prob_pred):
@@ -55,6 +60,7 @@ def own_logloss(y_true, prob_pred):
     # Find mean over all observations
     err = np.mean(terms)
     return -err
+
 
 print('Sklearn LogLoss: {:.5f}'.format(log_loss(y_classification_true, y_classification_pred)))
 print('Your LogLoss: {:.5f}'.format(own_logloss(y_classification_true, y_classification_pred)))
@@ -70,27 +76,30 @@ print('Your LogLoss: {:.5f}'.format(own_logloss(y_classification_true, y_classif
 As mentioned in the slides, you'll work with New York City taxi fare prediction data. You'll start with finding some basic statistics about the data. Then you'll move forward to plot some dependencies and generate hypotheses on them.
 """
 
-train = pd.read_csv('./dataset/taxi_train_chapter_4.csv')
-test = pd.read_csv('./dataset/taxi_test_chapter_4.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/taxi_train_chapter_4.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/taxi_test_chapter_4.csv')
 
 # Shapes of train and test data
 print('Train shape:', train.shape)
 print('Test shape:', test.shape)
 
 # train head()
-train.head()
+print(train.head())
 
 # Describe the target variable
-train.fare_amount.describe()
+print(train.fare_amount.describe())
 
 # Train distribution of passengers within rides
-train.passenger_count.value_counts()
+print(train.passenger_count.value_counts())
 
 """### EDA plots I
 After generating a couple of basic statistics, it's time to come up with and validate some ideas about the data dependencies. Again, the train DataFrame from the taxi competition is already available in your workspace.
 
 To begin with, let's make a scatterplot plotting the relationship between the fare amount and the distance of the ride. Intuitively, the longer the ride, the higher its price.
 """
+
 
 def haversine_distance(train):
     
@@ -117,17 +126,18 @@ def haversine_distance(train):
         
     return d
 
+
 # Calculate the ride distance
 train['distance_km'] = haversine_distance(train)
 
 # Draw a scatterplot
-plt.scatter(x=train['fare_amount'], y=train['distance_km'], alpha=0.5);
-plt.xlabel('Fare amount');
-plt.ylabel('Distance, km');
-plt.title('Fare amount based on the distance');
+plt.scatter(x=train['fare_amount'], y=train['distance_km'], alpha=0.5)
+plt.xlabel('Fare amount')
+plt.ylabel('Distance, km')
+plt.title('Fare amount based on the distance')
 
 # Limit on the distance
-plt.ylim(0, 50);
+plt.ylim(0, 50)
 
 """### EDA plots II
 Another idea that comes to mind is that the price of a ride could change during the day.
@@ -143,11 +153,11 @@ train['hour'] = train.pickup_datetime.dt.hour
 hour_price = train.groupby('hour', as_index=False)['fare_amount'].median()
 
 # Plot the line plot
-plt.plot(hour_price['hour'], hour_price['fare_amount'], marker='o');
-plt.xlabel('Hour of the day');
-plt.ylabel('Median fare amount');
-plt.title('Fare amount based on day time');
-plt.xticks(range(24));
+plt.plot(hour_price['hour'], hour_price['fare_amount'], marker='o')
+plt.xlabel('Hour of the day')
+plt.ylabel('Median fare amount')
+plt.title('Fare amount based on day time')
+plt.xticks(range(24))
 
 """We see that prices are a bit higher during the night. It is a good indicator that we should include the `"hour"` feature in the final model, or at least add a binary feature `"is_night"`.
 
@@ -167,7 +177,8 @@ The data you'll be working with is from the "Two sigma connect: rental listing i
 You need to implement a K-fold validation strategy and look at the sizes of each fold obtained.
 """
 
-train = pd.read_csv('./dataset/twosigma_rental_train.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/twosigma_rental_train.csv')
 
 from sklearn.model_selection import KFold
 
@@ -223,7 +234,8 @@ Remember the "Store Item Demand Forecasting Challenge" where you are given store
 It's a competition with time series data. So, time K-fold cross-validation should be applied. Your goal is to create this cross-validation strategy and make sure that it works as expected.
 """
 
-train = pd.read_csv('./dataset/demand_forecasting_train_1_month.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/demand_forecasting_train_1_month.csv')
 
 from sklearn.model_selection import TimeSeriesSplit
 
@@ -253,6 +265,7 @@ For simplicity, you're given `get_fold_mse()` function that for each cross-valid
 
 from sklearn.ensemble import RandomForestRegressor
 
+
 def get_fold_mse(train, kf):
     mse_scores = []
     
@@ -273,6 +286,7 @@ def get_fold_mse(train, kf):
         mse_scores.append(fold_score)
         
     return mse_scores
+
 
 # Initialize 3-fold time cross-validation
 kf = TimeSeriesSplit(n_splits=3)

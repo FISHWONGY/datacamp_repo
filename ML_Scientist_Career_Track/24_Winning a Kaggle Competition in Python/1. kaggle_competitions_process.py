@@ -21,13 +21,14 @@ Your initial goal is to read the input data and take the first look at it.
 """
 
 # Read train data
-train = pd.read_csv('./dataset/demand_forecasting_train_1_month.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/demand_forecasting_train_1_month.csv')
 
 # Look at the shape of the data
 print('Train shape:', train.shape)
 
 # Look at the head() of the data
-train.head()
+print(train.head())
 
 """### Explore test data
 Having looked at the train data, let's explore the test data in the "Store Item Demand Forecasting Challenge". Remember, that the test dataset generally contains one column less than the train one.
@@ -38,17 +39,19 @@ That is why, let's look at the columns of the test dataset and compare it to the
 """
 
 # Read the test data
-test = pd.read_csv('./dataset/demand_forecasting_test.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/demand_forecasting_test.csv')
 
 # Print train and test columns
 print('Train columns:', train.columns.tolist())
 print('Test columns:', test.columns.tolist())
 
 # Read the sample submission file
-sample_submission = pd.read_csv('./dataset/sample_submission.csv')
+sample_submission = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                                '24_Winning a Kaggle Competition in Python/data/sample_submission.csv')
 
 # Look at the head() of the sample submission
-sample_submission.head()
+print(sample_submission.head())
 
 """The sample submission file consists of two columns: `id` of the observation and `sales` column for your predictions. Kaggle will evaluate your predictions on the true `sales` data for the corresponding `id`. So, it’s important to keep track of the predictions by `id` before submitting them.
 
@@ -61,8 +64,8 @@ Before building a model, you should determine the problem type you are addressin
 """
 
 fig, ax = plt.subplots()
-train.sales.hist(ax=ax);
-ax.set_title('histogram of sales');
+train.sales.hist(ax=ax)
+ax.set_title('histogram of sales')
 
 """### Train a simple model
 As you determined, you are dealing with a regression problem. So, now you're ready to build a model for a subsequent submission. But now, instead of building the simplest Linear Regression model as in the slides, let's build an out-of-box Random Forest model.
@@ -89,13 +92,14 @@ Your goal is to read the test data, make predictions, and save these in the form
 """
 
 # Show the head() of the sample_submission
-sample_submission.head()
+print(sample_submission.head())
 
 # Get predictions for the test set
 test['sales'] = rf.predict(test[['store', 'item']])
 
 # Write test predictions using the sample_submission format
-test[['id', 'sales']].to_csv('kaggle_submission.csv', index=False)
+test[['id', 'sales']].to_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '24_Winning a Kaggle Competition in Python/data/kaggle_submission.csv', index=False)
 
 
 """## Public vs Private leaderboard

@@ -17,8 +17,10 @@ The first goal is to evaluate the Baseline model on the validation data. You wil
 
 from sklearn.model_selection import train_test_split
 
-train = pd.read_csv('./dataset/taxi_train_chapter_4.csv')
-test = pd.read_csv('./dataset/taxi_test_chapter_4.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/taxi_train_chapter_4.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/taxi_test_chapter_4.csv')
 
 validation_train, validation_test = train_test_split(train, test_size=0.3)
 
@@ -56,7 +58,8 @@ hour_groups = train.groupby('hour')['fare_amount'].mean()
 test['fare_amount'] = test.hour.map(hour_groups)
 
 # Write predictions
-test[['id', 'fare_amount']].to_csv('hour_mean_sub.csv', index=False)
+test[['id', 'fare_amount']].to_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                                   '24_Winning a Kaggle Competition in Python/data/hour_mean_sub.csv', index=False)
 
 
 """### Baseline based on the gradient boosting
@@ -79,7 +82,8 @@ rf.fit(train[features], train.fare_amount)
 test['fare_amount'] = rf.predict(test[features])
 
 # Write predictions
-test[['id', 'fare_amount']].to_csv('rf_sub.csv', index=False)
+test[['id', 'fare_amount']].to_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                                    '24_Winning a Kaggle Competition in Python/data/rf_sub.csv', index=False)
 
 
 """## Hyperparameter tuning
@@ -126,6 +130,7 @@ def get_cv_score(train, params):
     
     return np.round(np.mean(rmse_scores) + np.std(rmse_scores), 5)
 
+
 # Possible max depth values
 max_depth_grid = [3, 6, 9, 12, 15]
 results = {}
@@ -143,9 +148,13 @@ for max_depth_candidate in max_depth_grid:
 print(results)
 
 """### 2D grid search
-The drawback of tuning each hyperparameter independently is a potential dependency between different hyperparameters. The better approach is to try all the possible hyperparameter combinations. However, in such cases, the grid search space is rapidly expanding. For example, if we have 2 parameters with 10 possible values, it will yield 100 experiment runs.
+The drawback of tuning each hyperparameter independently is a potential dependency between different hyperparameters. 
+The better approach is to try all the possible hyperparameter combinations. 
+However, in such cases, the grid search space is rapidly expanding. 
+For example, if we have 2 parameters with 10 possible values, it will yield 100 experiment runs.
 
-Your goal is to find the best hyperparameter couple of `max_depth` and `subsample` for the Gradient Boosting model. `subsample` is a fraction of observations to be used for fitting the individual trees.
+Your goal is to find the best hyperparameter couple of `max_depth` and `subsample` for the Gradient Boosting model. 
+`subsample` is a fraction of observations to be used for fitting the individual trees.
 """
 
 import itertools
@@ -180,8 +189,10 @@ You will start creating model ensembles with a blending technique.
 Your goal is to train 2 different models on the New York City Taxi competition data. Make predictions on the test data and then blend them using a simple arithmetic mean.
 """
 
-train = pd.read_csv('./dataset/taxi_train_distance.csv')
-test = pd.read_csv('./dataset/taxi_test_distance.csv')
+train = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '24_Winning a Kaggle Competition in Python/data/taxi_train_distance.csv')
+test = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '24_Winning a Kaggle Competition in Python/data/taxi_test_distance.csv')
 
 features = ['pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 
             'passenger_count', 'distance_km', 'hour']
@@ -267,10 +278,11 @@ You're given a function `get_cv_score()`, which takes a train dataset as an argu
 You should try different suggestions from the Kaggle Forum and check whether they improve your validation score.
 """
 
+
 def get_cv_score(train):
     features = ['pickup_longitude', 'pickup_latitude',
-            'dropoff_longitude', 'dropoff_latitude',
-            'passenger_count', 'distance_km', 'hour', 'weird_feature']
+                'dropoff_longitude', 'dropoff_latitude',
+                'passenger_count', 'distance_km', 'hour', 'weird_feature']
     
     features = [x for x in features if x in train.columns]
     
@@ -293,6 +305,7 @@ def get_cv_score(train):
         rmse_scores.append(fold_score)
     
     return np.round(np.mean(rmse_scores) + np.std(rmse_scores), 5)
+
 
 # Drop passenger_count column
 new_train_1 = train.drop('passenger_count', axis=1)
