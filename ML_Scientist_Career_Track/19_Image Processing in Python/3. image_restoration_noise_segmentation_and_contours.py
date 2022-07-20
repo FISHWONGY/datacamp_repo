@@ -196,7 +196,7 @@ def show_image_contour(image, contours):
     plt.axis('off')
 
 
-from skimage import measure
+from skimage import measure, data
 
 # Obtain the horse image
 horse_image = data.horse()
