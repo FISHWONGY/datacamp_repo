@@ -279,7 +279,7 @@ train['RoofStyle_enc'], test['RoofStyle_enc'] = mean_target_encoding(train=train
                                                                      categorical='RoofStyle',
                                                                      alpha=10)
 # Look at the encoding
-test[['RoofStyle', 'RoofStyle_enc']].drop_duplicates()
+print(test[['RoofStyle', 'RoofStyle_enc']].drop_duplicates())
 
 """You observe that houses with the `Hip` roof are the most pricy, while houses with the `Gambrel` roof are the cheapest. It's exactly the goal of target encoding: you've encoded categorical feature in such a manner that there is now a correlation between category values and target variable. We're done with categorical encoders.
 

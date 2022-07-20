@@ -83,7 +83,7 @@ test['fare_amount'] = rf.predict(test[features])
 
 # Write predictions
 test[['id', 'fare_amount']].to_csv('./datacamp_repo/ML_Scientist_Career_Track/'
-                                    '24_Winning a Kaggle Competition in Python/data/rf_sub.csv', index=False)
+                                   '24_Winning a Kaggle Competition in Python/data/rf_sub.csv', index=False)
 
 
 """## Hyperparameter tuning
@@ -108,6 +108,7 @@ You're given a function `get_cv_score()`, which takes the train dataset and dict
 
 from sklearn.model_selection import KFold
 from sklearn.ensemble import GradientBoostingRegressor
+
 
 def get_cv_score(train, params):
     # Create KFold object
@@ -209,7 +210,7 @@ test['rf_pred'] = rf.predict(test[features])
 
 # Find mean of model predictions
 test['blend'] = (test['gb_pred'] + test['rf_pred']) / 2
-test[['gb_pred', 'rf_pred', 'blend']].head(3)
+print(test[['gb_pred', 'rf_pred', 'blend']].head(3))
 
 """### Model stacking I
 Now it's time for stacking. To implement the stacking approach, you will follow the 6 steps:
@@ -315,6 +316,7 @@ initial_score = get_cv_score(train)
 new_score = get_cv_score(new_train_1)
 
 print('Initial score is {} and the new score is {}'.format(initial_score, new_score))
+# Initial score is 6.49932 and the new score is 6.42315
 
 # Create copy of the initial train DataFrame
 new_train_2 = train.copy()
@@ -327,3 +329,4 @@ initial_score = get_cv_score(train)
 new_score = get_cv_score(new_train_2)
 
 print('Initial score is {} and the new score is {}'.format(initial_score, new_score))
+# Initial score is 6.49932 and the new score is 6.50495
