@@ -10,11 +10,13 @@ plt.rcParams['figure.figsize'] = (10, 8)
 In this exercise you will identify the shapes in a grapefruit image by detecting the edges, using the Canny algorithm.
 """
 
+
 def show_image(image, title='Image', cmap_type='gray'):
     plt.imshow(image, cmap=cmap_type)
     plt.title(title)
     plt.axis('off')
-    
+
+
 def plot_comparison(img_original, img_filtered, img_title_filtered):
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 8), sharex=True, sharey=True)
     ax1.imshow(img_original, cmap=plt.cm.gray)
@@ -24,10 +26,12 @@ def plot_comparison(img_original, img_filtered, img_title_filtered):
     ax2.set_title(img_title_filtered)
     ax2.axis('off')
 
+
 from skimage.feature import canny
 from skimage import color
 
-grapefruit = imread('./dataset/toronjas.jpg')
+grapefruit = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                    '19_Image Processing in Python/data/toronjas.jpg')
 
 # Convert image to grayscale
 grapefruitb = color.rgb2gray(grapefruit)
@@ -59,15 +63,18 @@ plot_comparison(edges_1_8, edges_2_2, 'change sigma from 1.8 to 2.2')
 In this exercise, you will detect the corners of a building using the Harris corner detector.
 """
 
+
 def show_image_with_corners(image, coords, title="Corners detected"):
     plt.imshow(image, interpolation='nearest', cmap='gray')
     plt.title(title)
     plt.plot(coords[:, 1], coords[:, 0], '+r', markersize=15)
     plt.axis('off')
 
+
 from skimage.feature import corner_harris, corner_peaks
 
-building_image = imread('./dataset/corners_building_top.jpg')
+building_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '19_Image Processing in Python/data/corners_building_top.jpg')
 
 # Convert image from RGB to grayscale
 building_image_gray = color.rgb2gray(building_image)
@@ -108,16 +115,18 @@ In this exercise, you will check whether or not there is a person present in an 
 
 import matplotlib.patches as patches
 
+
 def crop_face(result, detected, title="Face detected"):
     for d in detected:
         print(d)
-        rostro= result[d['r']:d['r']+d['width'], d['c']:d['c']+d['height']]
+        rostro = result[d['r']:d['r']+d['width'], d['c']:d['c']+d['height']]
     
         plt.figure(figsize=(8, 6))
         plt.imshow(rostro)    
         plt.title(title)
         plt.axis('off')
         plt.show()
+
 
 def show_detected_face(result, detected, title="Face image"):
     plt.figure()
@@ -141,10 +150,12 @@ def show_detected_face(result, detected, title="Face image"):
     plt.show()
     crop_face(result, detected)
 
+
 from skimage import data
 from skimage.feature import Cascade
 
-night_image = imread('./dataset/face_det3.jpg')
+night_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '19_Image Processing in Python/data/face_det3.jpg')
 
 # Load the trained file from data
 trained_file = data.lbp_frontal_face_cascade_filename()
@@ -165,7 +176,8 @@ In this exercise, you will detect multiple faces in an image and show them indiv
 
 """
 
-friends_image = imread('./dataset/face_det_friends22.jpg')
+friends_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '19_Image Processing in Python/data/face_det_friends22.jpg')
 
 # Detect faces with scale factor to 1.2 and step ratio to 1
 detected = detector.detect_multi_scale(img=friends_image,
@@ -186,7 +198,8 @@ Using the `slic()` function for segmentation, pre-process the image before passi
 from skimage.segmentation import slic
 from skimage.color import label2rgb
 
-profile_image = imread('./dataset/face_det9.jpg')
+profile_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '19_Image Processing in Python/data/face_det9.jpg')
 
 # Obtain the segmentation with default 100 regions
 segments = slic(profile_image)
@@ -216,30 +229,34 @@ In this exercise, you will detect human faces in the image and for the sake of p
 You can use the gaussian filter for the blurriness.
 """
 
+
 def getFaceRectangle(image, d):
     ''' Extracts the face from the image using the coordinates of the detected image '''
     # X and Y starting points of the face rectangle
-    x, y  = d['r'], d['c']
+    x, y = d['r'], d['c']
     
     # The width and height of the face rectangle
     width, height = d['r'] + d['width'],  d['c'] + d['height']
     
     # Extract the detected face
-    face= image[ x:width, y:height]
+    face = image[x:width, y:height]
     return face
+
 
 def mergeBlurryFace(original, gaussian_image):
      # X and Y starting points of the face rectangle
-    x, y  = d['r'], d['c']
+    x, y = d['r'], d['c']
     # The width and height of the face rectangle
     width, height = d['r'] + d['width'],  d['c'] + d['height']
     
-    original[ x:width, y:height] =  gaussian_image
+    original[x:width, y:height] = gaussian_image
     return original
+
 
 from skimage.filters import gaussian
 
-group_image = imread('dataset/face_det25.jpg')
+group_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '19_Image Processing in Python/data/face_det25.jpg')
 group_image_o = group_image.copy()
 
 # Detect the faces
@@ -272,6 +289,7 @@ You will be fixing the problems of this image by:
 - Reconstructing the damaged parts with `inpaint_biharmonic()` from the inpaint module.
 """
 
+
 def get_mask(image):
     # Create mask with three defect regions: left, middle, right respectively
     mask_for_solution = np.zeros(image.shape[:-1])
@@ -280,10 +298,12 @@ def get_mask(image):
     mask_for_solution[130:155, 345:370] = 1
     return mask_for_solution
 
+
 from skimage.restoration import denoise_tv_chambolle, inpaint
 from skimage import transform
 
-damaged_image = imread('./dataset/sally_damaged_image.jpg')
+damaged_image = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '19_Image Processing in Python/data/sally_damaged_image.jpg')
 
 # Transform the image so it's not rotate
 upright_img = transform.rotate(damaged_image, 20)

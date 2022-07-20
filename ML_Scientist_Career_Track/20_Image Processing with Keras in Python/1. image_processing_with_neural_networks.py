@@ -12,12 +12,13 @@ To display image data, you will rely on Python's [Matplotlib](https://matplotlib
 from skimage import transform
 
 # Load the image
-data = plt.imread('./dataset/bricks.png')
+data = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                  '20_Image Processing with Keras in Python/data/bricks.png')
 
 data = transform.resize(data, (159, 240))
 
 # Display the image
-plt.imshow(data);
+plt.imshow(data)
 
 """### Images as data: changing images
 To modify an image, you can modify the existing numbers in the array. In a color image, you can change the values in one of the color channels without affecting the other colors, by indexing on the last dimension of the array.
@@ -33,7 +34,7 @@ data[:10, :10, 1] = 0
 data[:10, :10, 2] = 0
 
 # Visualize the result
-plt.imshow(data);
+plt.imshow(data)
 
 """## Classifying images
 
@@ -136,7 +137,7 @@ test_labels = pd.get_dummies(test_labels).to_numpy()
 train_data = train_data.reshape((50, 784))
 
 # Fit the model
-model.fit(train_data, train_labels, validation_split=0.2, epochs=20, verbose=False);
+model.fit(train_data, train_labels, validation_split=0.2, epochs=20, verbose=False)
 
 """### Cross-validation for neural network evaluation
 To evaluate the model, we use a separate test data-set. As in the train data, the images in the test data also need to be reshaped before they can be provided to the fully-connected network because the network expects one column per pixel in the input.

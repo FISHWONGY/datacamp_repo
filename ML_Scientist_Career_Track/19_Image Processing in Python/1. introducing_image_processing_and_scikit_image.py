@@ -24,19 +24,21 @@ coins_image = data.coins()
 ```
 """
 
+
 def show_image(image, title='Image', cmap_type='gray'):
     plt.imshow(image, cmap=cmap_type)
     plt.title(title)
     plt.axis('off')
+
 
 from skimage import data
 
 coffee_image = data.coffee()
 coins_image = data.coins()
 
-coffee_image.shape
+print(coffee_image.shape)
 
-coins_image.shape
+print(coins_image.shape)
 
 """### RGB to grayscale
 In this exercise you will load an image from scikit-image module data and make it grayscale, then compare both of them in the output.
@@ -65,7 +67,8 @@ As a prank, someone has turned an image from a photo album of a trip to Seville 
 Using the NumPy methods learned in the course, flip the image horizontally and vertically. Then display the corrected image using the `show_image()` function.
 """
 
-flipped_seville = plt.imread('./dataset/sevilleup.jpg')
+flipped_seville = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '19_Image Processing in Python/data/sevilleup.jpg')
 
 # Flip the image vertically
 seville_vertical_flip = np.flipud(flipped_seville)
@@ -85,16 +88,17 @@ You will use `hist()` to display the 256 different intensities of the red color.
 
 """
 
-image = plt.imread('./dataset/portrait.png')
+image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '19_Image Processing in Python/data/portrait.png')
 
 # Obtain the red channel
 red_channel = image[:, :, 0]
 
 # Plot the the red histogram with bins in a range of 256
-plt.hist(red_channel.ravel(), bins=256, color='red');
+plt.hist(red_channel.ravel(), bins=256, color='red')
 
 # Set title
-plt.title('Red Histogram');
+plt.title('Red Histogram')
 
 """With this histogram we see that the image is quite reddish, meaning it has a sensation of warmness. This is because it has a wide and large distribution of bright red pixels, from 0 to around 150.
 
@@ -116,7 +120,8 @@ You'll see the resulting binarized image when using the `show_image()` function,
 
 from skimage.filters import threshold_otsu
 
-chess_pieces_image = plt.imread('./dataset/bw.jpg')
+chess_pieces_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                                '19_Image Processing in Python/data/bw.jpg')
 
 # Make the image grayscale using rgb2gray
 chess_pieces_image_gray = color.rgb2gray(chess_pieces_image)
@@ -137,7 +142,8 @@ In this exercise, you will compare both types of thresholding methods (global an
 ![page](dataset/text_page.png)
 """
 
-page_image = plt.imread('./dataset/text_page.png')
+page_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '19_Image Processing in Python/data/text_page.png')
 
 # Make the image grayscale using rgb2gray
 page_image = color.rgb2gray(page_image)
@@ -174,13 +180,14 @@ As we saw in the video, not being sure about what thresholding method to use isn
 
 from skimage.filters import try_all_threshold
 
-fruits_image = plt.imread('./dataset/fruits-2.jpg')
+fruits_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                          '19_Image Processing in Python/data/fruits-2.jpg')
 
 # Turn the fruits_image to grayscale
 grayscale = color.rgb2gray(fruits_image)
 
 # Use the try all method on the resulting grayscale image
-fig, ax = try_all_threshold(grayscale, verbose=False);
+fig, ax = try_all_threshold(grayscale, verbose=False)
 
 """### Apply thresholding
 In this exercise, you will decide what type of thresholding is best used to binarize an image of knitting and craft tools. In doing so, you will be able to see the shapes of the objects, from paper hearts to scissors more clearly.
@@ -189,7 +196,8 @@ In this exercise, you will decide what type of thresholding is best used to bina
 What type of thresholding would you use judging by the characteristics of the image? Is the background illumination and intensity even or uneven?
 """
 
-tools_image = plt.imread('./dataset/shapes52.jpg')
+tools_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/shapes52.jpg')
 
 # Turn the image grayscale
 gray_tools_image = color.rgb2gray(tools_image)
@@ -203,4 +211,5 @@ binary_image = gray_tools_image > thresh
 # Show the resulting binary image
 show_image(binary_image, 'Binarized image')
 
-"""By using a global thresholding method, you obtained the precise binarized image. If you would have used local instead nothing would have been segmented."""
+"""By using a global thresholding method, you obtained the precise binarized image. 
+If you would have used local instead nothing would have been segmented."""

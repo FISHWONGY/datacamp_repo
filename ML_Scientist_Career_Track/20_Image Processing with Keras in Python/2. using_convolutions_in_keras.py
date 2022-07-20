@@ -3,6 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+
 def plot_comparison(img_original, img_filtered, img_title_filtered):
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 8), sharex=True, sharey=True)
     ax1.imshow(img_original, cmap=plt.cm.gray)
@@ -11,6 +12,7 @@ def plot_comparison(img_original, img_filtered, img_title_filtered):
     ax2.imshow(img_filtered, cmap=plt.cm.gray)
     ax2.set_title(img_title_filtered)
     ax2.axis('off')
+
 
 """## Convolutions
 - Using correlations in images
@@ -40,7 +42,8 @@ print(conv)
 The convolution of an image with a kernel summarizes a part of the image as the sum of the multiplication of that part of the image with the kernel. In this exercise, you will write the code that executes a convolution of an image with a kernel using Numpy. Given a black and white image that is stored in the variable im, write the operations inside the loop that would execute the convolution with the provided kernel.
 """
 
-im = pd.read_csv('./dataset/brick_bw.csv').to_numpy()
+im = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '20_Image Processing with Keras in Python/data/brick_bw.csv').to_numpy()
 
 kernel = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 result = np.zeros(im.shape)
@@ -66,6 +69,7 @@ np.array([[-1, 1, -1],
 ```
 """
 
+
 def convolution(image, kernel):
     kernel = kernel - kernel.mean()
     result = np.zeros(image.shape)
@@ -75,6 +79,7 @@ def convolution(image, kernel):
             result[ii, jj] = np.sum(image[ii:ii+3, jj:jj+3] * kernel)
 
     return result
+
 
 # Define the kernel that detect the horizontal line
 kernel = np.array([[-1, -1, -1],
@@ -143,14 +148,14 @@ model.compile(optimizer='adam',
 
 # Fit the model on a training set
 model.fit(train_data, train_labels, validation_split=0.2,
-          epochs=3, batch_size=10);
+          epochs=3, batch_size=10)
 
 """### Evaluating a CNN with test data
 To evaluate a trained neural network, you should provide a separate testing data set of labeled images. 
 """
 
 # Evaluate the model on separate test data
-model.evaluate(test_data, test_labels, batch_size=10);
+model.evaluate(test_data, test_labels, batch_size=10)
 
 """## Tweaking your convolutions
 - Calculating the size of the output

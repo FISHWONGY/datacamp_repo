@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 """## Tracking learning
 
 ### Plot the learning curves
-During learning, the model will store the loss function evaluated in each epoch. Looking at the learning curves can tell us quite a bit about the learning process. In this exercise, you will plot the learning and validation loss curves for a model that you will train.
+During learning, the model will store the loss function evaluated in each epoch. 
+Looking at the learning curves can tell us quite a bit about the learning process. 
+In this exercise, you will plot the learning and validation loss curves for a model that you will train.
 """
 
 (train_data, train_labels), (test_data, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
@@ -36,7 +38,9 @@ model.summary()
 
 from tensorflow.keras.callbacks import ModelCheckpoint
 
-checkpoint = ModelCheckpoint('weights.hdf5', monitor='val_loss', save_best_only=True)
+checkpoint = ModelCheckpoint('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '20_Image Processing with Keras in Python/data/weights.hdf5',
+                             monitor='val_loss', save_best_only=True)
 
 # Train the model and store the training object (including modelCheckpoint callback)
 training = model.fit(train_data, train_labels, epochs=3, batch_size=10, validation_split=0.2,
@@ -46,17 +50,18 @@ training = model.fit(train_data, train_labels, epochs=3, batch_size=10, validati
 history = training.history
 
 # Plot the training loss
-plt.plot(history['loss'], label='train loss');
+plt.plot(history['loss'], label='train loss')
 # Plot the validation loss
-plt.plot(history['val_loss'], label='validation loss');
-plt.legend();
+plt.plot(history['val_loss'], label='validation loss')
+plt.legend()
 
 """### Using stored weights to predict in a test set
 Model weights stored in an `hdf5` file can be reused to populate an untrained model. Once the weights are loaded into this model, it behaves just like a model that has been trained to reach these weights. For example, you can use this model to make predictions from an unseen data set (e.g. `test_data`).
 """
 
 # Load the weights from file
-model.load_weights('weights.hdf5')
+model.load_weights('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '20_Image Processing with Keras in Python/data/weights.hdf5')
 
 # Predict from the first three images in the test data
 # model.predict_classes(test_data) <- .predict_classes API will be decrepted
@@ -153,13 +158,16 @@ model.add(Dense(3, activation='softmax'))
 model.summary()
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-checkpoint = ModelCheckpoint('weights_fasion.hdf5', monitor='val_loss', save_best_only=True)
+checkpoint = ModelCheckpoint('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '20_Image Processing with Keras in Python/data/weights_fasion.hdf5',
+                             monitor='val_loss', save_best_only=True)
 
 model.fit(train_data, train_labels, epochs=3, validation_split=0.2, batch_size=10,
-          callbacks=[checkpoint]);
+          callbacks=[checkpoint])
 
 # Load the weights into the model
-model.load_weights('weights_fasion.hdf5')
+model.load_weights('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '20_Image Processing with Keras in Python/data/weights_fasion.hdf5')
 
 # Get the first convolutional layer from the model
 c1 = model.layers[0]
@@ -176,6 +184,7 @@ print(kernel.shape)
 One of the ways to interpret the weights of a neural network is to see how the kernels stored in these weights "see" the world. That is, what properties of an image are emphasized by this kernel. In this exercise, we will do that by convolving an image with the kernel and visualizing the result. Given images in the `test_data` variable, a function called `extract_kernel()` that extracts a kernel from the provided network, and the function called `convolution()` that we defined in the first chapter, extract the kernel, load the data from a file and visualize it with `matplotlib`.
 """
 
+
 def convolution(image, kernel):
     kernel = kernel - kernel.mean()
     result = np.zeros(image.shape)
@@ -186,8 +195,10 @@ def convolution(image, kernel):
 
     return result
 
+
 # Convolve with the fourth image in test_data
 out = convolution(test_data[3, :, :, 0], kernel)
+
 
 def plot_comparison(img_original, img_filtered, img_title_filtered):
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 8), sharex=True, sharey=True)
@@ -197,7 +208,8 @@ def plot_comparison(img_original, img_filtered, img_title_filtered):
     ax2.imshow(img_filtered)
     ax2.set_title(img_title_filtered)
     ax2.axis('off')
-    
+
+
 plot_comparison(test_data[3, :, :, 0], out, 'applying kernel')
 
 """## Summary

@@ -14,12 +14,15 @@ In this exercise, you'll detect edges in an image by applying the Sobel filter.
 ![soap](dataset/soap_image.jpg)
 """
 
+
 def show_image(image, title='Image', cmap_type='gray'):
     plt.imshow(image, cmap=cmap_type)
     plt.title(title)
     plt.axis('off')
 
-soaps_image = plt.imread('./dataset/soap_image.jpg')
+
+soaps_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/soap_image.jpg')
 
 from skimage import color
 from skimage.filters import sobel
@@ -42,7 +45,8 @@ In this exercise you will reduce the sharpness of an image of a building taken d
 
 from skimage.filters import gaussian
 
-building_image = plt.imread('./dataset/building_image.jpg')
+building_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                            '19_Image Processing in Python/data/building_image.jpg')
 
 # Apply filter
 gaussian_image = gaussian(building_image, multichannel=True)
@@ -69,13 +73,14 @@ First, you'll check the histogram of the image and then apply standard histogram
 
 from skimage import exposure
 
-chest_xray_image = plt.imread('./dataset/chest_xray_image.png')
+chest_xray_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                              '19_Image Processing in Python/data/chest_xray_image.png')
 
 # Show original x-ray image and its histogram
 show_image(chest_xray_image, 'Original x-ray')
 
 plt.title('Histogram of image')
-plt.hist(chest_xray_image.ravel(), bins=256);
+plt.hist(chest_xray_image.ravel(), bins=256)
 
 # Use histogram equalization to improve the contrast
 xray_image_eq = exposure.equalize_hist(chest_xray_image)
@@ -93,7 +98,8 @@ For this we will use the normal or standard technique of Histogram Equalization.
 
 """
 
-image_aerial = plt.imread('./dataset/image_aerial.png')
+image_aerial = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                          '19_Image Processing in Python/data/image_aerial.png')
 
 # Use histogram equalization to improve the contrast
 image_eq = exposure.equalize_hist(image_aerial)
@@ -143,7 +149,8 @@ You'll make this cat image upright by rotating it 90 degrees and then rescaling 
 
 from skimage.transform import rotate, rescale
 
-image_cat = plt.imread('./dataset/image_cat.jpg')
+image_cat = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                       '19_Image Processing in Python/data/image_cat.jpg')
 
 # Rotate the image 90 degress clockwise
 rotated_cat_image = rotate(image_cat, -90)
@@ -195,7 +202,8 @@ First, you'll try it out for one image so you know what code to test later in th
 
 from skimage.transform import resize
 
-dogs_banner = plt.imread('./dataset/dogs_banner.jpg')
+dogs_banner = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/dogs_banner.jpg')
 
 # Set proportional height so its half its size
 height = int(dogs_banner.shape[0] / 2)
@@ -227,7 +235,8 @@ Apply the morphological operation that will discard the pixels near the letter b
 
 from skimage import morphology
 
-upper_r_image = plt.imread('./dataset/r5.png')
+upper_r_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                           '19_Image Processing in Python/data/r5.png')
 upper_r_image = color.rgb2gray(upper_r_image)
 
 # Obtain the eroded shape
@@ -245,7 +254,8 @@ In this exercise, we'll try to reduce the noise of a thresholded image using the
 This operation, in a way, expands the objects in the image.
 """
 
-world_image = plt.imread('./dataset/world_image_binary.jpg')
+world_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/world_image_binary.jpg')
 
 # Obtain the dilated image
 dilated_image = morphology.binary_dilation(world_image)

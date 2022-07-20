@@ -24,11 +24,13 @@ The mask is a black and white image with patches that have the position of the i
 Remember that inpainting is the process of reconstructing lost or deteriorated parts of images and videos.
 """
 
+
 def show_image(image, title='Image', cmap_type='gray'):
     plt.imshow(image, cmap=cmap_type)
     plt.title(title)
     plt.axis('off')
-    
+
+
 def plot_comparison(img_original, img_filtered, img_title_filtered):
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 8), sharex=True, sharey=True)
     ax1.imshow(img_original, cmap=plt.cm.gray)
@@ -38,15 +40,18 @@ def plot_comparison(img_original, img_filtered, img_title_filtered):
     ax2.set_title(img_title_filtered)
     ax2.axis('off')
 
+
 from skimage.restoration import inpaint
 from skimage.transform import resize
 from skimage import color
 
-defect_image = plt.imread('./dataset/damaged_astronaut.png')
+defect_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                          '19_Image Processing in Python/data/damaged_astronaut.png')
 defect_image = resize(defect_image, (512, 512))
 defect_image = color.rgba2rgb(defect_image)
 
-mask = pd.read_csv('./dataset/astronaut_mask.csv').to_numpy()
+mask = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                   '19_Image Processing in Python/data/astronaut_mask.csv').to_numpy()
 
 # Apply the restoration function to the image using the mask
 restored_image = inpaint.inpaint_biharmonic(defect_image, mask, multichannel=True)
@@ -62,7 +67,8 @@ You will create and set the mask to be able to erase the logo by inpainting this
 Remember that when you want to remove an object from an image you can either manually delineate that object or run some image analysis algorithm to find it.
 """
 
-image_with_logo = plt.imread('./dataset/4.2.06_w_logo_2_2.png')
+image_with_logo = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '19_Image Processing in Python/data/4.2.06_w_logo_2_2.png')
 
 # Initialize the mask
 mask = np.zeros(image_with_logo.shape[:-1])
@@ -91,7 +97,8 @@ In this exercise, we'll practice adding noise to a fruit image.
 
 from skimage.util import random_noise
 
-fruit_image = plt.imread('./dataset/fruits_square.jpg')
+fruit_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/fruits_square.jpg')
 
 # Add noise to the image
 noisy_image = random_noise(fruit_image)
@@ -109,7 +116,8 @@ Use total variation filter denoising to accomplish this.
 
 from skimage.restoration import denoise_tv_chambolle
 
-noisy_image = plt.imread('./dataset/miny.jpeg')
+noisy_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                         '19_Image Processing in Python/data/miny.jpeg')
 
 # Apply total variation filter denoising
 denoised_image = denoise_tv_chambolle(noisy_image, multichannel=True)
@@ -127,7 +135,8 @@ Since we prefer to preserve the edges in the image, we'll use the bilateral deno
 
 from skimage.restoration import denoise_bilateral
 
-landscape_image = plt.imread('./dataset/noise-noisy-nature.jpg')
+landscape_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                             '19_Image Processing in Python/data/noise-noisy-nature.jpg')
 
 # Apply bilateral filter denoising
 denoised_image = denoise_bilateral(landscape_image, multichannel=True)
@@ -155,7 +164,8 @@ So you will reduce this image from 265×191=50,615 pixels down to 400 regions.
 from skimage.segmentation import slic
 from skimage.color import label2rgb
 
-face_image = plt.imread('./dataset/chinese.jpg')
+face_image = plt.imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                        '19_Image Processing in Python/data/chinese.jpg')
 
 # Obtain the segmentation with 400 regions
 segments = slic(face_image, n_segments=400)
@@ -176,6 +186,7 @@ For that we will make use of a binarized image provided by scikit-image in its d
 Once the contour is detected, we will display it together with the original image. That way we can check if our analysis was correct!
 """
 
+
 def show_image_contour(image, contours):
     plt.figure()
     for n, contour in enumerate(contours):
@@ -183,6 +194,7 @@ def show_image_contour(image, contours):
     plt.imshow(image, interpolation='nearest', cmap='gray_r')
     plt.title('Contours')
     plt.axis('off')
+
 
 from skimage import measure
 
@@ -208,7 +220,8 @@ In this case, the image is not grayscale or binary yet. This means we need to pe
 from skimage.io import imread
 from skimage.filters import threshold_otsu
 
-image_dices = imread('./dataset/dices.png')
+image_dices = imread('./datacamp_repo/ML_Scientist_Career_Track/'
+                     '19_Image Processing in Python/data/dices.png')
 
 # Make the image grayscale
 image_dices = color.rgb2gray(image_dices)

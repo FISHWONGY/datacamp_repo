@@ -85,7 +85,8 @@ A pooling layer can be described as a particular kind of convolution. For every 
 
 from skimage import transform
 
-im = pd.read_csv('./dataset/brick_bw.csv')
+im = pd.read_csv('./datacamp_repo/ML_Scientist_Career_Track/'
+                 '20_Image Processing with Keras in Python/data/brick_bw.csv')
 imt = transform.resize(im, (128, 128))
 print(imt.shape)
 
@@ -97,6 +98,7 @@ for ii in range(result.shape[0]):
     for jj in range(result.shape[1]):
         result[ii, jj] = np.max(imt[ii * 2:ii * 2 + 2, jj * 2:jj * 2 + 2])
 
+
 def plot_comparison(img_original, img_filtered, img_title_filtered):
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 8))
     ax1.imshow(img_original, cmap=plt.cm.gray)
@@ -105,6 +107,7 @@ def plot_comparison(img_original, img_filtered, img_title_filtered):
     ax2.imshow(img_filtered, cmap=plt.cm.gray)
     ax2.set_title(img_title_filtered)
     ax2.axis('off')
+
 
 plot_comparison(imt, result, 'After MaxPooling')
 
@@ -144,4 +147,4 @@ model.compile(optimizer='adam', loss='categorical_crossentropy',
 model.fit(train_data, train_labels, epochs=3, validation_split=0.2, batch_size=10);
 
 # Evaluate on test data
-model.evaluate(test_data, test_labels, batch_size=10);
+model.evaluate(test_data, test_labels, batch_size=10)
