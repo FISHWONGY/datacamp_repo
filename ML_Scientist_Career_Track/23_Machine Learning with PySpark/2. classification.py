@@ -12,16 +12,18 @@ In this exercise you need to trim those data down by:
 1. removing an uninformative column and
 2. removing rows which do not have information about whether or not a flight was delayed.
 """
-
+import warnings
+warnings.filterwarnings("ignore")
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.master('local[*]').appName('flights').getOrCreate()
 
 # Read data from CSV file
-flights = spark.read.csv('./dataset/flights-larger.csv', sep=',', header=True, inferSchema=True,
+flights = spark.read.csv('./datacamp_repo/ML_Scientist_Career_Track/23_Machine Learning with PySpark/'
+                         'data/flights-larger.csv', sep=',', header=True, inferSchema=True,
                          nullValue='NA')
 
-flights.show(5)
+print(flights.show(5))
 
 # Remove the 'flight' column
 flights_drop_column = flights.drop('flight')
@@ -160,6 +162,7 @@ FP = prediction.filter('prediction = 1 AND label = 0').count()
 # Accuracy measures the proportion of correct predictions
 accuracy = (TN + TP) / (TN + TP + FN + FP)
 print(accuracy)
+# 0.636908
 
 """## Logistic Regression
 
@@ -211,6 +214,8 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClass
 precision = TP / (TP + FP)
 recall = TP / (TP + FN)
 print('precision = {:.2f}\nrecall   = {:.2f}'.format(precision, recall))
+accuracy = (TN + TP) / (TN + TP + FN + FP)
+print('Accuracy = ', accuracy)
 
 # Find weighted precision
 multi_evaluator = MulticlassClassificationEvaluator()
